@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import './ErrorPageStyle.css'
 
-class ErrorPageComponent extends Component {
-    render() {
+function ErrorPageComponent(){
+    
         return (
             <React.Fragment>
                 <section className="wrapper">
@@ -44,7 +44,7 @@ class ErrorPageComponent extends Component {
                 </section>
         </React.Fragment>
         );
-    }
+    
 }
 
 export default ErrorPageComponent;
