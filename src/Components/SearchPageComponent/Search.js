@@ -3,6 +3,10 @@ import './SearchPageStyle.css'
 import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
 import {Button} from '@material-ui/core'
 function Search ({ handleInput, search }) {
+	const handleChange = (e) => {
+		handleInput(e);
+		search(e);
+	}
 	return (
 		<section className="searchbox-wrap">
 			<input 
@@ -10,7 +14,6 @@ function Search ({ handleInput, search }) {
 				placeholder="Search for a movie..." 
 				className="searchbox" 
 				onChange={handleInput}
-				
 			/>
 			
             <Button variant="contained" className="but" color="secondary" onClick={search}>Search</Button>
