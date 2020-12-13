@@ -5,7 +5,7 @@ import './ErrorPageStyle.css'
 function ErrorPageComponent(){
     
         return (
-            <React.Fragment>
+            <div className="errorcomp">
                 <section className="wrapper">
                     <div className="container">
                         <div id="scene" className="scene" data-hover-only="false">
@@ -42,7 +42,7 @@ function ErrorPageComponent(){
                         </div>
                     </div>
                 </section>
-        </React.Fragment>
+        </div>
         );
     
 }
