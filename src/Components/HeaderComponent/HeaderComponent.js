@@ -19,8 +19,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+
 import clsx from 'clsx';
 
 
@@ -81,7 +80,8 @@ function HeaderComponent(){
                 
                   <React.Fragment >
                     
-                    <SwipeableDrawer anchor="left" open={state} onClose={toggleDrawer( false)} variant="temporary"  transitionDuration={ 10 }	>
+                    <SwipeableDrawer anchor="left" open={state} onClose={toggleDrawer( false)} onOpen={toggleDrawer(true)} 
+                     transitionDuration={ 10 }	>
                       <div style={{height:200,width:300,background:'red'}}>
                         <span style={{fontSize:30,fontWeight:'bold',color:'white',}}>
                           HEY USER
@@ -134,7 +134,7 @@ function HeaderComponent(){
           
             return (
               <div className={classes.root}>
-                <AppBar position="sticky" color="transparent">
+                <AppBar position="static" color="transparent">
                   <Toolbar>
                     
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
@@ -192,13 +192,3 @@ function HeaderComponent(){
 
 export default HeaderComponent;
 
-/*
-
-  <div>
-                // <Link to="/">CineCup</Link><br/>
-                // <Link to="/login">Login</Link><br/>
-                // <Link to="/signup">Signup</Link><br/>
-                // <Link to="/dashboard">DashBoard</Link><br/>
-                // <Link to="/search">Search</Link><br/>
-            </div>
-            */
