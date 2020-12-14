@@ -8,12 +8,19 @@ import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
 
+// Redux Related Stuff
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import promiseMiddleware from 'redux-promise';
+import ReduxThunk from 'redux-thunk';
+import Reducer from './reducer';
+
 var firebaseConfig = {
-  apiKey: "AIzaSyDOCAbC123dEf456GhI789jKl01-MnO",
-  authDomain: "myapp-project-123.firebaseapp.com",
-  databaseURL: "https://myapp-project-123.firebaseio.com",
-  projectId: "myapp-project-123",
-  storageBucket: "myapp-project-123.appspot.com",
+  apiKey: "AIzaSyCexaIbdw4ZLREZGr1cQnpwNyZqRnEM_ng",
+  authDomain: "cinecup-9b0ac.firebaseapp.com",
+  databaseURL: "https://cinecup-9b0ac.firebaseio.com",
+  projectId: "cinecup-9b0ac",
+  storageBucket: "cinecup-9b0ac.appspot.com",
   messagingSenderId: "65211879809",
   appId: "1:65211879909:web:3ae38ef1cdcb2e01fe5f0c",
   measurementId: "G-8GSGZQ44ST"
@@ -21,10 +28,20 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
+
 ReactDOM.render(
+  <Provider
+        store={createStoreWithMiddleware(
+            Reducer,
+            window.__REDUX_DEVTOOLS_EXTENSION__ &&
+            window.__REDUX_DEVTOOLS_EXTENSION__()
+        )}
+    >
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
