@@ -1,25 +1,62 @@
 import firebase from 'firebase';
 import {
-    LOGIN_USER,
-    REGISTER_USER,
+    LOGIN_USER_REQUEST,
+    LOGIN_USER_SUCCESS,
+    LOGIN_USER_ERROR,
+    REGISTER_USER_REQUEST,
+    REGISTER_USER_SUCCESS,
+    REGISTER_USER_ERROR,
     LOGOUT_USER,
 } from './types';
 
-// export const register = (user) => {
-//     return async (dispatch) => {
-//         const db = firestore();
-//         auth()
-//         .createUserWithEmailAndPassword(user.email, user.password)
-//         .then(user => {
-//             console.log(user);
-//         })
-//         .catch(error => {
-//             console.log(error);
-//         })
-//     }
-// }
+export const register = (User) => {
+    return async (dispatch) => {
+        dispatch({
+          type:REGISTER_USER_REQUEST,
+          payload: ""
+        })
+        const db = firebase.firestore();
+        firebase.auth()
+        .createUserWithEmailAndPassword(User.email, User.password)
+        .then(user => {
+            console.log(user);
+            db.collection("users").doc(User.email).set({
+              Name: `${User.firstname} ${User.lastname}`,
+              Email: User.email,
+              IsAdmin: false,
+              ProfilePic: "https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png",
+          })
+          .then(function() {
+              console.log("Document successfully written!");
+              dispatch({
+                type:REGISTER_USER_SUCCESS,
+                payload:{Name:`${User.firstname} ${User.lastname}`, Email:User.email, IsAdmin:false,ProfilePic:"https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png"}
+              })
+          })
+          .catch(function(error) {
+              console.error("Error writing document: ", error);
+              dispatch({
+                type:REGISTER_USER_ERROR,
+                payload: "Some Error Occured Try Again !!"
+              })
+          });
+        })
+        .catch(error => {
+            console.log(error);
+            dispatch({
+              type:REGISTER_USER_ERROR,
+              payload: "This Email is already registered Kindly Login"
+            })
+        })
+    }
+}
 export const loginwithgoogle = () => {
-    return async () => {
+    return async (dispatch) => {
+        dispatch({
+          type:LOGIN_USER_REQUEST,
+          payload: ""
+        })
+        const db = firebase.firestore();
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
         .then(function(result) {
@@ -27,11 +64,47 @@ export const loginwithgoogle = () => {
             var token = result.credential.accessToken;
             // The signed-in user info.
             var user = result.user;
-            // ...
-            return{
-              token:token,
-              user:user
-            }
+            var docRef = db.collection("users").doc(user.email);
+            docRef.get().then(function(doc) {
+                if (doc.exists) {
+                    console.log("Already Registered !");
+                    dispatch({
+                      type:LOGIN_USER_SUCCESS,
+                      payload:{Name:doc.data().Name,Email:doc.data().Email,IsAdmin:doc.data().IsAdmin,ProfilePic:doc.data().ProfilePic}
+                    })
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                    console.log("Not Already Registered !!!");
+                    db.collection("users").doc(user.email).set({
+                            Name: user.displayName,
+                            Email: user.email,
+                            IsAdmin: false,
+                            ProfilePic: user.photoURL,
+                        })
+                        .then(function() {
+                            console.log("Document successfully written!");
+                            dispatch({
+                              type:LOGIN_USER_SUCCESS,
+                              payload:{Name:user.displayName,Email:user.email,IsAdmin:false,ProfilePic:user.photoURL}
+                            })
+                        })
+                        .catch(function(error) {
+                            console.error("Error writing document: ", error);
+                            dispatch({
+                              type:LOGIN_USER_ERROR,
+                              payload: "Some Error Occured Try Again !!"
+                            })
+                        });
+                    console.log(user);
+                }
+            }).catch(function(error) {
+                console.log("Error getting documents: ", error);
+                dispatch({
+                  type:LOGIN_USER_ERROR,
+                  payload: "Some Error Occured Try Again !!"
+                })
+              });
            
           }).catch(function(error) {
             // Handle Errors here.
@@ -52,14 +125,60 @@ export const loginwithgoogle = () => {
 
 
 export const loginwithfacebook = () => {
-  return async ()=>{
+  return async (dispatch)=>{
+    dispatch({
+      type:LOGIN_USER_REQUEST,
+      payload: ""
+    })
+    const db = firebase.firestore();
     var provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var token = result.credential.accessToken;
       // The signed-in user info.
       var user = result.user;
-      // ...
+      var docRef = db.collection("users").doc(user.email);
+      docRef.get().then(function(doc) {
+          if (doc.exists) {
+              console.log("Already Registered !");
+              dispatch({
+                type:LOGIN_USER_SUCCESS,
+                payload:{Name:doc.data().Name,Email:doc.data().Email,IsAdmin:doc.data().IsAdmin,ProfilePic:doc.data().ProfilePic}
+              })
+          } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+              console.log("Not Already Registered !!!");
+              db.collection("users").doc(user.email).set({
+                      Name: user.displayName,
+                      Email: user.email,
+                      IsAdmin: false,
+                      ProfilePic: user.photoURL,
+                  })
+                  .then(function() {
+                      console.log("Document successfully written!");
+                      dispatch({
+                        type:LOGIN_USER_SUCCESS,
+                        payload:{Name:user.displayName,Email:user.email,IsAdmin:false,ProfilePic:user.photoURL}
+                      })
+                  })
+                  .catch(function(error) {
+                      console.error("Error writing document: ", error);
+                      dispatch({
+                        type:LOGIN_USER_ERROR,
+                        payload: "Some Error Occured Try Again !!"
+                      })
+                  });
+              console.log(user);
+          }
+      }).catch(function(error) {
+          console.log("Error getting documents: ", error);
+          dispatch({
+            type:LOGIN_USER_ERROR,
+            payload: "Some Error Occured Try Again !!"
+          })
+        });
+
     }).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;

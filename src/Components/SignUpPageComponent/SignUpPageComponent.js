@@ -16,7 +16,7 @@ import {faFacebookF, faGoogle} from '@fortawesome/free-brands-svg-icons'
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // redux
-// import {register} from '../../action/user_actions';
+import {register} from '../../action/user_actions';
 import {useDispatch} from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,7 +52,7 @@ function SignUpPageComponent(){
       const dataToSubmit = {
         firstname,lastname,email,password
       }
-      // dispatch(register(dataToSubmit));
+      dispatch(register(dataToSubmit));
     }
 
         return (

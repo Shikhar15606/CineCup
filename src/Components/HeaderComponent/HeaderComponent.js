@@ -26,8 +26,11 @@ import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
 import Switch from '@material-ui/core/Switch';
+import { useSelector } from "react-redux";
+
 function HeaderComponent(){
-  
+        const user = useSelector(state => state.user);
+
         const useStyles = makeStyles((theme) => ({
           list: {
            
@@ -123,19 +126,29 @@ function HeaderComponent(){
                       <Switch />
                       </ListItem>
                       <Divider />
-                      <Link to="/login">
-                      <ListItem button key="Login" onClick={toggleDrawer(false)}>
-                      <ListItemIcon> <LockOpenRoundedIcon color="primary" /> </ListItemIcon>
-                      <ListItemText primary="LOGIN" />
-                      </ListItem>
-                      </Link>
-                      <Divider />
-                      <Link to="/signup">
-                      <ListItem button key="Signup" onClick={toggleDrawer(false)}>
-                      <ListItemIcon> <PersonAddRoundedIcon color="primary"/> </ListItemIcon>
-                      <ListItemText primary="SIGNUP" />
-                      </ListItem>
-                      </Link>
+                      {
+                        (user.isLoggedIn) ?
+                          <ListItem button key="Logout" onClick={toggleDrawer(false)}>
+                          <ListItemIcon> <LockOpenRoundedIcon color="primary" /> </ListItemIcon>
+                          <ListItemText primary="LOGOUT" />
+                          </ListItem>
+                        :
+                        <React.Fragment>
+                          <Link to="/login">
+                          <ListItem button key="Login" onClick={toggleDrawer(false)}>
+                          <ListItemIcon> <LockOpenRoundedIcon color="primary" /> </ListItemIcon>
+                          <ListItemText primary="LOGIN" />
+                          </ListItem>
+                          </Link>
+                          <Divider />
+                          <Link to="/signup">
+                          <ListItem button key="Signup" onClick={toggleDrawer(false)}>
+                          <ListItemIcon> <PersonAddRoundedIcon color="primary"/> </ListItemIcon>
+                          <ListItemText primary="SIGNUP" />
+                          </ListItem>
+                          </Link>
+                        </React.Fragment>
+                      }
                       <Divider />
                     
                       </List>
@@ -186,10 +199,15 @@ function HeaderComponent(){
                     </IconButton>
                     </Link>
                     
-                   
-                    <Button variant="contained" color="secondary" href="/login" className={classes.Button1}> Login</Button>
-                    
-                    <Button variant="contained" color="primary" href="/signup" className={classes.Button1}> Signup</Button>
+                    {
+                      (user.isLoggedIn) ?
+                      <Button variant="contained" color="secondary" className={classes.Button1}> Logout</Button>
+                      :
+                      <React.Fragment>
+                        <Button variant="contained" color="secondary" href="/login" className={classes.Button1}> Login</Button>
+                        <Button variant="contained" color="primary" href="/signup" className={classes.Button1}> Signup</Button>
+                      </React.Fragment>
+                    }
                     </div>
                     </Hidden>
                     
