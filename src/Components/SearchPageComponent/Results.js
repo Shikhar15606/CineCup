@@ -5,7 +5,7 @@ import Result from './Result'
 function Results ({ results, openPopup }) {
 	if(results){
 		return (
-			<section className="results">
+			<section className="wrapper">
 				{
 					results.map(result => (
 					<Result key={result.imdbID} result={result} openPopup={openPopup} />

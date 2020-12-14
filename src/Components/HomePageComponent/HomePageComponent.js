@@ -6,7 +6,7 @@ function HomePageComponent (){
         return (
             <>
             <div><h2>Movie Nomination Leaderboard</h2></div>
-               <CustomizedTables /> 
+               
             </>
         );
    
