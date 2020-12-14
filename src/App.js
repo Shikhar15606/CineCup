@@ -1,4 +1,5 @@
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
+import './fontawesome';
 import './App.css';
 import DashBoardPageComponent from './Components/DashboardPageComponent/DashboardPageComponent';
 import ErrorPageComponent from './Components/ErrorPageComponent/ErrorPageComponent';
