@@ -3,7 +3,7 @@
 } */
 
 header h1 {
-	color: rgb(238, 238, 238);
+	color: rgb(0, 0, 0);
 	font-size: 40px;
 	font-weight: 500;
 	text-align: center;
@@ -24,7 +24,7 @@ section {
 	display: block;
 	width: 90%;
 	padding: 15px;
-    height:10px;
+    height:20px;
 	border: none;
 	outline: none;
 	background: none;
@@ -82,10 +82,9 @@ margin-right: 10px;
     margin-bottom: 5px;
 }
 
-/* .results .result:hover h3 {
-	background: #FFF;
-	color: #000000;
-} */
+.results .result:hover  {
+	box-shadow: -1px 10px 29px 0px rgba(0, 0, 0, 0.8);
+}
 
 .popup {
 	position: fixed;
@@ -183,7 +182,9 @@ margin-right: 10px;
 .but{
    
     
-    margin-left: 20px;
+	align-self: center;
+	justify-self: center;
+	
 
 }
 .searchbox-wrap{
@@ -194,6 +195,10 @@ margin-right: 10px;
 	.searchbox-wrap{
 	  flex-direction: column;
 	}
+	.searchbox{
+		height:10px;
+		margin-bottom: 10px;
+	}
 	.results{
 		flex-direction: column;
 		margin: auto;
@@ -202,9 +207,9 @@ margin-right: 10px;
 		  margin-left: 30%;
 	  }
 	  .but{
-		  width: fit-content;
-		  margin: auto;
-		  margin-top: 10px;
+		 
+		  margin: 20px;
+		  height:40px;
 	  }
 	  .results .result{
           min-width: 250px;

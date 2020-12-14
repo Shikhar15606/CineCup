@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './HomePageStyle.css'
+import CustomizedTables from "./LeaderboardComponent"
 function HomePageComponent (){
     
         return (
-            <div>
-                Landing Page LeaderBoard bhi Daal Skte Idhar
-            </div>
+            <>
+            <div><h2>Movie Nomination Leaderboard</h2></div>
+               <CustomizedTables /> 
+            </>
         );
    
 }

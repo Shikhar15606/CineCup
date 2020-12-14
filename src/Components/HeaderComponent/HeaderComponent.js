@@ -31,7 +31,7 @@ function HeaderComponent(){
         const useStyles = makeStyles((theme) => ({
           list: {
            
-            
+            width:300
           },
           fullList: {
             width: 'auto',
@@ -99,7 +99,7 @@ function HeaderComponent(){
                       <Link to="/"> 
                       <ListItem button key="Home" onClick={toggleDrawer(false)}>
                       <ListItemIcon  > <HomeRoundedIcon color="primary" /> </ListItemIcon>
-                      <ListItemText primary="HOME" />
+                      <ListItemText primary="HOME"  />
                       </ListItem>
                       </Link>
                       <Divider />
@@ -168,7 +168,7 @@ function HeaderComponent(){
                     <Hidden smDown>
                     <div style={{position:"absolute",right:0}}>
                     <Link to="/"> 
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    <IconButton edge="start" className={classes.menuButton}  color="inherit" aria-label="menu">
                       <HomeRoundedIcon fontSize="small"/>
                       <span className={classes.navText}>Home</span>
                     </IconButton>
