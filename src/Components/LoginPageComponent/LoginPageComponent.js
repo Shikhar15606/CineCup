@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 // redux
-import {loginwithfacebook, loginwithgoogle} from '../../action/user_actions';
+import {loginwithfacebook, loginwithgoogle, login} from '../../action/user_actions';
 import {useDispatch} from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,18 +58,16 @@ function LoginPageComponent(){
 
     const dispatch = useDispatch();
 
+    const Login = (e) => {
+      e.preventDefault();
+      dispatch(login({email:email,password:password}))
+    }
     const loginWithGoogle = (e) =>{
       e.preventDefault();
-      // const dataToSubmit = {
-      //   firstname,lastname,email,password
-      // }
       dispatch(loginwithgoogle());
     }
     const loginWithFaceBook = (e) =>{
       e.preventDefault();
-      // const dataToSubmit = {
-      //   firstname,lastname,email,password
-      // }
       dispatch(loginwithfacebook());
     }
     return (    
@@ -121,6 +119,7 @@ function LoginPageComponent(){
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={Login}
             >
               Sign In
             </Button>

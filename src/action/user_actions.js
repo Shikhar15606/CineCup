@@ -7,6 +7,8 @@ import {
     REGISTER_USER_SUCCESS,
     REGISTER_USER_ERROR,
     LOGOUT_USER,
+    LOGOUT_USER_SUCCESS,
+    LOGOUT_USER_ERROR,
 } from './types';
 
 export const register = (User) => {
@@ -28,10 +30,22 @@ export const register = (User) => {
           })
           .then(function() {
               console.log("Document successfully written!");
-              dispatch({
-                type:REGISTER_USER_SUCCESS,
-                payload:{Name:`${User.firstname} ${User.lastname}`, Email:User.email, IsAdmin:false,ProfilePic:"https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png"}
+              firebase.auth().signInWithEmailAndPassword(User.email, User.password)
+              .then((user) => {
+                dispatch({
+                  type:LOGIN_USER_SUCCESS,
+                  payload:{Name:user.Name, Email:user.Email, IsAdmin:user.IsAdmin,ProfilePic:user.ProfilePic}
+                })
               })
+              .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                dispatch({
+                  type:LOGIN_USER_ERROR,
+                  payload: "Some Error Occured Try Again !!"
+                })
+              });
+              
           })
           .catch(function(error) {
               console.error("Error writing document: ", error);
@@ -50,6 +64,33 @@ export const register = (User) => {
         })
     }
 }
+
+export const login = (User) => {
+  return async (dispatch) => {
+    dispatch({
+      type:LOGIN_USER_REQUEST,
+      payload: ""
+    })
+    firebase.auth().signInWithEmailAndPassword(User.email, User.password)
+    .then((user) => {
+      // Signed in 
+      // ...
+      dispatch({
+        type:LOGIN_USER_SUCCESS,
+        payload:{Name:user.Name, Email:user.Email, IsAdmin:user.IsAdmin,ProfilePic:user.ProfilePic}
+      })
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      dispatch({
+        type:LOGIN_USER_ERROR,
+        payload: "Some Error Occured Try Again !!"
+      })
+    });
+  }
+}
+
 export const loginwithgoogle = () => {
     return async (dispatch) => {
         dispatch({
@@ -188,6 +229,21 @@ export const loginwithfacebook = () => {
       // The firebase.auth.AuthCredential type that was used.
       var credential = error.credential;
       // ...
+    });
+  }
+}
+
+export const logout = () =>{
+  return async (dispatch) =>{
+    firebase.auth().signOut().then(function() {
+      dispatch({
+        type:LOGOUT_USER_SUCCESS,
+      })
+    }).catch(function(error) {
+      // An error happened.
+      dispatch({
+        type: LOGOUT_USER_ERROR
+      })
     });
   }
 }

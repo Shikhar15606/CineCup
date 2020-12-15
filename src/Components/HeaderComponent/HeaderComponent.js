@@ -26,10 +26,15 @@ import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
 import Switch from '@material-ui/core/Switch';
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import {logout} from '../../action/user_actions';
 
 function HeaderComponent(){
         const user = useSelector(state => state.user);
+        const dispatch = useDispatch();
+        const Logout = () => {
+          dispatch(logout());
+        }
 
         const useStyles = makeStyles((theme) => ({
           list: {
@@ -128,7 +133,7 @@ function HeaderComponent(){
                       <Divider />
                       {
                         (user.isLoggedIn) ?
-                          <ListItem button key="Logout" onClick={toggleDrawer(false)}>
+                          <ListItem button key="Logout" onClick={ () => {toggleDrawer(false);Logout()}}>
                           <ListItemIcon> <LockOpenRoundedIcon color="primary" /> </ListItemIcon>
                           <ListItemText primary="LOGOUT" />
                           </ListItem>
@@ -201,7 +206,7 @@ function HeaderComponent(){
                     
                     {
                       (user.isLoggedIn) ?
-                      <Button variant="contained" color="secondary" className={classes.Button1}> Logout</Button>
+                      <Button variant="contained" color="secondary" onClick={Logout} className={classes.Button1}> Logout</Button>
                       :
                       <React.Fragment>
                         <Button variant="contained" color="secondary" href="/login" className={classes.Button1}> Login</Button>
