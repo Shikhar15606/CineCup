@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -55,6 +55,32 @@ function LoginPageComponent(){
 
     const [email,setemail] = useState("");
     const [password,setpassword] = useState("");
+    const [emailError,setemailError] = useState("");
+    const [passwordError,setpasswordError] = useState("");
+    const [altemail,setaltemail] = useState(false);
+    const [altpassword,setaltpassword] = useState(false);
+    const [disabledSubmit, setdisabledSubmit] = useState(true);
+
+    useEffect(() => {
+      if (altemail && !(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)))
+      setemailError("Invalid Email Address")
+      else
+      setemailError("")
+    },[altemail, email])
+
+    useEffect(() => {
+      if(altpassword && password.length<6)
+      setpasswordError("Password must have more than 5 characters")
+      else
+      setpasswordError("")
+    },[altpassword, password])
+
+    useEffect(() => {
+      if(!emailError && !passwordError && email && password)
+        setdisabledSubmit(false);
+      else
+        setdisabledSubmit(true);
+    },[passwordError, emailError, email, password])
 
     const dispatch = useDispatch();
 
@@ -82,8 +108,10 @@ function LoginPageComponent(){
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} Validate>
             <TextField
+              error = {emailError}
+              helperText = {emailError}
               variant="outlined"
               margin="normal"
               required
@@ -94,9 +122,11 @@ function LoginPageComponent(){
               autoComplete="email"
               autoFocus
               value={email}
-              onChange={(e)=>{setemail(e.target.value)}}
+              onChange={(e)=>{setemail(e.target.value);setaltemail(true)}}
             />
             <TextField
+              error = {passwordError}
+              helperText = {passwordError}
               variant="outlined"
               margin="normal"
               required
@@ -107,7 +137,7 @@ function LoginPageComponent(){
               id="password"
               autoComplete="current-password"
               value={password}
-              onChange={(e)=>{setpassword(e.target.value)}}
+              onChange={(e)=>{setpassword(e.target.value);setaltpassword(true)}}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -120,6 +150,7 @@ function LoginPageComponent(){
               color="primary"
               className={classes.submit}
               onClick={Login}
+              disabled = {disabledSubmit}
             >
               Sign In
             </Button>

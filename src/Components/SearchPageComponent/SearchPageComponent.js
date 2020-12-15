@@ -17,16 +17,16 @@ function SearchPageComponent(){
   const search = () => {
       console.log(queryString);
       axios(apiurl + "&s=" + queryString)
-      .then(async({ data }) => {
+      .then(({ data }) => {
         let results = data.Search;
-        await setresults(results);
+        setresults(results);
         setisLoading(false);
       })
   }
       
-  const handleInput = async (e) => {
+  const handleInput = (e) => {
     setisLoading(true);
-    await setqueryString(e.target.value);
+    setqueryString(e.target.value);
   }
 
   useEffect(() => {
