@@ -9,6 +9,7 @@ import HomePageComponent from './Components/HomePageComponent/HomePageComponent'
 import LoginPageComponent from './Components/LoginPageComponent/LoginPageComponent';
 import SearchPageComponent from './Components/SearchPageComponent/SearchPageComponent';
 import SignUpPageComponent from './Components/SignUpPageComponent/SignUpPageComponent';
+import Auth from './auth';
 
 function App() {
   return (
@@ -16,12 +17,12 @@ function App() {
       <div className="App">
         <HeaderComponent></HeaderComponent>
         <Switch>
-          <Route exact path="/" component={HomePageComponent}></Route>
-          <Route exact path="/login" component={LoginPageComponent}></Route>
-          <Route exact path="/signup" component={SignUpPageComponent}></Route>
-          <Route exact path="/dashboard" component={DashBoardPageComponent}></Route>
-          <Route exact path="/search" component={SearchPageComponent}></Route>
-          <Route path="*" component={ErrorPageComponent}></Route>
+          <Route exact path="/" component={Auth(HomePageComponent,null)}></Route>
+          <Route exact path="/login" component={Auth(LoginPageComponent,false)}></Route>
+          <Route exact path="/signup" component={Auth(SignUpPageComponent,false)}></Route>
+          <Route exact path="/dashboard" component={Auth(DashBoardPageComponent,true)}></Route>
+          <Route exact path="/search" component={Auth(SearchPageComponent,null)}></Route>
+          <Route path="*" component={Auth(ErrorPageComponent,null)}></Route>
         </Switch>
         <FooterComponent></FooterComponent>
       </div>

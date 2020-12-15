@@ -247,3 +247,21 @@ export const logout = () =>{
     });
   }
 }
+
+export const auth = () => {
+  return async (dispatch) => {
+    console.log("Running Auth")
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        dispatch({
+          type:LOGIN_USER_SUCCESS,
+          payload:user
+        })
+      } else {
+        dispatch({
+          type:LOGOUT_USER_SUCCESS,
+        })
+      }
+    });
+  }
+}

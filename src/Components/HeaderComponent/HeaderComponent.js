@@ -118,13 +118,6 @@ function HeaderComponent(){
                       </ListItem>
                       </Link>
                       <Divider />
-                      <Link to="/dashboard"> 
-                      <ListItem button key="Dashboard" onClick={toggleDrawer(false)}>
-                      <ListItemIcon> <DashboardRoundedIcon color="primary" /> </ListItemIcon>
-                      <ListItemText primary="DASHBOARD" />
-                      </ListItem>
-                      </Link>
-                      <Divider />
                       <ListItem  key="Dark Mode" >
                       <ListItemIcon> <Brightness4Icon color="primary"/> </ListItemIcon>
                       {/* <ListItemText primary="DARK MODE" /> */}
@@ -133,10 +126,19 @@ function HeaderComponent(){
                       <Divider />
                       {
                         (user.isLoggedIn) ?
+                        <React.Fragment>
+                          <Link to="/dashboard"> 
+                          <ListItem button key="Dashboard" onClick={toggleDrawer(false)}>
+                          <ListItemIcon> <DashboardRoundedIcon color="primary" /> </ListItemIcon>
+                          <ListItemText primary="DASHBOARD" />
+                          </ListItem>
+                          </Link>
+                          <Divider />
                           <ListItem button key="Logout" onClick={ () => {toggleDrawer(false);Logout()}}>
                           <ListItemIcon> <LockOpenRoundedIcon color="primary" /> </ListItemIcon>
                           <ListItemText primary="LOGOUT" />
                           </ListItem>
+                        </React.Fragment>
                         :
                         <React.Fragment>
                           <Link to="/login">
@@ -197,16 +199,17 @@ function HeaderComponent(){
                       <span className={classes.navText}>Search</span>
                     </IconButton>
                     </Link>
-                    <Link to="/dashboard">
+                    {
+                      (user.isLoggedIn) ?
+                      <React.Fragment>
+                        <Link to="/dashboard">
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                       <DashboardRoundedIcon fontSize="small"/>
                       <span className={classes.navText}>Dashboard</span>
                     </IconButton>
                     </Link>
-                    
-                    {
-                      (user.isLoggedIn) ?
                       <Button variant="contained" color="secondary" onClick={Logout} className={classes.Button1}> Logout</Button>
+                      </React.Fragment>
                       :
                       <React.Fragment>
                         <Button variant="contained" color="secondary" href="/login" className={classes.Button1}> Login</Button>
