@@ -2,7 +2,7 @@ import React from 'react'
 import './SearchPageStyle.css'
 import Result from './Result'
 
-function Results ({ results, openPopup }) {
+function Results ({ results, openPopup,}) {
 	if(results){
 		return (
 			<section className="wrapper">
@@ -17,7 +17,9 @@ function Results ({ results, openPopup }) {
 	else{
 		return(
 			<section className="results">
-				Nothing Found ...
+				<div style={{textAlign:"center",width:"100%",fontSize:"24px"}}>
+				Nothing Found
+				</div>
 			</section>
 		)
 	}

@@ -1,71 +1,69 @@
-  
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import axios from 'axios'
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 import Search from './Search'
 import Results from './Results'
 import Popup from './Popup'
+
 function SearchPageComponent(){
-    
-    const [state, setState] = useState({
-        s: "",
-        results: [],
-        selected: {}
-      });
-      var apiurl = "https://www.omdbapi.com/?apikey=f84b077c";
-    
-      const search = (e) => {
-         {
-          axios(apiurl + "&s=" + state.s).then(({ data }) => {
-            let results = data.Search;
-    
-            setState(prevState => {
-              return { ...prevState, results: results }
-            })
-          });
-        }
-      }
+  const [queryString, setqueryString] = useState("");
+  const [results,setresults] = useState([]);
+  const [selected,setselected] = useState({});
+  const [isLoading,setisLoading] = useState(false);
+  var apiurl = "https://www.omdbapi.com/?apikey=f84b077c";  
+  
+  const search = () => {
+      console.log(queryString);
+      axios(apiurl + "&s=" + queryString)
+      .then(async({ data }) => {
+        let results = data.Search;
+        await setresults(results);
+        setisLoading(false);
+      })
+  }
       
-      const handleInput = (e) => {
-        let s = e.target.value;
+  const handleInput = async (e) => {
+    setisLoading(true);
+    await setqueryString(e.target.value);
+  }
+
+  useEffect(() => {
+    search();
+  },[queryString]);
+
+  const openPopup = id => {
+    axios(apiurl + "&i=" + id).then(({ data }) => {
+      let result = data;
+      console.log(result);
+      setselected(result);
+    });
+  }
     
-        setState(prevState => {
-          return { ...prevState, s: s }
-        });
-      }
+  const closePopup = () => {
+    setselected({});
+  }
     
-      const openPopup = id => {
-        axios(apiurl + "&i=" + id).then(({ data }) => {
-          let result = data;
-    
-          console.log(result);
-    
-          setState(prevState => {
-            return { ...prevState, selected: result }
-          });
-        });
-      }
-    
-      const closePopup = () => {
-        setState(prevState => {
-          return { ...prevState, selected: {} }
-        });
-      }
-    
-      return (
-        <div >
-          <header >
-            <h1>Movie Search</h1>
-          </header>
-          <main>
-            <Search handleInput={handleInput} search={search} />
-    
-            <Results results={state.results} openPopup={openPopup} />
-    
-            {(typeof state.selected.Title != "undefined") ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
-          </main>
-        </div>
-      );
+    return (
+      <div>
+        <header>
+          <h1>Movie Search</h1>
+        </header>
+        <main>
+          <Search handleInput={handleInput} search={search} />
+          {
+            !isLoading ?
+            <React.Fragment>
+              <Results results={results}/>
+              {(typeof selected.Title != "undefined") ? <Popup selected={selected} closePopup={closePopup} /> : false}
+            </React.Fragment>
+            :
+            <CircularProgress style={{marginTop:"20vw"}} />
+          }
+        </main>
+      </div>
+    );
      
 }
 
