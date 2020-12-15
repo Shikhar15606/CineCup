@@ -44,12 +44,12 @@ function HeaderComponent(){
             menuButton: {
               marginRight: theme.spacing(2),
               
-              color:'black'
+              color:'white'
             },
             title: {
                 marginRight: theme.spacing(2),
                 fontWeight:'bold',
-                color:'black',
+                color:'white',
             },
             Button1:{
                 marginRight: theme.spacing(2),
@@ -155,7 +155,7 @@ function HeaderComponent(){
           
             return (
               <div className={classes.root}>
-                <AppBar position="static" color="transparent">
+                <AppBar position="fixed" color="primary">
                   <Toolbar>
                     
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
