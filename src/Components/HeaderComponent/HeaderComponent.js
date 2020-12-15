@@ -39,7 +39,7 @@ function HeaderComponent(){
         const useStyles = makeStyles((theme) => ({
           list: {
            
-            
+            width:300
           },
           fullList: {
             width: 'auto',
@@ -52,12 +52,12 @@ function HeaderComponent(){
             menuButton: {
               marginRight: theme.spacing(2),
               
-              color:'black'
+              color:'white'
             },
             title: {
                 marginRight: theme.spacing(2),
                 fontWeight:'bold',
-                color:'black',
+                color:'white',
             },
             Button1:{
                 marginRight: theme.spacing(2),
@@ -107,7 +107,7 @@ function HeaderComponent(){
                       <Link to="/"> 
                       <ListItem button key="Home" onClick={toggleDrawer(false)}>
                       <ListItemIcon  > <HomeRoundedIcon color="primary" /> </ListItemIcon>
-                      <ListItemText primary="HOME" />
+                      <ListItemText primary="HOME"  />
                       </ListItem>
                       </Link>
                       <Divider />
@@ -175,7 +175,7 @@ function HeaderComponent(){
           
             return (
               <div className={classes.root}>
-                <AppBar position="static" color="transparent">
+                <AppBar position="fixed" color="primary">
                   <Toolbar>
                     
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
@@ -188,7 +188,7 @@ function HeaderComponent(){
                     <Hidden smDown>
                     <div style={{position:"absolute",right:0}}>
                     <Link to="/"> 
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    <IconButton edge="start" className={classes.menuButton}  color="inherit" aria-label="menu">
                       <HomeRoundedIcon fontSize="small"/>
                       <span className={classes.navText}>Home</span>
                     </IconButton>
