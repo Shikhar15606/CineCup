@@ -9,14 +9,11 @@ import {
     LOGOUT_USER,
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER_ERROR,
-<<<<<<< HEAD
     NOMINATE_MOVIE_REQUEST,
     NOMINATE_MOVIE_ERROR,
     NOMINATE_MOVIE_SUCCESS
-=======
     RESET_ERROR,
     RESET_SUCCESS
->>>>>>> 005308a73a212480c5ba138086c69f8e044057cc
 } from './types';
 
 //============================================== Register =================================================
