@@ -7,3 +7,6 @@ export const REGISTER_USER_ERROR = 'register_user_error';
 export const LOGOUT_USER_REQUEST = 'logout_user_request';
 export const LOGOUT_USER_SUCCESS = 'logout_user_success';
 export const LOGOUT_USER_ERROR = 'logout_user_error';
+export const NOMINATE_MOVIE_REQUEST = 'nominate_movie_request';
+export const NOMINATE_MOVIE_SUCCESS = 'nominate_movie_success';
+export const NOMINATE_MOVIE_ERROR = 'nominate_movie_error';

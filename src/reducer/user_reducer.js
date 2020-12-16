@@ -7,7 +7,10 @@ import {
     REGISTER_USER_SUCCESS,
     LOGOUT_USER_REQUEST,
     LOGOUT_USER_SUCCESS,
-    LOGOUT_USER_ERROR
+    LOGOUT_USER_ERROR,
+    NOMINATE_MOVIE_REQUEST,
+    NOMINATE_MOVIE_SUCCESS,
+    NOMINATE_MOVIE_ERROR
 } from '../action/types';
 
 export default function user (state = {}, action){
@@ -40,8 +43,17 @@ export default function user (state = {}, action){
         case LOGOUT_USER_ERROR:
             state = {...state,isLoading:false,error:"Some Error Occured Try Again !!"}
             break;
+        case NOMINATE_MOVIE_REQUEST:
+            state = {...state,isLoading:true,error:undefined}
+            break;
+        case NOMINATE_MOVIE_ERROR:
+            state = {...state,isLoading:false,error:action.payload}
+            break;
+        case NOMINATE_MOVIE_SUCCESS:
+            state = {...state,isLoading:false,error:undefined,user:{...state.user,Nominations:[...state.user.Nominations,action.payload]}}
+            break;
         default :
-            return { ...state,}
+            return { ...state}
             break;
     }
     console.log(state);

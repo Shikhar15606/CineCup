@@ -9,7 +9,12 @@ import {
     LOGOUT_USER,
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER_ERROR,
+    NOMINATE_MOVIE_REQUEST,
+    NOMINATE_MOVIE_ERROR,
+    NOMINATE_MOVIE_SUCCESS
 } from './types';
+
+//============================================== Register =================================================
 
 export const register = (User) => {
     return async (dispatch) => {
@@ -27,14 +32,15 @@ export const register = (User) => {
               Email: User.email,
               IsAdmin: false,
               ProfilePic: "https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png",
-          })
+              Nominations:[]
+            })
           .then(function() {
               console.log("Document successfully written!");
               firebase.auth().signInWithEmailAndPassword(User.email, User.password)
               .then((user) => {
                 dispatch({
                   type:LOGIN_USER_SUCCESS,
-                  payload:{Name:user.Name, Email:user.Email, IsAdmin:user.IsAdmin,ProfilePic:user.ProfilePic}
+                  payload:{Name:user.Name, Email:user.Email, IsAdmin:user.IsAdmin,ProfilePic:user.ProfilePic,Nominations:user.Nominations}
                 })
               })
               .catch((error) => {
@@ -65,6 +71,8 @@ export const register = (User) => {
     }
 }
 
+// =================================== Simple Login ===========================================
+
 export const login = (User) => {
   return async (dispatch) => {
     dispatch({
@@ -77,7 +85,7 @@ export const login = (User) => {
       // ...
       dispatch({
         type:LOGIN_USER_SUCCESS,
-        payload:{Name:user.Name, Email:user.Email, IsAdmin:user.IsAdmin,ProfilePic:user.ProfilePic}
+        payload:{Name:user.Name, Email:user.Email, IsAdmin:user.IsAdmin,ProfilePic:user.ProfilePic,Nominations:user.Nominations}
       })
     })
     .catch((error) => {
@@ -90,6 +98,8 @@ export const login = (User) => {
     });
   }
 }
+
+// ============================================== Google Login ======================================
 
 export const loginwithgoogle = () => {
     return async (dispatch) => {
@@ -111,7 +121,7 @@ export const loginwithgoogle = () => {
                     console.log("Already Registered !");
                     dispatch({
                       type:LOGIN_USER_SUCCESS,
-                      payload:{Name:doc.data().Name,Email:doc.data().Email,IsAdmin:doc.data().IsAdmin,ProfilePic:doc.data().ProfilePic}
+                      payload:{Name:doc.data().Name,Email:doc.data().Email,IsAdmin:doc.data().IsAdmin,ProfilePic:doc.data().ProfilePic,Nominations:doc.data().Nominations}
                     })
                 } else {
                     // doc.data() will be undefined in this case
@@ -122,12 +132,13 @@ export const loginwithgoogle = () => {
                             Email: user.email,
                             IsAdmin: false,
                             ProfilePic: user.photoURL,
+                            Nominations:[]
                         })
                         .then(function() {
                             console.log("Document successfully written!");
                             dispatch({
                               type:LOGIN_USER_SUCCESS,
-                              payload:{Name:user.displayName,Email:user.email,IsAdmin:false,ProfilePic:user.photoURL}
+                              payload:{Name:user.displayName,Email:user.email,IsAdmin:false,ProfilePic:user.photoURL,Nominations:[]}
                             })
                         })
                         .catch(function(error) {
@@ -164,6 +175,7 @@ export const loginwithgoogle = () => {
     }
 }
 
+// ======================================= FaceBook Login =================================================
 
 export const loginwithfacebook = () => {
   return async (dispatch)=>{
@@ -184,7 +196,7 @@ export const loginwithfacebook = () => {
               console.log("Already Registered !");
               dispatch({
                 type:LOGIN_USER_SUCCESS,
-                payload:{Name:doc.data().Name,Email:doc.data().Email,IsAdmin:doc.data().IsAdmin,ProfilePic:doc.data().ProfilePic}
+                payload:{Name:doc.data().Name,Email:doc.data().Email,IsAdmin:doc.data().IsAdmin,ProfilePic:doc.data().ProfilePic,Nominations:doc.data().Nominations}
               })
           } else {
               // doc.data() will be undefined in this case
@@ -195,12 +207,13 @@ export const loginwithfacebook = () => {
                       Email: user.email,
                       IsAdmin: false,
                       ProfilePic: user.photoURL,
+                      Nominations:[]
                   })
                   .then(function() {
                       console.log("Document successfully written!");
                       dispatch({
                         type:LOGIN_USER_SUCCESS,
-                        payload:{Name:user.displayName,Email:user.email,IsAdmin:false,ProfilePic:user.photoURL}
+                        payload:{Name:user.displayName,Email:user.email,IsAdmin:false,ProfilePic:user.photoURL,Nominations:[]}
                       })
                   })
                   .catch(function(error) {
@@ -233,6 +246,8 @@ export const loginwithfacebook = () => {
   }
 }
 
+// ===================================================== Logout ================================================
+
 export const logout = () =>{
   return async (dispatch) =>{
     firebase.auth().signOut().then(function() {
@@ -248,20 +263,85 @@ export const logout = () =>{
   }
 }
 
+// ================================================= Auth ====================================================
 export const auth = () => {
   return async (dispatch) => {
     console.log("Running Auth")
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        dispatch({
-          type:LOGIN_USER_SUCCESS,
-          payload:user
-        })
+        const db = firebase.firestore();
+        var docRef = db.collection("users").doc(user.email);
+        docRef.get().then(function(doc) {
+            if (doc.exists) {
+                dispatch({
+                  type:LOGIN_USER_SUCCESS,
+                  payload:{Name:doc.data().Name,Email:doc.data().Email,IsAdmin:doc.data().IsAdmin,ProfilePic:doc.data().ProfilePic,Nominations:doc.data().Nominations}
+                })
+            }
+            else {
+              dispatch({
+                type:LOGOUT_USER_SUCCESS,
+              })
+            }
+          })
+        } else{
+          dispatch({
+            type:LOGOUT_USER_SUCCESS,
+          })
+        }
+      });
+    }
+  }
+// ================================================= Nominate ================================================== 
+export const nominate = (user) => {
+  return async (dispatch) => {
+    dispatch({
+      type:NOMINATE_MOVIE_REQUEST
+    })
+    const db = firebase.firestore();
+    var userRef = db.collection('users').doc(user.Email);
+    userRef.get().then(function(doc) {
+      if (doc.exists) {
+        console.log(doc.data().Nominations.length);
+        if(doc.data().Nominations.length() <= 5)
+        {
+          // Get a new write batch
+          var batch = db.batch();
+          var usersRef = db.collection('users').doc(user.Email);
+          var moviesRef = db.collection('movies').doc(user.movieId);
+          batch.set(usersRef,{
+            Nominations: firebase.firestore.FieldValue.arrayUnion(user.movieId)
+          },{ merge: true })
+          batch.set(moviesRef,{
+            MovieId: user.movieId,
+            Votes: firebase.firestore.FieldValue.increment(1)
+          }, { merge: true })
+
+          // Commit the batch
+          batch.commit().then(function () {
+          dispatch({
+            type:NOMINATE_MOVIE_SUCCESS,
+            payload:user.movieId
+          })
+          });
+        }
+        else{
+          dispatch({
+            type:NOMINATE_MOVIE_ERROR,
+            payload:"You have Nominated 5 movies"
+          })
+        }
       } else {
         dispatch({
-          type:LOGOUT_USER_SUCCESS,
+          type:NOMINATE_MOVIE_ERROR,
+          payload:"Some Error Occred. Try again !!"
         })
       }
+    }).catch(function(error) {
+      dispatch({
+        type:NOMINATE_MOVIE_ERROR,
+        payload:"Some Error Occred. Try again !!"
+      })
     });
   }
 }

@@ -38,7 +38,6 @@ function HeaderComponent(){
 
         const useStyles = makeStyles((theme) => ({
           list: {
-           
             width:300
           },
           fullList: {
