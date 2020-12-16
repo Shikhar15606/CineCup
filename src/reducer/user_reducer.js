@@ -7,7 +7,9 @@ import {
     REGISTER_USER_SUCCESS,
     LOGOUT_USER_REQUEST,
     LOGOUT_USER_SUCCESS,
-    LOGOUT_USER_ERROR
+    LOGOUT_USER_ERROR,
+    RESET_SUCCESS,
+    RESET_ERROR
 } from '../action/types';
 
 export default function user (state = {}, action){
@@ -40,6 +42,16 @@ export default function user (state = {}, action){
         case LOGOUT_USER_ERROR:
             state = {...state,isLoading:false,error:"Some Error Occured Try Again !!"}
             break;
+        case LOGIN_USER_ERROR:
+            state = { ...state,isLoading:false,isLoggedIn:false,user:undefined,error:action.payload}
+            break;
+         case RESET_SUCCESS:
+            state = { ...state,isLoading:false,isLoggedIn:false,user:action.payload,error:undefined}
+            break;
+        case RESET_ERROR:
+            state = {...state,error:"Some Error Occured Try Again !!"}
+             break;
+        
         default :
             return { ...state,}
             break;

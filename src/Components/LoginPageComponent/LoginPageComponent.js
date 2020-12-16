@@ -17,7 +17,7 @@ import {faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 // redux
 import {loginwithfacebook, loginwithgoogle, login} from '../../action/user_actions';
 import {useDispatch} from 'react-redux';
-
+import ResetPassword from './ResetPassword'
 const useStyles = makeStyles((theme) => ({
     root: {
       height: '100vh',
@@ -96,6 +96,7 @@ function LoginPageComponent(){
       e.preventDefault();
       dispatch(loginwithfacebook());
     }
+    
     return (    
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -156,12 +157,12 @@ function LoginPageComponent(){
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/resetpassword" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
