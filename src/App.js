@@ -10,6 +10,7 @@ import LoginPageComponent from './Components/LoginPageComponent/LoginPageCompone
 import SearchPageComponent from './Components/SearchPageComponent/SearchPageComponent';
 import SignUpPageComponent from './Components/SignUpPageComponent/SignUpPageComponent';
 import Auth from './auth';
+import ResetPassword from './Components/LoginPageComponent/ResetPassword';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Auth(HomePageComponent,null)}></Route>
           <Route exact path="/login" component={Auth(LoginPageComponent,false)}></Route>
+          <Route exact path="/resetpassword" component={Auth(ResetPassword,false)}></Route>
           <Route exact path="/signup" component={Auth(SignUpPageComponent,false)}></Route>
           <Route exact path="/dashboard" component={Auth(DashBoardPageComponent,true)}></Route>
           <Route exact path="/search" component={Auth(SearchPageComponent,null)}></Route>

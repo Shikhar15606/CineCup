@@ -8,9 +8,14 @@ import {
     LOGOUT_USER_REQUEST,
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER_ERROR,
+<<<<<<< HEAD
     NOMINATE_MOVIE_REQUEST,
     NOMINATE_MOVIE_SUCCESS,
     NOMINATE_MOVIE_ERROR
+=======
+    RESET_SUCCESS,
+    RESET_ERROR
+>>>>>>> 005308a73a212480c5ba138086c69f8e044057cc
 } from '../action/types';
 
 export default function user (state = {}, action){
@@ -43,6 +48,7 @@ export default function user (state = {}, action){
         case LOGOUT_USER_ERROR:
             state = {...state,isLoading:false,error:"Some Error Occured Try Again !!"}
             break;
+<<<<<<< HEAD
         case NOMINATE_MOVIE_REQUEST:
             state = {...state,isLoading:true,error:undefined}
             break;
@@ -52,6 +58,18 @@ export default function user (state = {}, action){
         case NOMINATE_MOVIE_SUCCESS:
             state = {...state,isLoading:false,error:undefined,user:{...state.user,Nominations:[...state.user.Nominations,action.payload]}}
             break;
+=======
+        case LOGIN_USER_ERROR:
+            state = { ...state,isLoading:false,isLoggedIn:false,user:undefined,error:action.payload}
+            break;
+         case RESET_SUCCESS:
+            state = { ...state,isLoading:false,isLoggedIn:false,user:action.payload,error:undefined}
+            break;
+        case RESET_ERROR:
+            state = {...state,error:"Some Error Occured Try Again !!"}
+             break;
+        
+>>>>>>> 005308a73a212480c5ba138086c69f8e044057cc
         default :
             return { ...state}
             break;

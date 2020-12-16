@@ -9,9 +9,14 @@ import {
     LOGOUT_USER,
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER_ERROR,
+<<<<<<< HEAD
     NOMINATE_MOVIE_REQUEST,
     NOMINATE_MOVIE_ERROR,
     NOMINATE_MOVIE_SUCCESS
+=======
+    RESET_ERROR,
+    RESET_SUCCESS
+>>>>>>> 005308a73a212480c5ba138086c69f8e044057cc
 } from './types';
 
 //============================================== Register =================================================
@@ -25,7 +30,32 @@ export const register = (User) => {
         const db = firebase.firestore();
         firebase.auth()
         .createUserWithEmailAndPassword(User.email, User.password)
-        .then(user => {
+        
+          .then(dataBeforeEmail => {
+            firebase.auth().onAuthStateChanged(user=> {
+              user.sendEmailVerification();
+            });
+          })
+          .then(dataAfterEmail => {
+            firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {
+                // Sign up successful
+                dispatch({
+                  type: REGISTER_USER_SUCCESS,
+                  payload:
+                    "Your account was successfully created! Now you need to verify your e-mail address, please go check your inbox."
+                });
+              } else {
+                // Signup failed
+                dispatch({
+                  type: REGISTER_USER_ERROR,
+                  payload:
+                    "Something went wrong, we couldn't create your account. Please try again."
+                });
+              }
+            });
+          })
+          .then(user => {
             console.log(user);
             db.collection("users").doc(User.email).set({
               Name: `${User.firstname} ${User.lastname}`,
@@ -38,6 +68,7 @@ export const register = (User) => {
               console.log("Document successfully written!");
               firebase.auth().signInWithEmailAndPassword(User.email, User.password)
               .then((user) => {
+                
                 dispatch({
                   type:LOGIN_USER_SUCCESS,
                   payload:{Name:user.Name, Email:user.Email, IsAdmin:user.IsAdmin,ProfilePic:user.ProfilePic,Nominations:user.Nominations}
@@ -83,6 +114,7 @@ export const login = (User) => {
     .then((user) => {
       // Signed in 
       // ...
+      
       dispatch({
         type:LOGIN_USER_SUCCESS,
         payload:{Name:user.Name, Email:user.Email, IsAdmin:user.IsAdmin,ProfilePic:user.ProfilePic,Nominations:user.Nominations}
@@ -352,3 +384,27 @@ export const nominate = (user) => {
     });
   }
 }
+
+export const resetPassword = (User) => {
+  return async (dispatch) => {
+    firebase
+    .auth()
+    .sendPasswordResetEmail(User.email)
+    .then(() =>
+      dispatch({
+        type: RESET_SUCCESS,
+        payload:
+          "Check your inbox. We've sent you a secured reset link by e-mail."
+      })
+      
+    )
+    .catch(function(error) {
+      // An error happened.
+      dispatch({
+        type: RESET_ERROR,
+        payload: "Some Error Occured Try Again !!"
+      })
+    });
+  }
+}
+
