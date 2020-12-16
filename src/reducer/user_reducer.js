@@ -8,14 +8,11 @@ import {
     LOGOUT_USER_REQUEST,
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER_ERROR,
-<<<<<<< HEAD
     NOMINATE_MOVIE_REQUEST,
     NOMINATE_MOVIE_SUCCESS,
     NOMINATE_MOVIE_ERROR
-=======
     RESET_SUCCESS,
     RESET_ERROR
->>>>>>> 005308a73a212480c5ba138086c69f8e044057cc
 } from '../action/types';
 
 export default function user (state = {}, action){
