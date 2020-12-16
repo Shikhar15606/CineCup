@@ -303,7 +303,8 @@ export const nominate = (user) => {
     userRef.get().then(function(doc) {
       if (doc.exists) {
         console.log(doc.data().Nominations.length);
-        if(doc.data().Nominations.length() <= 5)
+        console.log(doc.data().Nominations.indexOf(user.Email) === -1)
+        if(doc.data().Nominations.length <= 5 && doc.data().Nominations.indexOf(user.movieId) === -1)
         {
           // Get a new write batch
           var batch = db.batch();
@@ -325,10 +326,16 @@ export const nominate = (user) => {
           })
           });
         }
+        else if(doc.data().Nominations.indexOf(user.movieId) !== -1) {
+          dispatch({
+            type:NOMINATE_MOVIE_ERROR,
+            payload:"You have already nominated that movie"
+          })
+        }
         else{
           dispatch({
             type:NOMINATE_MOVIE_ERROR,
-            payload:"You have Nominated 5 movies"
+            payload:"You have already nominated 5 movies"
           })
         }
       } else {
