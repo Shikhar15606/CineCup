@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import {faFacebookF, faGoogle} from '@fortawesome/free-brands-svg-icons'
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import firebase from 'firebase';
 // redux
 import {register} from '../../action/user_actions';
 import {useDispatch} from 'react-redux';
@@ -44,6 +45,7 @@ function SignUpPageComponent(){
     const [firstname,setfirstname] = useState("");
     const [lastname,setlastname] = useState("");
     const [email,setemail] = useState("");
+    const [profilepic,setprofilepic]=useState("");
     const [password,setpassword] = useState("");
     const [firstnameError,setfirstnameError] = useState("");
     const [lastnameError,setlastnameError] = useState("");
@@ -89,16 +91,28 @@ function SignUpPageComponent(){
       else
         setdisabledSubmit(true);
     },[firstnameError, lastnameError, passwordError, emailError, firstname, lastname, email, password])
-
+    
+    
     // redux
     const dispatch = useDispatch();
     const signUp = (e) => {
       e.preventDefault();
       const dataToSubmit = {
-        firstname,lastname,email,password
+        firstname,lastname,email,password,profilepic
       }
       dispatch(register(dataToSubmit));
     }
+    function uploadImage(e) {
+      const file = e.target.files[0]
+      console.log(file);
+      setprofilepic(file);
+      firebase
+      .storage()
+      .ref('Images/' + file.name)
+      .put(file);
+    }
+
+    
 
         return (
             <Container component="main" maxWidth="xs">
@@ -173,6 +187,9 @@ function SignUpPageComponent(){
                 value={password}
                 onChange={(e)=>{setpassword(e.target.value);setaltpassword(true);}}
               />
+            </Grid>
+            <Grid item xs={12}>
+              <input name="profilepic" id="profilepic" type="file" onchange={e=>uploadImage(e)}/>
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel

@@ -49,6 +49,7 @@ export const register = (User) => {
           })
           .then(user => {
             console.log(user);
+            
             db.collection("users").doc(User.email).set({
               Name: `${User.firstname} ${User.lastname}`,
               Email: User.email,
