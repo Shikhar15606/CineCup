@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import { Link } from 'react-router-dom';
 import {nominate} from '../../action/user_actions';
@@ -8,7 +8,7 @@ function Result({ result, openPopup }) {
 
 	const user = useSelector(state => state.user);
 	const dispatch = useDispatch();
-
+	const [btn,setbtn] = useState(false);
 	const Nominate = (e) => {
 		e.preventDefault();
 		console.log(result);
@@ -45,7 +45,7 @@ function Result({ result, openPopup }) {
 			<img src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`} />
 			<div className="info">
 				<h1>{result.title}</h1>
-				<Button variant="contained" color="secondary" disabled={isdisabled(result.id)} onClick={(e) => {Nominate(e)}} endIcon={<LocalMoviesIcon />} className="but1">
+				<Button variant="contained" color="secondary" disabled={btn || isdisabled(result.id)} onClick={(e) => {setbtn(true); Nominate(e)}} endIcon={<LocalMoviesIcon />} className="but1">
                  Nominate</Button>
 			</div>
 		</Link>
