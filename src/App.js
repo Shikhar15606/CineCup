@@ -9,6 +9,7 @@ import HomePageComponent from './Components/HomePageComponent/HomePageComponent'
 import LoginPageComponent from './Components/LoginPageComponent/LoginPageComponent';
 import SearchPageComponent from './Components/SearchPageComponent/SearchPageComponent';
 import SignUpPageComponent from './Components/SignUpPageComponent/SignUpPageComponent';
+import MoviePageComponent from './Components/MoviePageComponent/MoviePageComponent';
 import Auth from './auth';
 import ResetPassword from './Components/LoginPageComponent/ResetPassword';
 
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/signup" component={Auth(SignUpPageComponent,false)}></Route>
           <Route exact path="/dashboard" component={Auth(DashBoardPageComponent,true)}></Route>
           <Route exact path="/search" component={Auth(SearchPageComponent,null)}></Route>
+          <Route exact path="/movie/:movie_id" component={Auth(MoviePageComponent,null)}></Route>
           <Route path="*" component={Auth(ErrorPageComponent,null)}></Route>
         </Switch>
         <FooterComponent></FooterComponent>
