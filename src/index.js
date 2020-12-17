@@ -8,6 +8,7 @@ import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
 
+import 'firebase/storage'
 // Redux Related Stuff
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -27,7 +28,7 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
+const storage = firebase.storage()
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 
 ReactDOM.render(
@@ -49,3 +50,6 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+export  {
+  storage, firebase as default
+}
