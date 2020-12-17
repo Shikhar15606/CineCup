@@ -11,12 +11,26 @@ function Result({ result, openPopup }) {
 
 	const Nominate = (e) => {
 		e.preventDefault();
+		console.log(result);
 		const dataToSubmit = {
 			Email: user.user.Email,
-			movieId:result.imdbID
+			movieId:result.id
 		}
 		console.log(dataToSubmit);
 		dispatch(nominate(dataToSubmit));
+	}
+
+	const isdisabled = (id) => {
+		if(user.isLoggedIn)
+		{
+			if(user && user.user && user.user.Nominations.length)
+			{
+				if(user.user.Nominations.length === 5 || user.user.Nominations.includes(id))
+					return true;
+			}
+			return false;
+		}
+		return true;
 	}
 
 	return (
@@ -31,7 +45,7 @@ function Result({ result, openPopup }) {
 			<img src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`} />
 			<div className="info">
 				<h1>{result.title}</h1>
-				<Button variant="contained" color="secondary" onClick={(e) => {Nominate(e)}} endIcon={<LocalMoviesIcon />} className="but1">
+				<Button variant="contained" color="secondary" disabled={isdisabled(result.id)} onClick={(e) => {Nominate(e)}} endIcon={<LocalMoviesIcon />} className="but1">
                  Nominate</Button>
 			</div>
 		</Link>

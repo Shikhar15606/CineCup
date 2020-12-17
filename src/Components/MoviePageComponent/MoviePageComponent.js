@@ -1,6 +1,7 @@
 import {React,useState,useEffect } from 'react';
 import YouTube from 'react-youtube';
 import {useParams} from 'react-router-dom';
+import {TMDB_API_KEY} from '../../key/key';
 import axios from 'axios';
 const MoviePageComponent = () => {
     const [result, setresult] = useState({});
@@ -8,30 +9,23 @@ const MoviePageComponent = () => {
     const { movie_id } = useParams();
 
 
-    var apiurl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=d433493a9a93fffdb39baa4775ccc67a`
+    var apiurl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${TMDB_API_KEY}`;
     useEffect(() =>{
       axios(apiurl)
       .then((data) => {
           console.log(result);
           setresult(data);
       })
-      .catch((error) => {
-        alert(error);
-      })
     },[apiurl])
-    var trailerapi = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=d433493a9a93fffdb39baa4775ccc67a`
+    var trailerapi = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${TMDB_API_KEY}`
     useEffect(()=>{
       axios(trailerapi)
       .then(({data} ) => {
-        if(data && data.results && data.results.key)
-        {console.log(data.results[0].key);
-        settrailerurl(data.results[0].key);}
-        else{
-          alert("No trailer Available");
+        if(data && data.results && data.results.length && data.results[0].key)
+        {
+          console.log(data.results[0].key);
+          settrailerurl(data.results[0].key);
         }
-      })
-      .catch((error) => {
-        alert(error);
       })
     },[trailerapi])
       const opts = {
@@ -44,7 +38,19 @@ const MoviePageComponent = () => {
       };
     return ( 
         <div>
-            <YouTube videoId={trailerurl} opts={opts}  />
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            {
+              trailerurl ? 
+              <YouTube videoId={trailerurl} opts={opts}  />
+              :
+              <div>
+              </div>  
+            }
+            
         </div>
     );
 };

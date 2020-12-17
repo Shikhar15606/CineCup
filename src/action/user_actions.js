@@ -332,18 +332,19 @@ export const nominate = (user) => {
     userRef.get().then(function(doc) {
       if (doc.exists) {
         console.log(doc.data().Nominations.length);
-        console.log(doc.data().Nominations.indexOf(user.Email) === -1)
-        if(doc.data().Nominations.length <= 5 && doc.data().Nominations.indexOf(user.movieId) === -1)
+        console.log(doc.data().Nominations.includes(user.movieId.toString));
+        if(doc.data().Nominations.length < 5 && !doc.data().Nominations.includes(user.movieId))
         {
           // Get a new write batch
           var batch = db.batch();
+
           var usersRef = db.collection('users').doc(user.Email);
-          var moviesRef = db.collection('movies').doc(user.movieId);
+          var moviesRef = db.collection('movies').doc(user.movieId.toString());
           batch.set(usersRef,{
             Nominations: firebase.firestore.FieldValue.arrayUnion(user.movieId)
           },{ merge: true })
-          batch.set(moviesRef,{
-            MovieId: user.movieId,
+          batch.set(moviesRef, {
+            MovieId: user.movieId.toString(),
             Votes: firebase.firestore.FieldValue.increment(1)
           }, { merge: true })
 
@@ -355,7 +356,7 @@ export const nominate = (user) => {
           })
           });
         }
-        else if(doc.data().Nominations.indexOf(user.movieId) !== -1) {
+        else if(doc.data().Nominations.includes(user.movieId)) {
           dispatch({
             type:NOMINATE_MOVIE_ERROR,
             payload:"You have already nominated that movie"
@@ -370,13 +371,14 @@ export const nominate = (user) => {
       } else {
         dispatch({
           type:NOMINATE_MOVIE_ERROR,
-          payload:"Some Error Occred. Try again !!"
+          payload:"Some Error Occred. Better Luck Next Time !!"
         })
       }
-    }).catch(function(error) {
+    })
+    .catch(function(error) {
       dispatch({
         type:NOMINATE_MOVIE_ERROR,
-        payload:"Some Error Occred. Try again !!"
+        payload:`Some Error Occred. Try again !!`
       })
     });
   }
@@ -399,7 +401,7 @@ export const resetPassword = (User) => {
       // An error happened.
       dispatch({
         type: RESET_ERROR,
-        payload: "Some Error Occured Try Again !!"
+        payload: `Some Error Occured Try Again !! ${error}`
       })
     });
   }

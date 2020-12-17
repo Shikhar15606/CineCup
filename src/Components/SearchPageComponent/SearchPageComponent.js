@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import axios from 'axios'
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import {TMDB_API_KEY} from '../../key/key';
 
 import Search from './Search'
 import Results from './Results'
@@ -12,16 +12,27 @@ function SearchPageComponent(){
   const [results,setresults] = useState([]);
   const [selected,setselected] = useState({});
   const [isLoading,setisLoading] = useState(false);
-  var apiurl = `https://api.themoviedb.org/3/search/movie?api_key=d433493a9a93fffdb39baa4775ccc67a&query=${queryString}`;  
+  var apiurl = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${queryString}`;  
   
   const search = () => {
       console.log(queryString);
+      if(queryString)
+      {
       axios(apiurl)
       .then(({ data }) => {
         let results = data.results;
         setresults(results);
         setisLoading(false);
       })
+      }
+      else{
+        axios(`https://api.themoviedb.org/3/trending/movie/week?api_key=${TMDB_API_KEY}`)
+        .then(({ data }) => {
+        let results = data.results;
+        setresults(results);
+        setisLoading(false);
+      })
+    }
   }
       
   const handleInput = (e) => {
