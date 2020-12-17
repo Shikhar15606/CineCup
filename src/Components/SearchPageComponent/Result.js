@@ -20,13 +20,7 @@ function Result({ result, openPopup }) {
 	}
 
 	return (
-		// <div className="result" onClick={() => openPopup(result.imdbID)}>
-		// 	<img src={result.Poster} />
-		// 	<h3>{result.Title}</h3>
-        //     <Button variant="contained" color="secondary" endIcon={<LocalMoviesIcon />}>
-        //         Nominate</Button>
-		// </div>
-
+		
 		<Link to={`/movie/${result.id}`} className="card"  >
 			<img src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`} />
 			<div className="info">

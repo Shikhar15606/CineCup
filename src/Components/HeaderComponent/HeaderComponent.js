@@ -15,7 +15,7 @@ import Divider from '@material-ui/core/Divider';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import List from '@material-ui/core/List';
-
+import './HeaderStyle.css'
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -26,11 +26,12 @@ import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
 import Switch from '@material-ui/core/Switch';
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector,useDispatch,useStore } from "react-redux";
 import {logout} from '../../action/user_actions';
 
 function HeaderComponent(){
         const user = useSelector(state => state.user);
+        const User = useSelector(state => state.user.user);
         const dispatch = useDispatch();
         const Logout = () => {
           dispatch(logout());
@@ -38,7 +39,9 @@ function HeaderComponent(){
 
         const useStyles = makeStyles((theme) => ({
           list: {
-            width:300
+            width:300,
+            alignItems:'center',
+            
           },
           fullList: {
             width: 'auto',
@@ -91,38 +94,48 @@ function HeaderComponent(){
                   <React.Fragment >
                     
                     <SwipeableDrawer anchor="left" open={state} onClose={toggleDrawer( false)}  onOpen={toggleDrawer(true)} >
-                      {/* <div style={{height:200,width:300,background:'red'}}>
-                        <span style={{fontSize:30,fontWeight:'bold',color:'white',}}>
-                          HEY USER
-                        </span>
-                       
-                      </div> */}
+                    
+                      <div style={{width:"100%",display:'flex'}}>
+                      <IconButton style={{position:'absolute',right:0}} onClick={toggleDrawer(false)}>
+                      <CancelRoundedIcon color="secondary" />
+                      </IconButton>
+                      </div>
+                      {
+                      (user.isLoggedIn) ?
+                      
+                    <div className="navbrand">
+		                <img className="rounded" src={User.ProfilePic} />
+		                <h2 className="title title-medium">{User.Name}</h2>
+	                  </div>
+                    :
+                    <div className="navbrand">
+		                <img className="rounded" src="https://icons.iconarchive.com/icons/custom-icon-design/flatastic-3/256/user-icon.png" />
+		                <h2 className="title title-medium">Welcome Guest</h2>
+		                
+	                  </div>
+                    }
                       <List className={classes.list}>
-                      <ListItem  key="Cancel" onClick={toggleDrawer(false)} style={{position:'absoloute',right:0}}>
                       
-                      <ListItemIcon> <CancelRoundedIcon color="secondary" /> </ListItemIcon>
-                      
-                      </ListItem>
                       <Link to="/"> 
                       <ListItem button key="Home" onClick={toggleDrawer(false)}>
                       <ListItemIcon  > <HomeRoundedIcon color="primary" /> </ListItemIcon>
                       <ListItemText primary="HOME"  />
                       </ListItem>
                       </Link>
-                      <Divider />
+                      
                       <Link to="/Search"> 
                       <ListItem button key="Search" onClick={toggleDrawer(false)}>
                       <ListItemIcon> <SearchRoundedIcon color="primary"/> </ListItemIcon>
                       <ListItemText primary="SEARCH" />
                       </ListItem>
                       </Link>
-                      <Divider />
+                      
                       <ListItem  key="Dark Mode" >
                       <ListItemIcon> <Brightness4Icon color="primary"/> </ListItemIcon>
                       {/* <ListItemText primary="DARK MODE" /> */}
                       <Switch />
                       </ListItem>
-                      <Divider />
+                      
                       {
                         (user.isLoggedIn) ?
                         <React.Fragment>
@@ -132,7 +145,7 @@ function HeaderComponent(){
                           <ListItemText primary="DASHBOARD" />
                           </ListItem>
                           </Link>
-                          <Divider />
+                          
                           <ListItem button key="Logout" onClick={ () => {toggleDrawer(false);Logout()}}>
                           <ListItemIcon> <LockOpenRoundedIcon color="primary" /> </ListItemIcon>
                           <ListItemText primary="LOGOUT" />
@@ -146,7 +159,7 @@ function HeaderComponent(){
                           <ListItemText primary="LOGIN" />
                           </ListItem>
                           </Link>
-                          <Divider />
+                          
                           <Link to="/signup">
                           <ListItem button key="Signup" onClick={toggleDrawer(false)}>
                           <ListItemIcon> <PersonAddRoundedIcon color="primary"/> </ListItemIcon>
@@ -155,7 +168,7 @@ function HeaderComponent(){
                           </Link>
                         </React.Fragment>
                       }
-                      <Divider />
+                      
                     
                       </List>
                     </SwipeableDrawer>
@@ -174,7 +187,7 @@ function HeaderComponent(){
           
             return (
               <div className={classes.root}>
-                <AppBar position="fixed" color="primary">
+                <AppBar position="fixed" >
                   <Toolbar>
                     
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>

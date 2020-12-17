@@ -20,6 +20,7 @@ function SearchPageComponent(){
       .then(({ data }) => {
         let results = data.results;
         setresults(results);
+        console.log(results);
         setisLoading(false);
       })
   }
