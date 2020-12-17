@@ -8,7 +8,7 @@ function Results ({ results, openPopup,}) {
 			<section className="wrapper">
 				{
 					results.map(result => (
-					<Result key={result.imdbID} result={result} openPopup={openPopup} />
+					<Result key={result.id} result={result} openPopup={openPopup} />
 					))
 				}
 			</section>

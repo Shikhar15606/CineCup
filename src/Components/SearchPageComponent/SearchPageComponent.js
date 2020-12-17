@@ -12,13 +12,13 @@ function SearchPageComponent(){
   const [results,setresults] = useState([]);
   const [selected,setselected] = useState({});
   const [isLoading,setisLoading] = useState(false);
-  var apiurl = "https://www.omdbapi.com/?apikey=f84b077c";  
+  var apiurl = `https://api.themoviedb.org/3/search/movie?api_key=d433493a9a93fffdb39baa4775ccc67a&query=${queryString}`;  
   
   const search = () => {
       console.log(queryString);
-      axios(apiurl + "&s=" + queryString)
+      axios(apiurl)
       .then(({ data }) => {
-        let results = data.Search;
+        let results = data.results;
         setresults(results);
         setisLoading(false);
       })

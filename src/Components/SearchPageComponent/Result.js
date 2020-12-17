@@ -1,5 +1,6 @@
 import React from 'react'
 import {useSelector,useDispatch} from 'react-redux'
+import { Link } from 'react-router-dom';
 import {nominate} from '../../action/user_actions';
 import {Button} from '@material-ui/core'
 import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
@@ -26,14 +27,14 @@ function Result({ result, openPopup }) {
         //         Nominate</Button>
 		// </div>
 
-		<div className="card"  >
-			<img src={result.Poster} />
+		<Link to={`/movie/${result.id}`} className="card"  >
+			<img src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`} />
 			<div className="info">
-				<h1>{result.Title}</h1>
+				<h1>{result.title}</h1>
 				<Button variant="contained" color="secondary" onClick={(e) => {Nominate(e)}} endIcon={<LocalMoviesIcon />} className="but1">
                  Nominate</Button>
 			</div>
-		</div>
+		</Link>
 	)
 }
 
