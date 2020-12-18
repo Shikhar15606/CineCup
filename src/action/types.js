@@ -12,3 +12,5 @@ export const NOMINATE_MOVIE_SUCCESS = 'nominate_movie_success';
 export const NOMINATE_MOVIE_ERROR = 'nominate_movie_error';
 export const RESET_SUCCESS = 'reset_success';
 export const RESET_ERROR ='reset_error'
+export const AUTH_USER_SUCCESS='auth_user_success'
+export const AUTH_USER_ERROR = 'auth_user_error';
