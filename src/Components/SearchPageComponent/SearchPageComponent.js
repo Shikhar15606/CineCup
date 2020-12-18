@@ -20,6 +20,7 @@ function SearchPageComponent(){
       {
       axios(apiurl)
       .then(({ data }) => {
+        console.log(data);
         let results = data.results;
         setresults(results);
         console.log(results);
