@@ -311,7 +311,7 @@ export const auth = () => {
         } else{
           dispatch({
             type:AUTH_USER_ERROR,
-            payload:"You are Logged Out"
+            payload:""
           })
         }
       });
