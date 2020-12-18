@@ -1,0 +1,41 @@
+.navbrand {
+    display: -webkit-box;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+    -webkit-box-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+            align-items: center;
+    text-align: center;
+    align-items: center;
+    /* margin-top: 50px; */
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBMl_buRCpEkprejh7DnSNSzVxKTTM4NFj5Q&usqp=CAU");
+    
+    
+    
+  }
+ .navbrand img.rounded {
+    display: block;
+    width: 100px;
+    height: auto;
+    margin-bottom: 0.5rem;
+    margin-top: 10px;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .title {
+    font-family: inherit;
+    line-height: inherit;
+    text-transform: capitalize;
+    text-rendering: optimizeLegibility;
+    
+  }
+  .title-medium {
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: white;
+  }
