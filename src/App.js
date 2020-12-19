@@ -12,9 +12,13 @@ import SignUpPageComponent from './Components/SignUpPageComponent/SignUpPageComp
 import MoviePageComponent from './Components/MoviePageComponent/MoviePageComponent';
 import Auth from './auth';
 import ResetPassword from './Components/LoginPageComponent/ResetPassword';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {useSelector} from 'react-redux'
 function App() {
+ 
   return (
+    <>
+    
     <BrowserRouter>
       <div className="App">
         <HeaderComponent></HeaderComponent>
@@ -28,9 +32,12 @@ function App() {
           <Route exact path="/movie/:movie_id" component={Auth(MoviePageComponent,null)}></Route>
           <Route path="*" component={Auth(ErrorPageComponent,null)}></Route>
         </Switch>
-        <FooterComponent></FooterComponent>
+       
       </div>
     </BrowserRouter>
+    
+    
+    </>
   );
 }
 

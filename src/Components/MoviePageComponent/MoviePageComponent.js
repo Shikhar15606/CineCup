@@ -3,6 +3,7 @@ import YouTube from 'react-youtube';
 import {useParams} from 'react-router-dom';
 import {TMDB_API_KEY} from '../../key/key';
 import axios from 'axios';
+import './MoviePageStyle.css'
 const MoviePageComponent = () => {
     const [result, setresult] = useState({});
     const [trailerurl , settrailerurl] = useState("");
@@ -12,9 +13,9 @@ const MoviePageComponent = () => {
     var apiurl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${TMDB_API_KEY}`;
     useEffect(() =>{
       axios(apiurl)
-      .then((data) => {
+      .then((res) => {
           console.log(result);
-          setresult(data);
+          setresult(res.data);
       })
     },[apiurl])
     var trailerapi = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${TMDB_API_KEY}`
@@ -29,29 +30,43 @@ const MoviePageComponent = () => {
       })
     },[trailerapi])
       const opts = {
-        height: '390',
-        width: '640',
+        
         playerVars: {
-          // https://developers.google.com/youtube/player_parameters
-          autoplay: 1
+          
+          autoplay: 0
         },
       };
     return ( 
         <div>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            {
+           <div className="main1">
+	<div className="image">
+		<img src={`https://image.tmdb.org/t/p/w500/${result.backdrop_path}`} />
+		<div className="overlay">
+			<h1>{result.title}</h1>
+			<h4>{result.runtime} min | {result.release_date}</h4>
+      {/* <h4>{result.genres[0].name}</h4> */}
+		</div>
+	</div>
+	<div className="afterImage">
+		<div className="left1">
+			<h3>Description</h3>
+			<p>{result.overview}			</p>
+		</div>
+		<div className="right1">
+    {
               trailerurl ? 
-              <YouTube videoId={trailerurl} opts={opts}  />
+              <YouTube videoId={trailerurl} className="trail" opts={opts}  />
               :
+              (
               <div>
-              </div>  
+              </div>
+              )  
             }
-            
-        </div>
+     
+		</div>
+	</div>
+	</div>
+ </div>
     );
 };
 

@@ -13,7 +13,10 @@ import {
     NOMINATE_MOVIE_ERROR,
     NOMINATE_MOVIE_SUCCESS,
     RESET_ERROR,
-    RESET_SUCCESS
+    RESET_SUCCESS,
+    REMOVE_NOMINATE_MOVIE_ERROR,
+    REMOVE_NOMINATE_MOVIE_SUCCESS,
+    REMOVE_NOMINATE_MOVIE_REQUEST
 } from './types';
 
 //============================================== Register =================================================
@@ -385,6 +388,8 @@ export const nominate = (user) => {
   }
 }
 
+// ================================================= Reset Password ================================================== 
+
 export const resetPassword = (User) => {
   return async (dispatch) => {
     firebase
@@ -408,3 +413,72 @@ export const resetPassword = (User) => {
   }
 }
 
+// =================================================Remove Nominate ================================================== 
+
+
+export const remove_nominate = (user) => {
+  return async (dispatch) => {
+    dispatch({
+      type:REMOVE_NOMINATE_MOVIE_REQUEST
+    })
+    const db = firebase.firestore();
+    var userRef = db.collection('users').doc(user.Email);
+    userRef.get().then(function(doc) {
+      if (doc.exists) {
+        console.log(doc.data().Nominations.length);
+        console.log(doc.data().Nominations.includes(user.movieId.toString));
+        if(doc.data().Nominations.includes(user.movieId))
+        {
+          // Get a new write batch
+          var batch = db.batch();
+
+          var usersRef = db.collection('users').doc(user.Email);
+          var moviesRef = db.collection('movies').doc(user.movieId.toString());
+          batch.set(usersRef,{
+            Nominations: firebase.firestore.FieldValue.arrayRemove(user.movieId)
+          },{ merge: true })
+
+        if(moviesRef.Votes === 1){
+         batch.delete(moviesRef);
+        }
+        else {
+          batch.set(moviesRef, {
+            MovieId: user.movieId.toString(),
+            Votes: firebase.firestore.FieldValue.increment(-1)
+          }, { merge: true })
+        }
+          // Commit the batch
+          batch.commit().then(function () {
+          dispatch({
+            type:REMOVE_NOMINATE_MOVIE_SUCCESS,
+            payload:usersRef.Nominations
+          })
+          });
+        }
+        else if(!doc.data().Nominations.includes(user.movieId)) {
+          dispatch({
+            type:REMOVE_NOMINATE_MOVIE_ERROR,
+            payload:"You have not nominated that movie"
+          })
+        }
+        else{
+          dispatch({
+            type:REMOVE_NOMINATE_MOVIE_ERROR,
+            payload:"You have already nominated 5 movies"
+          })
+        }
+      } else {
+        dispatch({
+          type:REMOVE_NOMINATE_MOVIE_ERROR,
+          payload:"Some Error Occred. Better Luck Next Time !!"
+        })
+      }
+    })
+    .catch(function(error) {
+      dispatch({
+        type:REMOVE_NOMINATE_MOVIE_ERROR,
+        payload:`Some Error Occred. Try again !!`
+      })
+    });
+  }
+}

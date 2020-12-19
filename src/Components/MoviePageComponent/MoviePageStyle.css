@@ -1,0 +1,256 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Roboto, sans-serif;
+}
+
+.image {
+	height: 100vh;
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+
+.image img {
+	height: 100vh;
+	width: 100vw;
+	z-index: -1;
+	object-fit: cover;
+	filter: saturate(140%);
+	position: fixed;
+}
+
+.image .overlay {
+	z-index: 1;
+	height: 100%;
+	position: absolute;
+	width: 100%;
+	background: linear-gradient(
+		transparent,
+		rgba(19, 21, 21, 0.2),
+		rgba(19, 21, 21, 0.4),
+		rgba(19, 21, 21, 0.6),
+		rgba(19, 21, 21, 0.8),
+		rgba(19, 21, 21, 0.9),
+		rgba(19, 21, 21, 0.98),
+		rgba(19, 21, 21, 01)
+	);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	flex-grow: 1;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.image .overlay h1 {
+	font-size: 15vmin;
+	width: 60%;
+	color: rgba(255, 250, 251, 0.9);
+	padding-bottom: 30px;
+	font-style: italic;
+}
+
+.image .overlay h4 {
+	font-size: 1em;
+	margin-bottom: 50px;
+	color: rgba(255, 250, 251, 0.6);
+	font-style: italic;
+    text-align:center
+}
+
+.afterImage {
+	height: auto;
+	min-height: 100vh;
+	background: #131515;
+	width: auto;
+	display: flex;
+	flex-wrap: wrap-reverse;
+}
+
+.afterImage .left1 {
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	flex: 2;
+	padding: 50px;
+	padding-top: 150px;
+}
+
+.afterImage .left1 h3 {
+	font-size: 1.5em;
+	margin-bottom: 20px;
+	color: rgba(255, 250, 251, 0.9);
+	font-weight: 200;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+.afterImage .left1 p {
+	font-size: 1em;
+	margin-bottom: 20px;
+	color: rgba(255, 250, 251, 0.6);
+}
+
+.afterImage .left1 p:first-letter {
+	color: #339989;
+	font-size: 1.2em;
+}
+
+.afterImage .right1 {
+	height: 200px;
+    width: 300px;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	padding: 20px;
+	/* padding-top: 20px; */
+	/* background: rgba(29, 32, 32, 0.4); */
+	margin: auto;
+	margin-top: 100px;
+	border-radius: 10px/10px;
+}
+
+
+.trail{
+    height:250px;
+    width:400px;
+}
+
+@media (max-width: 1200px) {
+	.afterImage {
+		flex-direction: column;
+	}
+    .trail{
+    min-height:200px;
+	min-width:300px;
+	width:90vw;
+	height: 50vw;
+	margin: 2.5vw;
+	
+	
+}
+
+.image {
+	height: 100vh;
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+
+.image img {
+	height: 100vh;
+	width: 100vw;
+	z-index: -1;
+	object-fit: cover;
+	filter: saturate(140%);
+	position: fixed;
+}
+
+.image .overlay {
+	z-index: 1;
+	height: 100%;
+	position: absolute;
+	width: 100%;
+	background: linear-gradient(
+		transparent,
+		rgba(19, 21, 21, 0.2),
+		rgba(19, 21, 21, 0.4),
+		rgba(19, 21, 21, 0.6),
+		rgba(19, 21, 21, 0.8),
+		rgba(19, 21, 21, 0.9),
+		rgba(19, 21, 21, 0.98),
+		rgba(19, 21, 21, 01)
+	);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	flex-grow: 1;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.image .overlay h1 {
+	font-size: 15vmin;
+	width: 60%;
+	color: rgba(255, 250, 251, 0.9);
+	padding-bottom: 30px;
+	font-style: italic;
+}
+
+.image .overlay h4 {
+	font-size: 1.5em;
+	margin-bottom: 50px;
+	color: rgba(255, 250, 251, 0.6);
+	font-style: italic;
+}
+
+.afterImage {
+	height: auto;
+	min-height: 100vh;
+	background: #131515;
+	width: 100%;
+	display: flex;
+    align-items:'center';
+	flex-wrap: wrap;
+	
+}
+
+.afterImage .left1 {
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	flex: 2;
+	
+	padding: 50px;
+	padding-top: 150px;
+	border: 5px rgb(219, 66, 66);
+}
+
+.afterImage .left1 h3 {
+	font-size: 1.5em;
+	margin-bottom: 20px;
+	color: rgba(255, 250, 251, 0.9);
+	font-weight: 200;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+.afterImage .left1 p {
+	font-size: 1em;
+	margin-bottom: 20px;
+	color: rgba(255, 250, 251, 0.6);
+}
+
+.afterImage .left1 p:first-letter {
+	color: #339989;
+	font-size: 1.2em;
+}
+
+.afterImage .right1 {
+	height: auto;
+	
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+    align-self:'center';
+	padding: 2.5vw;
+	padding-top: 20px;
+	
+	margin: 0;
+	margin-top: 10px;
+	border-radius: 10px/10px;
+}
+
+
+}
+
+
+

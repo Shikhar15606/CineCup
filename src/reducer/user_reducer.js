@@ -12,7 +12,10 @@ import {
     NOMINATE_MOVIE_SUCCESS,
     NOMINATE_MOVIE_ERROR,
     RESET_SUCCESS,
-    RESET_ERROR
+    RESET_ERROR,
+    REMOVE_NOMINATE_MOVIE_ERROR,
+    REMOVE_NOMINATE_MOVIE_SUCCESS,
+    REMOVE_NOMINATE_MOVIE_REQUEST
 } from '../action/types';
 
 export default function user (state = {}, action){
@@ -54,6 +57,16 @@ export default function user (state = {}, action){
         case NOMINATE_MOVIE_SUCCESS:
             state = {...state,isLoading:false,error:undefined,user:{...state.user,Nominations:[...state.user.Nominations,action.payload]}}
             break;
+        case REMOVE_NOMINATE_MOVIE_REQUEST:
+            state = {...state,isLoading:true,error:undefined}
+            break;
+        case REMOVE_NOMINATE_MOVIE_ERROR:
+            state = {...state,isLoading:false,error:action.payload}
+            break;
+        case REMOVE_NOMINATE_MOVIE_SUCCESS:
+            state = {...state,isLoading:false,error:undefined,user:{...state.user,Nominations:[action.payload]}}
+            break;
+        
         case LOGIN_USER_ERROR:
             state = { ...state,isLoading:false,isLoggedIn:false,user:undefined,error:action.payload}
             break;
