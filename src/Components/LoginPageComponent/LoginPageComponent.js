@@ -14,9 +14,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
 // redux
 import {loginwithfacebook, loginwithgoogle, login} from '../../action/user_actions';
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import ResetPassword from './ResetPassword'
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,10 +52,28 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  
+  const useSnackbarStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+      '& > * + *': {
+        marginTop: theme.spacing(2),
+      },
+    },
+  }));
+  
+
 
 function LoginPageComponent(){
     const classes = useStyles();
+    const Snackbarclasses = useSnackbarStyles();
+    
+    const user = useSelector(state => state.user);
 
+    const [open, setOpen] = React.useState(false);
     const [email,setemail] = useState("");
     const [password,setpassword] = useState("");
     const [emailError,setemailError] = useState("");
@@ -60,6 +81,12 @@ function LoginPageComponent(){
     const [altemail,setaltemail] = useState(false);
     const [altpassword,setaltpassword] = useState(false);
     const [disabledSubmit, setdisabledSubmit] = useState(true);
+
+    useEffect(() => {
+      if(user.error){ 
+          setOpen(true);
+      }
+    },[user.error])
 
     useEffect(() => {
       if (altemail && !(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)))
@@ -96,6 +123,17 @@ function LoginPageComponent(){
       e.preventDefault();
       dispatch(loginwithfacebook());
     }
+
+    const handleClick = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      setOpen(false);
+    };
     
     return (    
     <Grid container component="main" className={classes.root}>
@@ -155,6 +193,16 @@ function LoginPageComponent(){
             >
               Sign In
             </Button>
+            {
+              user.error ?
+              <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error">
+                {`${user.error}`}
+              </Alert>
+              </Snackbar>
+            :
+            <div></div>
+            }
             <Grid container>
               <Grid item xs>
                 <Link href="/resetpassword" variant="body2">

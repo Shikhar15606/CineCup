@@ -16,9 +16,12 @@ import {faFacebookF, faGoogle} from '@fortawesome/free-brands-svg-icons'
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import firebase from 'firebase';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
 // redux
 import {register} from '../../action/user_actions';
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -39,9 +42,25 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(3, 0, 2),
     },
   }));
+
+  const useSnackbarStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+      '& > * + *': {
+        marginTop: theme.spacing(2),
+      },
+    },
+  }));
   
 function SignUpPageComponent(){
     const classes = useStyles();
+
+    const Snackbarclasses = useSnackbarStyles();
+    
+    const user = useSelector(state => state.user);
+
+    const [open, setOpen] = React.useState(false);
+
     const [firstname,setfirstname] = useState("");
     const [lastname,setlastname] = useState("");
     const [email,setemail] = useState("");
@@ -56,6 +75,28 @@ function SignUpPageComponent(){
     const [altemail,setaltemail] = useState(false);
     const [altpassword,setaltpassword] = useState(false);
     const [disabledSubmit, setdisabledSubmit] = useState(true);
+
+    function Alert(props) {
+      return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+    
+    useEffect(() => {
+      if(user.error || user.successmsg){ 
+          setOpen(true);
+      }
+    },[user])
+
+
+    const handleClick = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      setOpen(false);
+    };
 
     useEffect(() => {
       if(altfirstname && firstname.length<3)
@@ -209,6 +250,21 @@ function SignUpPageComponent(){
           >
             Sign Up
           </Button>
+          {
+            user.error ?
+            <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error">
+                {`${user.error}`}
+              </Alert>
+            </Snackbar>
+            : user.successmsg ?
+            <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success">
+                {`${user.successmsg}`}
+              </Alert>
+            </Snackbar>
+            : <div></div>
+          }
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">

@@ -15,3 +15,5 @@ export const REMOVE_NOMINATE_MOVIE_SUCCESS = 'remove_nominate_movie_success';
 export const REMOVE_NOMINATE_MOVIE_ERROR = 'remove_nominate_movie_error';
 export const RESET_SUCCESS = 'reset_success';
 export const RESET_ERROR ='reset_error'
+export const AUTH_USER_SUCCESS='auth_user_success'
+export const AUTH_USER_ERROR = 'auth_user_error';

@@ -16,7 +16,9 @@ import {
     RESET_SUCCESS,
     REMOVE_NOMINATE_MOVIE_ERROR,
     REMOVE_NOMINATE_MOVIE_SUCCESS,
-    REMOVE_NOMINATE_MOVIE_REQUEST
+    REMOVE_NOMINATE_MOVIE_REQUEST,
+    AUTH_USER_SUCCESS,
+    AUTH_USER_ERROR
 } from './types';
 
 //============================================== Register =================================================
@@ -24,84 +26,68 @@ import {
 export const register = (User) => {
     return async (dispatch) => {
         dispatch({
-          type:REGISTER_USER_REQUEST,
-          payload: ""
+          type:REGISTER_USER_REQUEST
         })
+        //
         const db = firebase.firestore();
         firebase.auth()
         .createUserWithEmailAndPassword(User.email, User.password)
-        
           .then(dataBeforeEmail => {
             firebase.auth().onAuthStateChanged(user=> {
-              user.sendEmailVerification();
-            });
-          })
-          .then(dataAfterEmail => {
-            firebase.auth().onAuthStateChanged(function(user) {
-              if (user) {
-                // Sign up successful
-                dispatch({
-                  type: REGISTER_USER_SUCCESS,
-                  payload:
-                    "Your account was successfully created! Now you need to verify your e-mail address, please go check your inbox."
+              user.sendEmailVerification()
+              .then(dataAfterEmail => {
+                firebase.auth().onAuthStateChanged(function(user) {
+                  if (user) {
+                    // Sign up successful
+                    console.log(user);
+                    db.collection("users").doc(User.email).set({
+                      Name: `${User.firstname} ${User.lastname}`,
+                      Email: User.email,
+                      IsAdmin: false,
+                      ProfilePic: "https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png",
+                      Nominations:[]
+                    }).then(()=>{
+                      dispatch({
+                        type: REGISTER_USER_SUCCESS,
+                        payload:
+                          "Your account was successfully created! Now you need to verify your e-mail address, please go check your inbox."
+                      })
+                    }).catch(function(error) {
+                      console.error("Error writing document: ", error);
+                      dispatch({
+                        type:REGISTER_USER_ERROR,
+                        payload: "Some Error Occured Try Again !!"
+                      })
+                    })
+                  } else {
+                    // Signup failed
+                    dispatch({
+                      type: REGISTER_USER_ERROR,
+                      payload:
+                        "Something went wrong, we couldn't create your account. Please try again."
+                    });
+                  }
                 });
-              } else {
-                // Signup failed
+              })
+              // Error in sending mail
+              .catch(error => {
+                console.log(error);
                 dispatch({
-                  type: REGISTER_USER_ERROR,
-                  payload:
-                    "Something went wrong, we couldn't create your account. Please try again."
-                });
-              }
-            });
-          })
-          .then(user => {
-            console.log(user);
-            
-            db.collection("users").doc(User.email).set({
-              Name: `${User.firstname} ${User.lastname}`,
-              Email: User.email,
-              IsAdmin: false,
-              ProfilePic: "https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png",
-              Nominations:[]
-            })
-          .then(function() {
-              console.log("Document successfully written!");
-              firebase.auth().signInWithEmailAndPassword(User.email, User.password)
-              .then((user) => {
-                
-                dispatch({
-                  type:LOGIN_USER_SUCCESS,
-                  payload:{Name:user.Name, Email:user.Email, IsAdmin:user.IsAdmin,ProfilePic:user.ProfilePic,Nominations:user.Nominations}
+                  type:REGISTER_USER_ERROR,
+                  payload: "Sorry We are unable to send Email Verification Link at this moment."
                 })
               })
-              .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                dispatch({
-                  type:LOGIN_USER_ERROR,
-                  payload: "Some Error Occured Try Again !!"
-                })
-              });
-              
+            });
           })
-          .catch(function(error) {
-              console.error("Error writing document: ", error);
+          // User Not Created Means Email Already Registered
+          .catch(error => {
+              console.log(error);
               dispatch({
                 type:REGISTER_USER_ERROR,
-                payload: "Some Error Occured Try Again !!"
+                payload: "This Email is already registered. Kindly Login"
               })
-          });
-        })
-        .catch(error => {
-            console.log(error);
-            dispatch({
-              type:REGISTER_USER_ERROR,
-              payload: "This Email is already registered Kindly Login"
-            })
-        })
-    }
-}
+          })
+}}
 
 // =================================== Simple Login ===========================================
 
@@ -109,24 +95,32 @@ export const login = (User) => {
   return async (dispatch) => {
     dispatch({
       type:LOGIN_USER_REQUEST,
-      payload: ""
     })
+
     firebase.auth().signInWithEmailAndPassword(User.email, User.password)
     .then((user) => {
-      // Signed in 
-      // ...
-      
-      dispatch({
-        type:LOGIN_USER_SUCCESS,
-        payload:{Name:user.Name, Email:user.Email, IsAdmin:user.IsAdmin,ProfilePic:user.ProfilePic,Nominations:user.Nominations}
-      })
+      if(firebase.auth().currentUser.emailVerified)
+      {
+        dispatch({
+          type:LOGIN_USER_SUCCESS,
+          payload:{Name:user.Name, Email:user.Email, IsAdmin:user.IsAdmin,ProfilePic:user.ProfilePic,Nominations:user.Nominations}
+        })
+      }  
+      else{
+        firebase.auth().signOut().then(function() {
+          dispatch({
+            type:LOGIN_USER_ERROR,
+            payload: "Kindly Verify Your Email"
+          })
+        })
+      }    
     })
     .catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
       dispatch({
         type:LOGIN_USER_ERROR,
-        payload: "Some Error Occured Try Again !!"
+        payload: error.message
       })
     });
   }
@@ -138,7 +132,6 @@ export const loginwithgoogle = () => {
     return async (dispatch) => {
         dispatch({
           type:LOGIN_USER_REQUEST,
-          payload: ""
         })
         const db = firebase.firestore();
         var provider = new firebase.auth.GoogleAuthProvider();
@@ -305,21 +298,23 @@ export const auth = () => {
         const db = firebase.firestore();
         var docRef = db.collection("users").doc(user.email);
         docRef.get().then(function(doc) {
-            if (doc.exists) {
+            if (doc.exists && user.emailVerified) {
                 dispatch({
-                  type:LOGIN_USER_SUCCESS,
+                  type:AUTH_USER_SUCCESS,
                   payload:{Name:doc.data().Name,Email:doc.data().Email,IsAdmin:doc.data().IsAdmin,ProfilePic:doc.data().ProfilePic,Nominations:doc.data().Nominations}
                 })
             }
             else {
               dispatch({
-                type:LOGOUT_USER_SUCCESS,
+                type:AUTH_USER_ERROR,
+                payload:"Kindly Verify Your Email"
               })
             }
           })
         } else{
           dispatch({
-            type:LOGOUT_USER_SUCCESS,
+            type:AUTH_USER_ERROR,
+            payload:""
           })
         }
       });
