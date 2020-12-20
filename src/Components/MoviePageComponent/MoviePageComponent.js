@@ -40,7 +40,7 @@ const MoviePageComponent = () => {
         <div>
            <div className="main1">
 	<div className="image">
-		<img src={`https://image.tmdb.org/t/p/w500/${result.backdrop_path}`} />
+		<img src={`https://image.tmdb.org/t/p/original/${result.backdrop_path}`} />
 		<div className="overlay">
 			<h1>{result.title}</h1>
 			<h4>{result.runtime} min | {result.release_date}</h4>

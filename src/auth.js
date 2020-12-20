@@ -12,7 +12,7 @@ export default function Auth (ComposedClass, status) {
             // response is true means user logged in
             // logged in user can not see login and signup page
             if (user.isLoggedIn && status === false) {
-                props.history.push('/dashboard')
+                props.history.push('/')
             }
             // redirect to 
             if (user.isLoggedIn === false && status === true) {
