@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Timeline from '@material-ui/icons/Timeline';
+
 import {Hidden} from '@material-ui/core'
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
@@ -28,6 +30,8 @@ import Slide from '@material-ui/core/Slide';
 import Switch from '@material-ui/core/Switch';
 import { useSelector,useDispatch,useStore } from "react-redux";
 import {logout} from '../../action/user_actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMedal } from '@fortawesome/free-solid-svg-icons';
 
 function HeaderComponent(){
         const user = useSelector(state => state.user);
@@ -122,6 +126,12 @@ function HeaderComponent(){
                       <ListItemText primary="HOME"  />
                       </ListItem>
                       </Link>
+                      <Link to="/leaderboard"> 
+                      <ListItem button key="leaderboard" onClick={toggleDrawer(false)}>
+                      <ListItemIcon  > <Timeline color="primary"/> </ListItemIcon>
+                      <ListItemText primary="Leaderboard"  />
+                      </ListItem>
+                      </Link>
                       
                       <Link to="/Search"> 
                       <ListItem button key="Search" onClick={toggleDrawer(false)}>
@@ -203,6 +213,12 @@ function HeaderComponent(){
                     <IconButton edge="start" className={classes.menuButton}  color="inherit" aria-label="menu">
                       <HomeRoundedIcon fontSize="small"/>
                       <span className={classes.navText}>Home</span>
+                    </IconButton>
+                    </Link>
+                    <Link to="/leaderboard"> 
+                    <IconButton edge="start" className={classes.menuButton}  color="inherit" aria-label="menu">
+                    <Timeline fontSize="small"/>
+                      <span className={classes.navText}>LeaderBoard</span>
                     </IconButton>
                     </Link>
                     <Link to="/search">

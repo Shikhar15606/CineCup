@@ -10,6 +10,7 @@ import LoginPageComponent from './Components/LoginPageComponent/LoginPageCompone
 import SearchPageComponent from './Components/SearchPageComponent/SearchPageComponent';
 import SignUpPageComponent from './Components/SignUpPageComponent/SignUpPageComponent';
 import MoviePageComponent from './Components/MoviePageComponent/MoviePageComponent';
+import LeaderboardPageComponent from './Components/LeaderboardPageComponent/LeaderboardPageComponent';
 import Auth from './auth';
 import ResetPassword from './Components/LoginPageComponent/ResetPassword';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -24,6 +25,7 @@ function App() {
         <HeaderComponent></HeaderComponent>
         <Switch>
           <Route exact path="/" component={Auth(HomePageComponent,null)}></Route>
+          <Route exact path="/leaderboard" component={Auth(LeaderboardPageComponent,null)}></Route>
           <Route exact path="/login" component={Auth(LoginPageComponent,false)}></Route>
           <Route exact path="/resetpassword" component={Auth(ResetPassword,false)}></Route>
           <Route exact path="/signup" component={Auth(SignUpPageComponent,false)}></Route>
