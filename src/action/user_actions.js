@@ -351,7 +351,8 @@ export const nominate = (user) => {
           batch.commit().then(function () {
           dispatch({
             type:NOMINATE_MOVIE_SUCCESS,
-            payload:user.movieId
+            payload:user.movieId,
+            successmsg:"You have successfully nominated the movie."
           })
           });
         }
@@ -446,7 +447,8 @@ export const remove_nominate = (user) => {
           batch.commit().then(function () {
           dispatch({
             type:REMOVE_NOMINATE_MOVIE_SUCCESS,
-            payload:usersRef.Nominations
+            payload:usersRef.Nominations,
+            successmsg:"Movie has been removed from your Nominations"
           })
           });
         }

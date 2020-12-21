@@ -57,7 +57,7 @@ export default function user (state = {}, action){
             state = {...state,isLoading:false,error:action.payload}
             break;
         case NOMINATE_MOVIE_SUCCESS:
-            state = {...state,isLoading:false,error:undefined,user:{...state.user,Nominations:[...state.user.Nominations,action.payload]}}
+            state = {...state,isLoading:false,error:undefined,successmsg:action.successmsg,user:{...state.user,Nominations:[...state.user.Nominations,action.payload]}}
             break;
         case REMOVE_NOMINATE_MOVIE_REQUEST:
             state = {...state,isLoading:true,error:undefined}
@@ -66,7 +66,7 @@ export default function user (state = {}, action){
             state = {...state,isLoading:false,error:action.payload}
             break;
         case REMOVE_NOMINATE_MOVIE_SUCCESS:
-            state = {...state,isLoading:false,error:undefined,user:{...state.user,Nominations:[action.payload]}}
+            state = {...state,isLoading:false,error:undefined,successmsg:action.successmsg,user:{...state.user,Nominations:[action.payload]}}
             break;
         
         case LOGIN_USER_ERROR:
