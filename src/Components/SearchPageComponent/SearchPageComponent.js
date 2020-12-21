@@ -1,19 +1,50 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect} from 'react'
 import axios from 'axios'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {TMDB_API_KEY} from '../../key/key';
-
+import { makeStyles } from '@material-ui/core/styles';
 import Search from './Search'
 import Results from './Results'
 import Popup from './Popup'
-
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import {useSelector} from 'react-redux';
 function SearchPageComponent(){
+  const user = useSelector(state => state.user);
   const [queryString, setqueryString] = useState("");
   const [results,setresults] = useState([]);
   const [selected,setselected] = useState({});
   const [isLoading,setisLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   var apiurl = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${queryString}`;  
   
+let nominations;
+if(user.isLoggedIn)
+{
+  nominations=user.user.Nominations.length
+}
+else{
+  nominations=10
+}
+
+  useEffect(() => {
+    if(user.error || nominations === 5 || user.successmsg){ 
+        setOpen(true);
+    }
+  },[user,nominations])
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  
+  const useSnackbarStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+      '& > * + *': {
+        marginTop: theme.spacing(2),
+      },
+    },
+  }));
   const search = () => {
       console.log(queryString);
       if(queryString)
@@ -57,7 +88,12 @@ function SearchPageComponent(){
   const closePopup = () => {
     setselected({});
   }
-    
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
     return (
       <div>
         <header>
@@ -74,7 +110,36 @@ function SearchPageComponent(){
             :
             <CircularProgress style={{marginTop:"20vw"}} />
           }
+          {
+              (user.error ) ?
+              <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error">
+                {`${user.error}`}
+                
+              </Alert>
+              </Snackbar>
+              : user.successmsg ?
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success">
+                {`${user.successmsg}`}
+              </Alert>
+            </Snackbar>
+            :
+            <div></div>
+            }
+             {
+              (nominations === 5) ?
+              <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error">
+               
+                You have already nominated 5 movies to add another remove one first
+              </Alert>
+              </Snackbar>
+            :
+            <div></div>
+            }
         </main>
+        
       </div>
     );
      

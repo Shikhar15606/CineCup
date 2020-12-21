@@ -7,12 +7,47 @@ import axios from  'axios';
 import {Button} from '@material-ui/core'
 import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
 import { Link } from 'react-router-dom';
-
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
 function DashboardPageComponent(){
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [result,setresult] = useState([]);  
+  const [open, setOpen] = useState(false);
+  let nominations;
+if(user.isLoggedIn)
+{
+  nominations=user.user.Nominations.length
+}
+else{
+  nominations=10
+}
 
+  useEffect(() => {
+    if(user.error || nominations === 5 || user.successmsg){ 
+        setOpen(true);
+    }
+  },[user,nominations])
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  
+  const useSnackbarStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+      '& > * + *': {
+        marginTop: theme.spacing(2),
+      },
+    },
+  }));
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
   //======================================Fetching data from internet ===========================
   const getMovieNominations = () => {
     let arr = [];
@@ -86,6 +121,23 @@ function DashboardPageComponent(){
                  </p>)
               }
             </section>
+            {
+              (user.error ) ?
+              <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error">
+                {`${user.error}`}
+                
+              </Alert>
+              </Snackbar>
+              : user.successmsg ?
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success">
+                {`${user.successmsg}`}
+              </Alert>
+            </Snackbar>
+            :
+            <div></div>
+            }
           </main>
         </React.Fragment>
         );

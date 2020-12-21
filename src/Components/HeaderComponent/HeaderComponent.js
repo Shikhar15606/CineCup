@@ -43,9 +43,7 @@ function HeaderComponent(){
             alignItems:'center',
             
           },
-          fullList: {
-            width: 'auto',
-          },
+      
             root: {
               flexGrow: 1,
               display:'flex'
@@ -73,7 +71,7 @@ function HeaderComponent(){
             false
           );
         
-          const toggleDrawer = ( open) => (event) => {
+          const toggleDrawer = (open) => (event) => {
             if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
               return;
             }
