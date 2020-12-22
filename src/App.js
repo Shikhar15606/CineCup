@@ -14,9 +14,14 @@ import LeaderboardPageComponent from './Components/LeaderboardPageComponent/Lead
 import Auth from './auth';
 import ResetPassword from './Components/LoginPageComponent/ResetPassword';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux';
+import {fetchMoviesData} from './action/movie_actions';
+import React,{useEffect,useState} from 'react';
 function App() {
- 
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(fetchMoviesData());
+},[])
   return (
     <>
     

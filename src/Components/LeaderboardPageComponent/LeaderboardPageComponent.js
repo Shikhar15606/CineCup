@@ -5,47 +5,51 @@ import axios from 'axios';
 import {TMDB_API_KEY} from '../../key/key';
 import { Link } from 'react-router-dom';
 import Badge from '@material-ui/core/Badge';
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
+import {fetchMoviesData} from '../../action/movie_actions';
 
 const LeaderboardPageComponent = () => {
     const user = useSelector(state => state.user);
-    const db = firebase.firestore();
-    const [list,setlist] = useState([]); 
-    const [result,setresult] = useState([]); 
-    const [isloading,setisloading] = useState(false);
-    const fetchData = () => {
-        setisloading(true);
-        db.collection('movies').orderBy("Votes", "desc").get()
-        .then(function(querySnapshot) {
-            let arr = []
-            let i = 1;
-            querySnapshot.forEach(function(doc) {
-                arr.push({id:doc.data().MovieId, votes:doc.data().Votes, rank:i})
-                i++;
-            });
-            setlist(arr);
-            console.log(list);
-        })
-        .catch(function(error) {
-            console.log("Error getting documents: ", error);
-        });
-    }
-    useEffect(() => {
-        fetchData();
-    },[])
+    const dispatch = useDispatch();
+    let result = user.movies ? user.movies : [] ;
+    console.log("😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊");
+    // const db = firebase.firestore();
+    // const [list,setlist] = useState([]); 
+    // const [result,setresult] = useState([]); 
+    // const [isloading,setisloading] = useState(false);
+    // const fetchData = () => {
+    //     setisloading(true);
+    //     db.collection('movies').orderBy("Votes", "desc").get()
+    //     .then(function(querySnapshot) {
+    //         let arr = []
+    //         let i = 1;
+    //         querySnapshot.forEach(function(doc) {
+    //             arr.push({id:doc.data().MovieId, votes:doc.data().Votes, rank:i})
+    //             i++;
+    //         });
+    //         setlist(arr);
+    //         console.log(list);
+    //     })
+    //     .catch(function(error) {
+    //         console.log("Error getting documents: ", error);
+    //     });
+    // }
+    // useEffect(() => {
+    //     fetchData();
+    // },[])
 
-    useEffect(() => {
-        let arr = [];
-        list.forEach(element => {
-            console.log(element)
-        axios(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${TMDB_API_KEY}`)
-        .then((res) => {
-            arr.push({...res.data, rank:element.rank, votes:element.votes});  
-        })
-        });
-        setresult(arr);
-        setisloading(false);
-    },[list])
+    // useEffect(() => {
+    //     let arr = [];
+    //     list.forEach(element => {
+    //         console.log(element)
+    //     axios(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${TMDB_API_KEY}`)
+    //     .then((res) => {
+    //         arr.push({...res.data, rank:element.rank, votes:element.votes});  
+    //     })
+    //     });
+    //     setresult(arr);
+    //     setisloading(false);
+    // },[list])
 
 
 

@@ -18,10 +18,11 @@ import {
     REMOVE_NOMINATE_MOVIE_REQUEST,
     AUTH_USER_SUCCESS,
     AUTH_USER_ERROR,
+    FETCH_MOVIES_DATA_REQUEST,
+    FETCH_MOVIES_DATA_SUCCESS
 } from '../action/types';
 
 export default function user (state = {}, action){
-    console.log("Chala To");
     switch(action.type){
         case REGISTER_USER_REQUEST:
             state = {...state,isLoading:true,isLoggedIn:false,user:undefined,error:undefined,successmsg:undefined}
@@ -68,9 +69,6 @@ export default function user (state = {}, action){
         case REMOVE_NOMINATE_MOVIE_SUCCESS:
             state = {...state,isLoading:false,error:undefined,successmsg:action.successmsg,user:{...state.user,Nominations:[action.payload]}}
             break;
-        
-        case LOGIN_USER_ERROR:
-            state = { ...state,isLoading:false,isLoggedIn:false,user:undefined,error:action.payload}
         case AUTH_USER_SUCCESS:
             state = { ...state,isLoading:false,isLoggedIn:true,user:action.payload,error:undefined,successmsg:undefined}
             break;
@@ -83,7 +81,12 @@ export default function user (state = {}, action){
         case RESET_ERROR:
             state = {...state,error:"Some Error Occured Try Again !!"}
              break;
-        
+        case FETCH_MOVIES_DATA_REQUEST:
+            state = {...state,isLoading:true}
+            break;
+        case FETCH_MOVIES_DATA_SUCCESS:
+            state = {...state,isLoading:false,movies:action.payload}
+            break;
         default :
             return { ...state}
             break;

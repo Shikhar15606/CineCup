@@ -17,3 +17,5 @@ export const RESET_SUCCESS = 'reset_success';
 export const RESET_ERROR ='reset_error'
 export const AUTH_USER_SUCCESS='auth_user_success'
 export const AUTH_USER_ERROR = 'auth_user_error';
+export const FETCH_MOVIES_DATA_REQUEST = 'fetch_movies_data_request';
+export const FETCH_MOVIES_DATA_SUCCESS = 'fetch_movies_data_success';
