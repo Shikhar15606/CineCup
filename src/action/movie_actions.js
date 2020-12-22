@@ -12,8 +12,12 @@ export const fetchMoviesData = () => {
             type: FETCH_MOVIES_DATA_REQUEST
         })
         const db = firebase.firestore();
-        db.collection('movies').orderBy("Votes", "desc").get()
-        .then(function(querySnapshot) {
+        let unsubscribe = db.collection('movies')
+        .orderBy("Votes", "desc")
+        .onSnapshot(function(querySnapshot) {
+            dispatch({
+                type: FETCH_MOVIES_DATA_REQUEST
+            })
             let arr = []
             let i = 1;
             querySnapshot.forEach(function(doc) {
@@ -32,8 +36,5 @@ export const fetchMoviesData = () => {
                 payload:result
             })
         })
-        .catch(function(error) {
-            console.log("Error getting documents: ", error);
-        });
     }
 }

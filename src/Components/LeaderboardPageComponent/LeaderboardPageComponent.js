@@ -12,7 +12,7 @@ const LeaderboardPageComponent = () => {
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
     let result = user.movies ? user.movies : [] ;
-    console.log("😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊");
+    console.log("😊😊😊😊",result,"😊😊😊😊");
     // const db = firebase.firestore();
     // const [list,setlist] = useState([]); 
     // const [result,setresult] = useState([]); 
