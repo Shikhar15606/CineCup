@@ -1,5 +1,5 @@
 @import 'https://fonts.googleapis.com/css?family=Do+Hyeon';
- *, *:before, *:after {
+ .wrapper2, .wrapper2:before, .wrapper2:after {
 	 margin: 0;
 	 padding: 0;
 	 box-sizing: border-box;

@@ -23,7 +23,11 @@ import {useDispatch,useSelector} from 'react-redux';
 import ResetPassword from './ResetPassword'
 const useStyles = makeStyles((theme) => ({
     root: {
-      height: '100vh',
+      marginTop:'80px',
+      height: '80vh',
+      backgroundColor: "rgb(0, 18, 34)",
+      
+      
     },
     image: {
       backgroundImage: 'url(https://source.unsplash.com/random)',
@@ -137,7 +141,7 @@ function LoginPageComponent(){
     
     return (    
     <Grid container component="main" className={classes.root}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>

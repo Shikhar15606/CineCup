@@ -96,7 +96,7 @@ function HeaderComponent(){
                   <React.Fragment >
                     
                     <SwipeableDrawer anchor="left" open={state} onClose={toggleDrawer(false)}  onOpen={toggleDrawer(true)} >
-                    
+                    <div className="drawe">
                       <div style={{width:"100%",display:'flex'}}>
                       <IconButton style={{position:'absolute',right:0}} onClick={toggleDrawer(false)}>
                       <CancelRoundedIcon color="secondary" />
@@ -179,6 +179,7 @@ function HeaderComponent(){
                       
                     
                       </List>
+                      </div>
                     </SwipeableDrawer>
                   </React.Fragment>
                 
@@ -195,7 +196,7 @@ function HeaderComponent(){
           
             return (
               <div className={classes.root}>
-                <AppBar position="fixed" >
+                <AppBar position="fixed" style={{backgroundColor: "rgb(0, 18, 34)"}}>
                   <Toolbar>
                     
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>

@@ -103,7 +103,7 @@ else{
         return (
         <React.Fragment>
           <div style={{marginTop:100}}>
-            <h1>Your Nominations</h1>
+            <h1 style={{color:"white"}}>Your Nominations</h1>
           </div>
           <main>
           <section className="wrapper1">

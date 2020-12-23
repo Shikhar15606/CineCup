@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './HomePageStyle.css'
-import CustomizedTables from "./LeaderboardComponent"
+
 function HomePageComponent (){
     
         return (

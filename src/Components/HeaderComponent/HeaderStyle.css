@@ -12,10 +12,10 @@
     text-align: center;
     align-items: center;
     /* margin-top: 50px; */
-    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBMl_buRCpEkprejh7DnSNSzVxKTTM4NFj5Q&usqp=CAU");
+    background-image: url("https://static.vecteezy.com/system/resources/previews/000/582/542/non_2x/vector-abstract-template-black-frame-layout-metallic-red-light-on-dark-background-modern-luxury-futuristic-technology-concept.jpg");
     
-    
-    
+    min-height: 40vh;
+    margin-bottom: 5vh;
   }
  .navbrand img.rounded {
     display: block;
@@ -38,4 +38,10 @@
     font-size: 1.45rem;
     font-weight: 600;
     color: white;
+  }
+
+  .drawe{
+    height:100vh;
+    background-color: black;
+    color:white;
   }

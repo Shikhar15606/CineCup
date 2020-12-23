@@ -73,7 +73,7 @@ const LeaderboardPageComponent = () => {
         }
     
     return (
-        <div>
+        <div className="wrapper2">
             <header>
                 <h1>LeaderBoard</h1>
             </header>

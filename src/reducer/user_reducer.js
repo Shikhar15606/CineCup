@@ -22,6 +22,10 @@ import {
     FETCH_MOVIES_DATA_SUCCESS
 } from '../action/types';
 
+
+
+
+
 export default function user (state = {}, action){
     switch(action.type){
         case REGISTER_USER_REQUEST:
