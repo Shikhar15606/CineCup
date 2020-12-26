@@ -11,6 +11,7 @@ import SearchPageComponent from './Components/SearchPageComponent/SearchPageComp
 import SignUpPageComponent from './Components/SignUpPageComponent/SignUpPageComponent';
 import MoviePageComponent from './Components/MoviePageComponent/MoviePageComponent';
 import LeaderboardPageComponent from './Components/LeaderboardPageComponent/LeaderboardPageComponent';
+import AdminDashboardComponent from './Components/AdminDashboardComponent/AdminDashboardComponent';
 import Auth from './auth';
 import ResetPassword from './Components/LoginPageComponent/ResetPassword';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -35,6 +36,7 @@ function App() {
           <Route exact path="/resetpassword" component={Auth(ResetPassword,false)}></Route>
           <Route exact path="/signup" component={Auth(SignUpPageComponent,false)}></Route>
           <Route exact path="/dashboard" component={Auth(DashBoardPageComponent,true)}></Route>
+          <Route exact path="/admin" component={Auth(AdminDashboardComponent,true,true)}></Route>
           <Route exact path="/search" component={Auth(SearchPageComponent,null)}></Route>
           <Route exact path="/movie/:movie_id" component={Auth(MoviePageComponent,null)}></Route>
           <Route path="*" component={Auth(ErrorPageComponent,null)}></Route>

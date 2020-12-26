@@ -25,6 +25,7 @@ import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import clsx from 'clsx';
 import LockOpenRoundedIcon from '@material-ui/icons/LockOpenRounded';
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
 import Switch from '@material-ui/core/Switch';
@@ -153,7 +154,18 @@ function HeaderComponent(){
                           <ListItemText primary="DASHBOARD" />
                           </ListItem>
                           </Link>
-                          
+                          {
+                            user.user.IsAdmin ?
+                            <Link to="/admin"> 
+                            <ListItem button key="Admin Dashboard" onClick={toggleDrawer(false)}>
+                            <ListItemIcon> <SupervisorAccountIcon color="primary" /> </ListItemIcon>
+                            <ListItemText primary="ADMIN DASHBOARD" />
+                            </ListItem>
+                            </Link>
+                            :
+                            <Link>
+                            </Link>
+                          }
                           <ListItem button key="Logout" onClick={ () => {toggleDrawer(false);Logout()}}>
                           <ListItemIcon> <LockOpenRoundedIcon color="primary" /> </ListItemIcon>
                           <ListItemText primary="LOGOUT" />
@@ -229,12 +241,25 @@ function HeaderComponent(){
                     {
                       (user.isLoggedIn) ?
                       <React.Fragment>
-                        <Link to="/dashboard">
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                      <DashboardRoundedIcon fontSize="small"/>
-                      <span className={classes.navText}>Dashboard</span>
-                    </IconButton>
-                    </Link>
+                      <Link to="/dashboard">
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                          <DashboardRoundedIcon fontSize="small"/>
+                          <span className={classes.navText}>Dashboard</span>
+                        </IconButton>
+                      </Link>
+                      {
+                        (user.user.IsAdmin) ?
+                        <Link to="/admin">
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                          <SupervisorAccountIcon fontSize="small"/>
+                          <span className={classes.navText}>Admin Dashboard</span>
+                        </IconButton>
+                        </Link>
+                        :
+                        <Link></Link>
+                      }
+                      
+
                       <Button variant="contained" color="secondary" onClick={Logout} className={classes.Button1}> Logout</Button>
                       </React.Fragment>
                       :
