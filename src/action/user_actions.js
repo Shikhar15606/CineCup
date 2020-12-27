@@ -30,6 +30,7 @@ export const register = (User) => {
         })
         //
         const db = firebase.firestore();
+        
         firebase.auth()
         .createUserWithEmailAndPassword(User.email, User.password)
           .then(dataBeforeEmail => {
@@ -39,12 +40,16 @@ export const register = (User) => {
                 firebase.auth().onAuthStateChanged(function(user) {
                   if (user) {
                     // Sign up successful
+                    let image = uploadImage(User);
+                    console.log(User.profilepic)
+                    
+                    
                     console.log(user);
                     db.collection("users").doc(User.email).set({
                       Name: `${User.firstname} ${User.lastname}`,
                       Email: User.email,
                       IsAdmin: false,
-                      ProfilePic: "https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png",
+                      ProfilePic: image,
                       Nominations:[]
                     }).then(()=>{
                       dispatch({
@@ -88,6 +93,42 @@ export const register = (User) => {
               })
           })
 }}
+
+
+              async function uploadImage(User){
+                  let image;
+                   if(User.profilepic !== null )
+                    {
+                      const storage=firebase.storage();
+                      storage.ref(`images/${User.profilepic.name}`).put(User.profilepic).then(function(snapshot) {
+                        console.log('Uploaded', snapshot.totalBytes, 'bytes.');
+                       
+                        // Let's get a download URL for the file.
+                        snapshot.ref.getDownloadURL().then(function(url) {
+                          console.log('File available at', url);
+                          // [START_EXCLUDE]
+                          image=url
+                          // [END_EXCLUDE]
+                        });
+                      }).catch(function(error) {
+                        // [START onfailure]
+                        console.error('Upload failed:', error);
+                        image="https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png"
+                        // [END onfailure]
+                      });
+                      // [END oncomplete]
+                    
+                     console.log("image upload successful")
+                      
+                 }
+                 else{
+                   image="https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png"
+                 }
+           return image
+}
+
+
+
 
 // =================================== Simple Login ===========================================
 
@@ -479,3 +520,4 @@ export const remove_nominate = (user) => {
     });
   }
 }
+
