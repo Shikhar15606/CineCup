@@ -26,8 +26,18 @@ export const fetchMoviesData = () => {
             })
             let arr = []
             let i = 1;
+            let j = 1;
+            let prevVotes,currVotes;
             querySnapshot.forEach(function(doc) {
-                arr.push({id:doc.data().MovieId, votes:doc.data().Votes, rank:i})
+                currVotes = doc.data().Votes;
+                if(i===1)
+                    prevVotes = doc.data().Votes;
+                if(prevVotes!==currVotes)
+                {
+                    j = i;
+                    prevVotes = currVotes;
+                }
+                arr.push({id:doc.data().MovieId, votes:doc.data().Votes, rank:j})
                 i++;
             });
             console.log(arr.length)
