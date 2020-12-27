@@ -19,3 +19,6 @@ export const AUTH_USER_SUCCESS='auth_user_success'
 export const AUTH_USER_ERROR = 'auth_user_error';
 export const FETCH_MOVIES_DATA_REQUEST = 'fetch_movies_data_request';
 export const FETCH_MOVIES_DATA_SUCCESS = 'fetch_movies_data_success';
+export const BLACKLIST_MOVIE_SUCCESS = 'blacklist_movie_success';
+export const BLACKLIST_MOVIE_FAILURE = 'blacklist_movie_failure';
+export const BLACKLIST_MOVIE_FETCH = 'blacklist_movie_fetch';

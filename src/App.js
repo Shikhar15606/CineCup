@@ -16,13 +16,14 @@ import Auth from './auth';
 import ResetPassword from './Components/LoginPageComponent/ResetPassword';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {useDispatch} from 'react-redux';
-import {fetchMoviesData} from './action/movie_actions';
+import {fetchBlackListedMovies, fetchMoviesData} from './action/movie_actions';
 import React,{useEffect,useState} from 'react';
 
 function App() {
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(fetchMoviesData());
+    dispatch(fetchBlackListedMovies());
 },[])
   return (
     <>    

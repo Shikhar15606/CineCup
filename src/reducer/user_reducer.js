@@ -19,7 +19,9 @@ import {
     AUTH_USER_SUCCESS,
     AUTH_USER_ERROR,
     FETCH_MOVIES_DATA_REQUEST,
-    FETCH_MOVIES_DATA_SUCCESS
+    FETCH_MOVIES_DATA_SUCCESS,
+    BLACKLIST_MOVIE_SUCCESS,
+    BLACKLIST_MOVIE_FETCH
 } from '../action/types';
 
 
@@ -90,7 +92,13 @@ export default function user (state = {}, action){
             break;
         case FETCH_MOVIES_DATA_SUCCESS:
             state = {...state,isLoading:false,movies:action.payload}
-            break;
+            break;       
+        case BLACKLIST_MOVIE_SUCCESS:
+            state = {...state,isLoading:false,blacklist:[...state.blacklist, action.payload]}
+            break;       
+        case BLACKLIST_MOVIE_FETCH:
+            state = {...state,isLoading:false,blacklist:action.payload}
+            break;       
         default :
             return { ...state}
             break;
