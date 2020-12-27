@@ -64,7 +64,7 @@ function SignUpPageComponent(){
     const [firstname,setfirstname] = useState("");
     const [lastname,setlastname] = useState("");
     const [email,setemail] = useState("");
-    const [profilepic,setprofilepic]=useState("");
+    const [profilepic,setprofilepic]=useState(null);
     const [password,setpassword] = useState("");
     const [firstnameError,setfirstnameError] = useState("");
     const [lastnameError,setlastnameError] = useState("");
@@ -75,7 +75,8 @@ function SignUpPageComponent(){
     const [altemail,setaltemail] = useState(false);
     const [altpassword,setaltpassword] = useState(false);
     const [disabledSubmit, setdisabledSubmit] = useState(true);
-
+    const [imageAsFile, setImageAsFile] = useState('')
+    
     function Alert(props) {
       return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
@@ -133,6 +134,14 @@ function SignUpPageComponent(){
         setdisabledSubmit(true);
     },[firstnameError, lastnameError, passwordError, emailError, firstname, lastname, email, password])
     
+    const handleChange = (e) => {
+      
+      if (e.target.files[0]) {
+        
+        setprofilepic(e.target.files[0]);
+        
+      }
+    }
     
     // redux
     const dispatch = useDispatch();
@@ -141,17 +150,10 @@ function SignUpPageComponent(){
       const dataToSubmit = {
         firstname,lastname,email,password,profilepic
       }
+      console.log(dataToSubmit)
       dispatch(register(dataToSubmit));
     }
-    function uploadImage(e) {
-      const file = e.target.files[0]
-      console.log(file);
-      setprofilepic(file);
-      firebase
-      .storage()
-      .ref('Images/' + file.name)
-      .put(file);
-    }
+    
 
     
 
@@ -230,7 +232,11 @@ function SignUpPageComponent(){
               />
             </Grid>
             <Grid item xs={12}>
-              <input name="profilepic" id="profilepic" type="file" onchange={e=>uploadImage(e)}/>
+            <input
+          type="file"
+          
+          onChange={(e)=>{handleChange(e)}}
+        />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
