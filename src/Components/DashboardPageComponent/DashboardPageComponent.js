@@ -16,13 +16,13 @@ function DashboardPageComponent(){
   const [result,setresult] = useState([]);  
   const [open, setOpen] = useState(false);
   let nominations;
-if(user.isLoggedIn)
-{
-  nominations=user.user.Nominations.length
-}
-else{
-  nominations=10
-}
+  if(user.isLoggedIn)
+  {
+    nominations=user.user.Nominations.length
+  }
+  else{
+    nominations=10
+  }
 
   useEffect(() => {
     if(user.error || nominations === 5 || user.successmsg){ 

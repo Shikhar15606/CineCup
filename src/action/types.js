@@ -22,3 +22,5 @@ export const FETCH_MOVIES_DATA_SUCCESS = 'fetch_movies_data_success';
 export const BLACKLIST_MOVIE_SUCCESS = 'blacklist_movie_success';
 export const BLACKLIST_MOVIE_FAILURE = 'blacklist_movie_failure';
 export const BLACKLIST_MOVIE_FETCH = 'blacklist_movie_fetch';
+export const REMOVE_BLACKLISTED_MOVIE_SUCCESS = 'remove_blacklisted_movie_success';
+export const REMOVE_BLACKLISTED_MOVIE_FAILURE = 'remove_blacklisted_movie_failure';

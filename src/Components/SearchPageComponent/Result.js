@@ -34,9 +34,11 @@ function Result({ result, openPopup }) {
 	const isdisabled = (id) => {
 		if(user.isLoggedIn)
 		{
-			if(user && user.user && user.user.Nominations.length)
+			if (user.blacklist && user.blacklist.includes(id.toString()))
+				return true;			
+			else if(user && user.user && user.user.Nominations.length)
 			{
-				if(user.user.Nominations.length === 5 || user.user.Nominations.includes(id) || user.blacklist.includes(id.toString()))
+				if(user.user.Nominations.length === 5 || user.user.Nominations.includes(id))
 					return true;
 			}
 			return false;

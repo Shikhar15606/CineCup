@@ -7,6 +7,8 @@ import {
     BLACKLIST_MOVIE_SUCCESS,
     BLACKLIST_MOVIE_FAILURE,
     BLACKLIST_MOVIE_FETCH,
+    REMOVE_BLACKLISTED_MOVIE_SUCCESS,
+    REMOVE_BLACKLISTED_MOVIE_FAILURE,
 } from './types';
 
 // ==================================== Fetching Movies Data =======================================
@@ -111,12 +113,29 @@ export const blackListMovie = ({movieId}) => {
             .then(function () {
                 dispatch({
                     type:BLACKLIST_MOVIE_SUCCESS,
-                    payload:movieId,
-                    successmsg:"Movie BlackListed SuccessFully"
                 })
             });             
         });
     }
 }
 
+// ======================================= Removing Blacklisted Movie ===============================
+export const removeBlacklistedMovie = ({movieId}) => {
+    return async (dispatch) => {
+        const db = firebase.firestore();
+        db.collection("blacklist").doc(movieId.toString()).delete()
+        .then(function() {
+            console.log("Document successfully deleted!");
+            dispatch({
+                type:REMOVE_BLACKLISTED_MOVIE_SUCCESS
+            })
+        }).catch(function(error) {
+            console.error("Error removing document: ", error);
+            dispatch({
+                type:REMOVE_BLACKLISTED_MOVIE_FAILURE,
+                payload:error
+            })
+        });
+    }
+}
 

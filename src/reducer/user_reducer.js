@@ -21,7 +21,9 @@ import {
     FETCH_MOVIES_DATA_REQUEST,
     FETCH_MOVIES_DATA_SUCCESS,
     BLACKLIST_MOVIE_SUCCESS,
-    BLACKLIST_MOVIE_FETCH
+    BLACKLIST_MOVIE_FETCH,
+    REMOVE_BLACKLISTED_MOVIE_SUCCESS,
+    REMOVE_BLACKLISTED_MOVIE_FAILURE
 } from '../action/types';
 
 
@@ -94,11 +96,17 @@ export default function user (state = {}, action){
             state = {...state,isLoading:false,movies:action.payload}
             break;       
         case BLACKLIST_MOVIE_SUCCESS:
-            state = {...state,isLoading:false,blacklist:[...state.blacklist, action.payload]}
+            state = {...state,isLoading:false,successmsg:"Movie Blacklisted Successfully"}
             break;       
         case BLACKLIST_MOVIE_FETCH:
             state = {...state,isLoading:false,blacklist:action.payload}
-            break;       
+            break;  
+        case REMOVE_BLACKLISTED_MOVIE_SUCCESS:
+            state = {...state,isLoading:false,successmsg:"Movie Removed from Blacklist"}
+            break;
+        case REMOVE_BLACKLISTED_MOVIE_FAILURE:
+            state = {...state,isLoading:false,successmsg:undefined,error:action.payload}
+            break;
         default :
             return { ...state}
             break;
