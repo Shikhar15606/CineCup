@@ -3,7 +3,7 @@ import './SearchPageStyle.css'
 import Result from './Result'
 
 function Results ({ results, openPopup,}) {
-	if(results){
+	if(results.length){
 		return (
 			<section className="wrapper">
 				{
@@ -17,7 +17,7 @@ function Results ({ results, openPopup,}) {
 	else{
 		return(
 			<section className="results">
-				<div style={{textAlign:"center",width:"100%",fontSize:"24px"}}>
+				<div style={{textAlign:"center",width:"100%",fontSize:"24px",color:"white"}}>
 				Nothing Found
 				</div>
 			</section>

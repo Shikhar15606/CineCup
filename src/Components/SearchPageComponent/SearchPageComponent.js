@@ -9,6 +9,7 @@ import Popup from './Popup'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {useSelector} from 'react-redux';
+
 function SearchPageComponent(){
   const user = useSelector(state => state.user);
   const [queryString, setqueryString] = useState("");
@@ -94,6 +95,10 @@ else{
     }
     setOpen(false);
   };
+  if(user.isLoading)
+    return(
+      <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
+    )
     return (
       <div>
         <header>
@@ -108,7 +113,7 @@ else{
               {(typeof selected.Title != "undefined") ? <Popup selected={selected} closePopup={closePopup} /> : false}
             </React.Fragment>
             :
-            <CircularProgress style={{marginTop:"20vw"}} />
+            <CircularProgress style={{marginTop:"15vw"}} color="secondary" />
           }
           {
               (user.error ) ?

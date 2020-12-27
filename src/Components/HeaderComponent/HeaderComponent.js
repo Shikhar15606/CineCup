@@ -93,7 +93,6 @@ function HeaderComponent(){
           
             return (
               <div>
-                
                   <React.Fragment >
                     
                     <SwipeableDrawer anchor="left" open={state} onClose={toggleDrawer(false)}  onOpen={toggleDrawer(true)} >
@@ -279,6 +278,10 @@ function HeaderComponent(){
             );
           }
        
+        if(user.isLoading)
+        return(
+          <></>
+        )
         return (
           <>
           <TemporaryDrawer />
