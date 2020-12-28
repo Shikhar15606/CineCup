@@ -3,10 +3,29 @@ import {useSelector,useDispatch} from 'react-redux'
 import { Link } from 'react-router-dom';
 import {nominate} from '../../action/user_actions';
 import {blackListMovie} from '../../action/movie_actions';
-import {Button} from '@material-ui/core'
+import {Button, Hidden} from '@material-ui/core'
 import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
 function Result({ result, openPopup }) {
-
+	const useStyles = makeStyles({
+		
+		but:{
+			display:"flex",
+			flexDirection:"row",
+			alignItems:"center",
+			justifyItems:"center"
+		},
+		button1:{
+			position:'relative'
+		}
+	  });
 	const user = useSelector(state => state.user);
 	const dispatch = useDispatch();
 	const [btn,setbtn] = useState(false);
@@ -21,7 +40,7 @@ function Result({ result, openPopup }) {
 		console.log(dataToSubmit);
 		dispatch(nominate(dataToSubmit));
 	}
-
+	const classes = useStyles();
 	const BlacklistMovie = (e) => {
 		e.preventDefault();
 		const dataToSubmit = {
@@ -56,23 +75,43 @@ function Result({ result, openPopup }) {
 	}
 
 	return (
-		
-		<Link to={`/movie/${result.id}`} className="card"  >
-			<img src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`} />
-			<div className="info">
-				<h1>{result.title}</h1>
-				<Button variant="contained" color="secondary" disabled={btn || isdisabled(result.id)} onClick={(e) => {setbtn(true); Nominate(e)}} endIcon={<LocalMoviesIcon />} className="but1">
-                 Nominate</Button>
-				{
+		<div className="card_s">
+       <div className="front_s" style={{backgroundImage: "url("+(`https://image.tmdb.org/t/p/w500/${result.poster_path}`)+")"}}>
+       
+    </div>
+    <div className="back_s">
+      <div style={{display:"flex",flexDirection:"column "}}>
+		  <div>
+		  <h2>{result.title}</h2>
+		  <h3>{result.release_date}</h3>
+		  <Rating name="read-only" value={(result.vote_average)/2} readOnly />
+
+		  </div>
+        
+		<div style={{display:"flex",flexDirection:"column",textAlign: "center",
+	justifyContent: "center",
+	alignItems: "center"
+	}}>
+		<Link to={`/movie/${result.id}`}   >
+		<Button className="button_s" variant="outlined" color="secondary" style={{marginBottom:10}}>Explore</Button>
+		</Link>
+		<Button className="button_s" disabled={btn || isdisabled(result.id)} style={{marginBottom:10}}
+		variant="outlined" color="primary" onClick={(e) => {setbtn(true); Nominate(e)}}>Nominate</Button>
+		{
 					user.user && user.user.IsAdmin ?
-					<Button variant="contained" color="primary" disabled={blackbtn || isblackdisabled(result.id)} onClick={(e) => {setblackbtn(true); setbtn(true); BlacklistMovie(e)}} endIcon={<LocalMoviesIcon />} className="but1">
-                 	BlackList</Button>
+					<Button className="button_s"
+					variant="outlined"
+					color="secondary"
+					disabled={blackbtn || isblackdisabled(result.id)}
+					 onClick={(e) => {setblackbtn(true); setbtn(true); BlacklistMovie(e)}}>Blacklist</Button>
 					:
 					<span>
 					</span>
-				}
-			</div>
-		</Link>
+		}
+		</div>
+		
+      </div>
+    </div></div>
 	)
 }
 
@@ -94,3 +133,21 @@ export default Result;
 
 
 */
+
+
+{/* <Link to={`/movie/${result.id}`} classNameName="card"  >
+			<img src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`} />
+			<div classNameName="info">
+				<h1>{result.title}</h1>
+				<Button variant="contained" color="secondary" disabled={btn || isdisabled(result.id)} onClick={(e) => {setbtn(true); Nominate(e)}} endIcon={<LocalMoviesIcon />} classNameName="but1">
+                 Nominate</Button>
+				{
+					user.user && user.user.IsAdmin ?
+					<Button variant="contained" color="primary" disabled={blackbtn || isblackdisabled(result.id)} onClick={(e) => {setblackbtn(true); setbtn(true); BlacklistMovie(e)}} endIcon={<LocalMoviesIcon />} classNameName="but1">
+                 	BlackList</Button>
+					:
+					<span>
+					</span>
+				}
+			</div>
+		</Link> */}
