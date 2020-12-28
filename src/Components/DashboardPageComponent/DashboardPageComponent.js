@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 function DashboardPageComponent(){
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
@@ -100,6 +102,10 @@ function DashboardPageComponent(){
      }
   },[user.isLoggedIn])
   // Main Return from this component
+  if(user.isLoading)
+    return(
+      <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
+    )
         return (
         <React.Fragment>
           <div style={{marginTop:100}}>

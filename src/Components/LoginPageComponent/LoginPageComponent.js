@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // redux
 import {loginwithfacebook, loginwithgoogle, login} from '../../action/user_actions';
@@ -139,6 +140,10 @@ function LoginPageComponent(){
       setOpen(false);
     };
     
+    if(user.isLoading)
+    return(
+      <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
+    )
     return (    
     <Grid container component="main" className={classes.root}>
       {/* <CssBaseline /> */}

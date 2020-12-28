@@ -28,22 +28,18 @@ export const register = (User) => {
         dispatch({
           type:REGISTER_USER_REQUEST
         })
-        //
         const db = firebase.firestore();
-        
         firebase.auth()
         .createUserWithEmailAndPassword(User.email, User.password)
           .then(dataBeforeEmail => {
             firebase.auth().onAuthStateChanged(user=> {
               user.sendEmailVerification()
               .then(dataAfterEmail => {
-                firebase.auth().onAuthStateChanged(function(user) {
+                firebase.auth().onAuthStateChanged(async function(user) {
                   if (user) {
                     // Sign up successful
-                    let image = uploadImage(User);
+                    let image = await uploadImage(User);
                     console.log(User.profilepic)
-                    
-                    
                     console.log(user);
                     db.collection("users").doc(User.email).set({
                       Name: `${User.firstname} ${User.lastname}`,
@@ -95,36 +91,23 @@ export const register = (User) => {
 }}
 
 
-              async function uploadImage(User){
-                  let image;
-                   if(User.profilepic !== null )
-                    {
-                      const storage=firebase.storage();
-                      storage.ref(`images/${User.profilepic.name}`).put(User.profilepic).then(function(snapshot) {
-                        console.log('Uploaded', snapshot.totalBytes, 'bytes.');
-                       
-                        // Let's get a download URL for the file.
-                        snapshot.ref.getDownloadURL().then(function(url) {
-                          console.log('File available at', url);
-                          // [START_EXCLUDE]
-                          image=url
-                          // [END_EXCLUDE]
-                        });
-                      }).catch(function(error) {
-                        // [START onfailure]
-                        console.error('Upload failed:', error);
-                        image="https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png"
-                        // [END onfailure]
-                      });
-                      // [END oncomplete]
-                    
-                     console.log("image upload successful")
-                      
-                 }
-                 else{
-                   image="https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png"
-                 }
-           return image
+async function uploadImage(User){
+  if(User.profilepic !== null ){
+  try{
+    const storage=firebase.storage();
+    let snapshot = await storage.ref(`images/${User.profilepic.name}`).put(User.profilepic)
+    console.log('Uploaded', snapshot.totalBytes, 'bytes.');
+    let url = await snapshot.ref.getDownloadURL()
+    console.log('File available at', url);
+    return url;
+  }
+  catch(err){
+    return "https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png"
+  }
+  }
+  else{
+    return "https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png"
+  }
 }
 
 

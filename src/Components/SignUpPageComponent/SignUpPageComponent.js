@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import firebase from 'firebase';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // redux
 import {register} from '../../action/user_actions';
@@ -157,6 +158,10 @@ function SignUpPageComponent(){
 
     
 
+    if(user.isLoading)
+    return(
+      <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
+    )
         return (
           <Container component="main" maxWidth="xs" >
      <CssBaseline />

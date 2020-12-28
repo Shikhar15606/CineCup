@@ -3,10 +3,12 @@ import './LeaderboardStyles.css';
 import { Link } from 'react-router-dom';
 import Badge from '@material-ui/core/Badge';
 import {useSelector} from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const LeaderboardPageComponent = () => {
     const user = useSelector(state => state.user);
     let result = user.movies ? user.movies : [] ;
+
     function RenderCard ({r}) {     
           return(  
             <Badge  anchorOrigin={{
@@ -25,7 +27,10 @@ const LeaderboardPageComponent = () => {
             </Badge> 
           )
         }
-    
+    if(user.isLoading)
+      return(
+        <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
+      )
     return (
         <div className="wrapper2">
             <header>
@@ -39,9 +44,9 @@ const LeaderboardPageComponent = () => {
                   <RenderCard key={resul.id} r={resul}  />   
                   ))
                 )
-                :(<p>
-                       Loading ....
-                 </p>)
+                :(
+                  <p style={{color:"white"}}> Nothing Here </p>
+                 )
               }
             </div>
         </div>
