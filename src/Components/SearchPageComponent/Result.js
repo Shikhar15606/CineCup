@@ -50,7 +50,7 @@ function Result({ result, openPopup }) {
 		console.log(dataToSubmit);
 		dispatch(blackListMovie(dataToSubmit));
 	}
-
+ 
 	const isdisabled = (id) => {
 		if(user.isLoggedIn)
 		{
@@ -85,7 +85,7 @@ function Result({ result, openPopup }) {
 		  <div>
 		  <h2>{result.title}</h2>
 		  <h3>{result.release_date}</h3>
-		  <Rating name="read-only" value={(result.vote_average)/2} readOnly />
+		  <Rating precision="0.5" name="read-only" value={(result.vote_average)/2} readOnly />
 
 		  </div>
         
@@ -97,7 +97,8 @@ function Result({ result, openPopup }) {
 		<Button className="button_s" variant="outlined" color="secondary" style={{marginBottom:10}}>Explore</Button>
 		</Link>
 		<Button className="button_s" disabled={btn || isdisabled(result.id)} style={{marginBottom:10}}
-		variant="outlined" color="primary" onClick={(e) => {setbtn(true); Nominate(e)}}>Nominate</Button>
+		variant="outlined" color="primary" onClick={(e) => {setbtn(true); Nominate(e)}}>
+			Nominate</Button>
 		{
 					user.user && user.user.IsAdmin ?
 					<Button className="button_s"

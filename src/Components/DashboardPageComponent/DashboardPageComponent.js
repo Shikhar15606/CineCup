@@ -11,7 +11,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import Rating from '@material-ui/lab/Rating';
 function DashboardPageComponent(){
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
@@ -83,14 +83,34 @@ function DashboardPageComponent(){
     }      
 
       return(
-          <Link to={`/movie/${r.id}`} className="card"  >
-          <img src={`https://image.tmdb.org/t/p/w500/${r.poster_path}`} />
-          <div className="info">
-            <h1>{r.title}</h1>
-            <Button variant="contained" color="secondary" onClick={(e) => {Remove_Nominate(e)}} endIcon={<LocalMoviesIcon />} className="but1">
-              Remove</Button>
-          </div>
-          </Link>
+        <div className="card_s">
+        <div className="front_s" style={{backgroundImage: "url("+(`https://image.tmdb.org/t/p/w500/${r.poster_path}`)+")"}}>
+        
+     </div>
+     <div className="back_s">
+       <div style={{display:"flex",flexDirection:"column "}}>
+       <div>
+       <h2>{r.title}</h2>
+       <h3>{r.release_date}</h3>
+       <Rating precision="0.5" name="read-only" value={(r.vote_average)/2} readOnly />
+ 
+       </div>
+         
+     <div style={{display:"flex",flexDirection:"column",textAlign: "center",
+   justifyContent: "center",
+   alignItems: "center"
+   }}>
+     <Link to={`/movie/${r.id}`}   >
+     <Button className="button_s" variant="outlined" color="secondary" style={{marginBottom:10}}>Explore</Button>
+     </Link>
+     <Button className="button_s"  style={{marginBottom:10}}
+     variant="outlined" color="primary" onClick={(e) => {Remove_Nominate(e)}} >
+       Remove</Button>
+    
+     </div>
+     
+       </div>
+     </div></div>
       )
     }
     // ===================================================================================================
