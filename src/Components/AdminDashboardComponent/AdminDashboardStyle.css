@@ -133,7 +133,7 @@ margin-right: 10px;
 	justify-content: space-around;
 	flex-wrap: wrap;
 	align-items: center;
-	color:white
+	color:rgb(0, 0, 0)
 }
 .card{
 	width: 200px;
