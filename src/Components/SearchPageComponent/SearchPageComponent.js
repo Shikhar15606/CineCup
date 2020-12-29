@@ -9,7 +9,7 @@ import Popup from './Popup'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {useSelector} from 'react-redux';
-
+import Skeleton from '@material-ui/lab/Skeleton';
 function SearchPageComponent(){
   const user = useSelector(state => state.user);
   const [queryString, setqueryString] = useState("");
@@ -113,7 +113,16 @@ else{
               {(typeof selected.Title != "undefined") ? <Popup selected={selected} closePopup={closePopup} /> : false}
             </React.Fragment>
             :
-            <CircularProgress style={{marginTop:"15vw"}} color="secondary" />
+            <div className="wrapper">
+              <Skeleton variant="rect" animation="wave"  className="card_s" />
+              <Skeleton variant="rect" animation="wave" className="card_s" />
+              <Skeleton variant="rect" animation="wave" className="card_s" />
+              <Skeleton variant="rect" animation="wave" className="card_s" />
+              <Skeleton variant="rect" animation="wave" className="card_s" />
+              <Skeleton variant="rect" animation="wave" className="card_s" />
+
+            </div>
+            
           }
           {
               (user.error ) ?
