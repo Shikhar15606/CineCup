@@ -3,6 +3,10 @@
 	 margin: 0;
 	 padding: 0;
 	 box-sizing: border-box;
+	 
+}
+.wraap{
+	margin: 0 auto;
 }
  .clear-fix:after {
 	 display: block;
@@ -15,10 +19,10 @@
 }
  .card__collection {
 	 position: relative;
-	 display: block;
+	 display: flex;
 	 padding: 10px;
 	 font-family: 'Do Hyeon', sans-serif;
-	 overflow: hidden;
+	 flex-wrap: wrap;
 }
  .card__collection .cards {
 	 width: 300px;
@@ -26,7 +30,7 @@
 	 display: block;
 	 background-size: cover;
 	 float: left;
-	 border-radius: 15px;
+	 border-radius: 5px;
 	 position: relative;
 	 overflow: hidden;
 	 background-position: center;
