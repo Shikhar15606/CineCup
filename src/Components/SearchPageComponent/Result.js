@@ -44,7 +44,8 @@ function Result({ result, openPopup }) {
 	const BlacklistMovie = (e) => {
 		e.preventDefault();
 		const dataToSubmit = {
-			movieId:result.id
+			movieId:result.id,
+			movieName:result.title
 		}
 		console.log(dataToSubmit);
 		dispatch(blackListMovie(dataToSubmit));

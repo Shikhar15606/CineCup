@@ -90,7 +90,7 @@ export const fetchBlackListedMovies = () => {
 
 // ================================== Blacklisting Movie =========================================
 
-export const blackListMovie = ({movieId}) => {
+export const blackListMovie = ({movieId,movieName}) => {
     return async (dispatch) => {
         dispatch({
             type: FETCH_MOVIES_DATA_REQUEST
@@ -101,13 +101,18 @@ export const blackListMovie = ({movieId}) => {
         .then(async function(querySnapshot) {
             var batch = db.batch();
             
+            let mailto = [];
+
             querySnapshot.forEach(doc => {
                 var usersref = db.collection("users").doc(doc.id);
+                    if(doc.data().Nominations.includes(movieId))
+                        mailto.push(doc.data().Email);
                     batch.set(usersref,{
                         Nominations: firebase.firestore.FieldValue.arrayRemove(movieId)
                       },{ merge: true });
             })
 
+            console.log("Tu Phodega Tu Phodega Tu Phodega",mailto);
             // adding movie to blacklist
             let blacklistRef = db.collection('blacklist').doc(movieId.toString())
             batch.set(blacklistRef, {
@@ -117,6 +122,11 @@ export const blackListMovie = ({movieId}) => {
             // deleting movie and it's votes from movies
             let moviesRef = db.collection('movies').doc(movieId.toString())
             batch.delete(moviesRef)
+
+            axios.post('https://cinecup-backend.herokuapp.com/send',{receivers:mailto,movieName:movieName})
+            .then((res)=>{
+                console.log(res);
+            })
 
             // Commit the batch
             batch.commit()
