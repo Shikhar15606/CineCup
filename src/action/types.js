@@ -25,3 +25,7 @@ export const BLACKLIST_MOVIE_FETCH = 'blacklist_movie_fetch';
 export const REMOVE_BLACKLISTED_MOVIE_SUCCESS = 'remove_blacklisted_movie_success';
 export const REMOVE_BLACKLISTED_MOVIE_FAILURE = 'remove_blacklisted_movie_failure';
 export const FETCH_VOTING_SUCCESS = 'fetch_voting_success';
+export const START_VOTING_SUCCESS = 'start_voting_success';
+export const START_VOTING_FAILURE = 'start_voting_failure'
+export const END_VOTING_SUCCESS = 'end_voting_success';
+export const END_VOTING_FAILURE = 'end_voting_failure';

@@ -3,7 +3,7 @@ import './AdminDashboardStyle.css';
 import {useSelector,useDispatch} from 'react-redux';
 import {TMDB_API_KEY} from '../../key/key';
 import axios from  'axios';
-import {removeBlacklistedMovie} from '../../action/movie_actions';
+import {removeBlacklistedMovie, startVoting} from '../../action/movie_actions';
 import {Button} from '@material-ui/core'
 import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import firebase from 'firebase';
 import Rating from '@material-ui/lab/Rating';
+import TextField from '@material-ui/core/TextField';
 const AdminDashboardComponent = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
@@ -148,7 +149,31 @@ const AdminDashboardComponent = () => {
       .update({IsAdmin:false})
     }
 
+  // ========================== Start Voting =========================
+  const [name,setname] = useState("");
+  const [nameError,setnameError] = useState("");
+  const [altname,setaltname] = useState(false);
+  const [disabledSubmit,setdisabledSubmit] = useState(true);
+  useEffect(() => {
+    if(altname && name.length<3)
+    setnameError("name must be more than 2 characters")
+    else
+    setnameError("")
+  },[altname,name])
 
+  useEffect(() => {
+    if(!nameError)
+      setdisabledSubmit(false);
+    else
+      setdisabledSubmit(true);
+  },[nameError])
+
+  const start = (e) => {
+    e.preventDefault();
+    var options = {year: 'numeric', month: 'long', day: 'numeric' };
+    var today  = new Date();
+    dispatch(startVoting({Name:name,Start:today.toLocaleDateString("en-US", options)}))
+  }
   // =========================== Main Return from this component ==================================
   if(user.isLoading)
     return(
@@ -159,6 +184,36 @@ const AdminDashboardComponent = () => {
       <div style={{marginTop:100}}>
         <h1 style={{color:"white"}}>BlackListed Movies</h1>
       </div>
+      <main>
+      <form Validate>
+            <TextField
+              error = {nameError}
+              helperText = {nameError}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={name}
+              onChange={(e) => {setname(e.target.value);setaltname(true);}}
+            />
+     
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={start}  
+              disabled = {disabledSubmit}
+            >
+              Start Voting
+            </Button>
+          </form>
+      </main>
       <main>
       <section className="wrapper1">
           {  

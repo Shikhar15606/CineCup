@@ -24,7 +24,11 @@ import {
     BLACKLIST_MOVIE_FETCH,
     REMOVE_BLACKLISTED_MOVIE_SUCCESS,
     REMOVE_BLACKLISTED_MOVIE_FAILURE,
-    FETCH_VOTING_SUCCESS
+    FETCH_VOTING_SUCCESS,
+    START_VOTING_SUCCESS,
+    START_VOTING_FAILURE,
+    END_VOTING_SUCCESS,
+    END_VOTING_FAILURE
 } from '../action/types';
 
 
@@ -110,6 +114,18 @@ export default function user (state = {}, action){
             break;
         case FETCH_VOTING_SUCCESS:
             state = {...state,isVoting:action.payload,isLoading:false}
+            break;
+        case START_VOTING_SUCCESS:
+            state = {...state,isVoting:true,isLoading:false,successmsg:"Voting Started Successfully"}
+            break;
+        case START_VOTING_FAILURE:
+            state = {...state,isVoting:false,isLoading:false,error:"Voting Can not be started"}
+            break;
+        case END_VOTING_SUCCESS:
+            state = {...state,isVoting:false,isLoading:false,successmsg:"Voting Ended SuccessFully"}
+            break;
+        case END_VOTING_FAILURE:
+            state = {...state,isVoting:true,isLoading:false,error:"Voting can not be stopped"}
             break;
         default :
             return { ...state}

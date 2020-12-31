@@ -10,6 +10,8 @@ import {
     REMOVE_BLACKLISTED_MOVIE_SUCCESS,
     REMOVE_BLACKLISTED_MOVIE_FAILURE,
     FETCH_VOTING_SUCCESS,
+    START_VOTING_SUCCESS,
+    START_VOTING_FAILURE,
 } from './types';
 
 // ==================================== Fetching Movies Data =======================================
@@ -188,5 +190,48 @@ export const getVotingOnOff = () =>{
         });
     }
 }
+
+// ===================================== Start Voting =====================================
+export const startVoting = ({Name,Start}) =>{
+    return async (dispatch) => {
+        dispatch({
+            type: FETCH_MOVIES_DATA_REQUEST
+        })
+        const db = firebase.firestore();
+        var docRef = db.collection("on").doc("onoroff");
+        docRef.update({
+            on: true
+        })
+        .then(function() {
+            db.collection("history").add({
+                Name: Name,
+                Start:Start,
+                Ongoing:true,
+            })
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+                dispatch({
+                    type:START_VOTING_SUCCESS
+                })
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+                dispatch({
+                    type:START_VOTING_FAILURE
+                })
+            });
+            
+        })
+        .catch(function(error) {
+            console.error("Error updating document: ", error);
+            dispatch({
+                type:START_VOTING_FAILURE
+            })
+        });
+    }
+}
+
+// ===================================== End Voting =======================================
+
 
 
