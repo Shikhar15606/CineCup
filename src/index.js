@@ -7,7 +7,7 @@ import firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
-
+import { Auth0Provider } from '@auth0/auth0-react';
 import 'firebase/storage'
 // Redux Related Stuff
 import { Provider } from 'react-redux';
@@ -32,6 +32,11 @@ const storage = firebase.storage()
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 
 ReactDOM.render(
+  <Auth0Provider
+  domain="dev-3yqn-gsx.au.auth0.com"
+  clientId="fQXOTy7DeJPxbztqQwBasQ60XJKDMfre"
+  redirectUri={window.location.origin}
+>
   <Provider
         store={createStoreWithMiddleware(
             Reducer,
@@ -42,7 +47,8 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
-  </Provider>,
+  </Provider>
+  </Auth0Provider>,
   document.getElementById('root')
 );
 

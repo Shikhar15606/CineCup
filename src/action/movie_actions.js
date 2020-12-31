@@ -90,7 +90,7 @@ export const fetchBlackListedMovies = () => {
 
 // ================================== Blacklisting Movie =========================================
 
-export const blackListMovie = ({movieId,movieName}) => {
+export const blackListMovie = ({movieId,movieName,token}) => {
     return async (dispatch) => {
         dispatch({
             type: FETCH_MOVIES_DATA_REQUEST
@@ -123,7 +123,14 @@ export const blackListMovie = ({movieId,movieName}) => {
             let moviesRef = db.collection('movies').doc(movieId.toString())
             batch.delete(moviesRef)
 
-            axios.post('https://cinecup-backend.herokuapp.com/send',{receivers:mailto,movieName:movieName})
+            
+
+            axios.post('https://cinecup-backend.herokuapp.com/send',{receivers:mailto,movieName:movieName},
+            {
+                headers: {
+                Authorization: `Bearer ${token}`,
+              }
+            })
             .then((res)=>{
                 console.log(res);
             })
