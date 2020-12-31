@@ -44,15 +44,15 @@ function Result({ result, openPopup }) {
 	}
 	const classes = useStyles();
 	const BlacklistMovie = async (e) => {
-		const token = await getAccessTokenSilently({
-			audience: 'https://cinecup-backend.herokuapp.com',
-			scope: 'read:posts',
-		  });
+		// const token = await getAccessTokenSilently({
+		// 	audience: 'https://cinecup-backend.herokuapp.com',
+		// 	scope: 'read:posts',
+		//   });
 		e.preventDefault();
 		const dataToSubmit = {
 			movieId:result.id,
 			movieName:result.title,
-			token:token
+			token:"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InlIUDdLZ0RYbjNyb1MyNVhtZnN6OSJ9.eyJpc3MiOiJodHRwczovL2Rldi0zeXFuLWdzeC5hdS5hdXRoMC5jb20vIiwic3ViIjoiZlFYT1R5N0RlSlB4Ynp0cVF3QmFzUTYwWEpLRE1mcmVAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vY2luZWN1cC1iYWNrZW5kLmhlcm9rdWFwcC5jb20iLCJpYXQiOjE2MDk0MDQwMzksImV4cCI6MTYwOTQ5MDQzOSwiYXpwIjoiZlFYT1R5N0RlSlB4Ynp0cVF3QmFzUTYwWEpLRE1mcmUiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.QIxbWsGs1bfgVDgsICs6zqzVTMojjrvHmbnt-nBUK9LXlVe79GPvjY9jblF-qiPw8pCdsy9aTzSFKAuE4fiJbbYj_wjVDk3HgYA7n2eUB85KTOMnbsDkLqQ6GT4j29a3L07LuflVA84sWaIoxOu15aPcRDV0Vbm_ZieGsiDv-NJ6LXAxu3yfsPLziK3olcgY8QxmLft4iuC7unK0vxOURrc3VBB7M_XrU0B7Dz45phr9dA5MMSIiy_FozC-6YmTxb_nhOm9FCNL5bI83KwCPa_UqYDcaO_ArRkKLb4sk-ezRONeSCCVXVfGre7p8uMfUGa_3GqvuXsDelUahUQ70FA"
 		}
 		console.log(dataToSubmit);
 		dispatch(blackListMovie(dataToSubmit));
