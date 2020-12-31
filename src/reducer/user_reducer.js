@@ -23,7 +23,8 @@ import {
     BLACKLIST_MOVIE_SUCCESS,
     BLACKLIST_MOVIE_FETCH,
     REMOVE_BLACKLISTED_MOVIE_SUCCESS,
-    REMOVE_BLACKLISTED_MOVIE_FAILURE
+    REMOVE_BLACKLISTED_MOVIE_FAILURE,
+    FETCH_VOTING_SUCCESS
 } from '../action/types';
 
 
@@ -106,6 +107,9 @@ export default function user (state = {}, action){
             break;
         case REMOVE_BLACKLISTED_MOVIE_FAILURE:
             state = {...state,isLoading:false,successmsg:undefined,error:action.payload}
+            break;
+        case FETCH_VOTING_SUCCESS:
+            state = {...state,isVoting:action.payload,isLoading:false}
             break;
         default :
             return { ...state}

@@ -16,7 +16,7 @@ import Auth from './auth';
 import ResetPassword from './Components/LoginPageComponent/ResetPassword';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {useDispatch} from 'react-redux';
-import {fetchBlackListedMovies, fetchMoviesData} from './action/movie_actions';
+import {fetchBlackListedMovies, fetchMoviesData,getVotingOnOff} from './action/movie_actions';
 import React,{useEffect,useState} from 'react';
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
   useEffect(()=>{
     dispatch(fetchMoviesData());
     dispatch(fetchBlackListedMovies());
+    dispatch(getVotingOnOff());
 },[])
   return (
     <>    

@@ -60,7 +60,7 @@ function Result({ result, openPopup }) {
 	}
  
 	const isdisabled = (id) => {
-		if(user.isLoggedIn)
+		if(user.isLoggedIn && user.isVoting)
 		{
 			if (user.blacklist && user.blacklist.includes(id.toString()))
 				return true;			
