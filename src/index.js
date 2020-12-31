@@ -35,7 +35,7 @@ ReactDOM.render(
   <Auth0Provider
   domain="dev-3yqn-gsx.au.auth0.com"
   clientId="fQXOTy7DeJPxbztqQwBasQ60XJKDMfre"
-  redirectUri={window.location.origin}
+  redirectUri="https://cinecup-9b0ac.web.app"
 >
   <Provider
         store={createStoreWithMiddleware(
