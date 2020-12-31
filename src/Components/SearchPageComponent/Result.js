@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {ACCESS_TOKEN} from '../../key/key'
 import {useSelector,useDispatch} from 'react-redux'
 import { Link } from 'react-router-dom';
 import {nominate} from '../../action/user_actions';
