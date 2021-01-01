@@ -28,7 +28,8 @@ import {
     START_VOTING_SUCCESS,
     START_VOTING_FAILURE,
     END_VOTING_SUCCESS,
-    END_VOTING_FAILURE
+    END_VOTING_FAILURE,
+    FETCH_HISTORY_SUCCESS
 } from '../action/types';
 
 
@@ -126,6 +127,9 @@ export default function user (state = {}, action){
             break;
         case END_VOTING_FAILURE:
             state = {...state,isVoting:true,isLoading:false,error:"Voting can not be stopped"}
+            break;
+        case FETCH_HISTORY_SUCCESS:
+            state = {...state,history:action.payload,isLoading:false}
             break;
         default :
             return { ...state}

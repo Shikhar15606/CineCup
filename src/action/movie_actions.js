@@ -14,6 +14,7 @@ import {
     START_VOTING_FAILURE,
     END_VOTING_SUCCESS,
     END_VOTING_FAILURE,
+    FETCH_HISTORY_SUCCESS,
 } from './types';
 
 // ==================================== Fetching Movies Data =======================================
@@ -70,6 +71,28 @@ async function xyz (arr){
             } 
       }
 }
+// ================================ Fetching History ===========================================
+export const fetchHistory = () => {
+    return async (dispatch) => {
+        dispatch({
+            type: FETCH_MOVIES_DATA_REQUEST
+        })
+        const db = firebase.firestore();
+        let unsubscribe = db.collection('history').where("Ongoing", "==", false)
+        .onSnapshot(function(querySnapshot) {
+            let arr = []
+            querySnapshot.forEach(function(doc) {
+                arr.push(doc.data())
+            });
+            console.log(arr.length)
+            dispatch({
+                type:FETCH_HISTORY_SUCCESS,
+                payload:arr
+            })
+        })
+    }
+}
+
 // ================================ Fetching Blacklisted Movies ==================================
 
 export const fetchBlackListedMovies = () => {

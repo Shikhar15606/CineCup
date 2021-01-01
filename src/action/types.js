@@ -29,3 +29,4 @@ export const START_VOTING_SUCCESS = 'start_voting_success';
 export const START_VOTING_FAILURE = 'start_voting_failure'
 export const END_VOTING_SUCCESS = 'end_voting_success';
 export const END_VOTING_FAILURE = 'end_voting_failure';
+export const FETCH_HISTORY_SUCCESS = 'fetch_history_success';
