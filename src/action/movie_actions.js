@@ -82,7 +82,7 @@ export const fetchHistory = () => {
         .onSnapshot(function(querySnapshot) {
             let arr = []
             querySnapshot.forEach(function(doc) {
-                arr.push(doc.data())
+                arr.push({...doc.data(),contestid:doc.id})
             });
             console.log(arr.length)
             dispatch({
