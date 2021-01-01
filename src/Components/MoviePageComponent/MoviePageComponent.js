@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom';
 import {TMDB_API_KEY} from '../../key/key';
 import axios from 'axios';
 import './MoviePageStyle.css'
+import ShareButton from '../shareButton'
 const MoviePageComponent = () => {
     const [result, setresult] = useState({});
     const [trailerurl , settrailerurl] = useState("");
@@ -38,7 +39,17 @@ const MoviePageComponent = () => {
       };
     return ( 
         <div>
+          
            <div className="main1">
+             
+           <div  className="share_but_m">
+          <ShareButton 
+          url={`https://cinecup-9b0ac.web.app/movie/${result.id}`}
+           image={`https://image.tmdb.org/t/p/w500/${result.poster_path}`}
+            title={`${result.title} - ${result.overview} 
+            Check out the trailer on this page`}
+           />
+        </div>
 	<div className="image">
 		<img src={`https://image.tmdb.org/t/p/original/${result.backdrop_path}`} />
 		<div className="overlay">

@@ -5,6 +5,15 @@
 	padding: 0;
 }
 
+
+.share_but_m{
+	position: absolute;
+	top: 50%;
+	right:0;
+	display: flex;
+	flex-direction: column;
+}
+
 body {
 	font-family: Roboto, sans-serif;
 }
