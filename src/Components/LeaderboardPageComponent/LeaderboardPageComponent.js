@@ -10,6 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper';
 import Rating from '@material-ui/lab/Rating';
+import ShareButton from '../shareButton'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -101,10 +102,20 @@ const LeaderboardPageComponent = () => {
       <h3>Votes : {r.votes}</h3>
 			<h6>{r.rank}</h6>
       <h4 className="genre_list">{
-        r.genres.map(genre=>{
+        r.genres.slice(0,3).map(genre=>{
           return <span> {genre.name} </span>
         })
       }</h4>
+      <div className="share_but">
+      <ShareButton 
+      url={`https://cinecup-9b0ac.web.app/movie/${r.id}`}
+      image={`https://image.tmdb.org/t/p/w500/${r.poster_path}`}
+      title={`${r.title} - ${r.overview} 
+      Check out the trailer on this page`}
+      className="share_but"
+      />
+      </div>
+    
       <Link to={`/movie/${r.id}`}   >
 			<button class="btn">Explore</button>
       </Link>
