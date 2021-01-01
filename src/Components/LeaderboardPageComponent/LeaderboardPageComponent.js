@@ -7,6 +7,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper';
+import Rating from '@material-ui/lab/Rating';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -68,6 +71,15 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  paper: {
+    // padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    height:200,
+    
+    display:"flex",
+    flexDirection:"row",
+  },
 }));
 const LeaderboardPageComponent = () => {
   const classes = useStyles();
@@ -77,22 +89,31 @@ const LeaderboardPageComponent = () => {
     function RenderCard ({r}) {     
       
           return(  
-            <div className="wraap">
-            <Badge  anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }} badgeContent={<b style={{fontSize:"20px"}}># {r.rank}</b>} color="error" overlap="circle">
-            <Link to={`/movie/${r.id}`} className="cards cards--two"  >
-              <img src={`https://image.tmdb.org/t/p/w500/${r.poster_path}`} alt="Cards Image"/>
-              <span class="cards--two__rect"></span>
-              <span class="cards--two__tri"></span>
-              <p>{r.title}</p>
-              <ul className="cards__list">
-                <li>{r.votes} Votes</li>
-              </ul>
-            </Link>
-            </Badge> 
-            </div>
+    <div className="wraap" id="movie_card">
+    <div class="courses-container">
+    
+	<div class="course">
+		<div class="course-preview">
+    <img src={`https://image.tmdb.org/t/p/w500/${r.poster_path}`} alt="Cards Image" className="movie_image"/>
+		</div>
+		<div class="course-info">
+		  <h2>{r.title}</h2>
+      <h3>Votes : {r.votes}</h3>
+			<h6>{r.rank}</h6>
+      <h4 className="genre_list">{
+        r.genres.map(genre=>{
+          return <span> {genre.name} </span>
+        })
+      }</h4>
+      <Link to={`/movie/${r.id}`}   >
+			<button class="btn">Explore</button>
+      </Link>
+		</div>
+	</div>
+  
+</div>
+</div> 
+             
           )
         }
     if(user.isLoading)
@@ -104,9 +125,7 @@ const LeaderboardPageComponent = () => {
             <header>
                 <h1>LeaderBoard</h1>
                 <div >
-            <div >
-            
-            </div>
+           
             <InputBase
               placeholder="Search…"
               classes={{
@@ -115,7 +134,7 @@ const LeaderboardPageComponent = () => {
               }}
               inputProps={{ 'aria-label': 'search','id':'sear'}}
               onKeyUp={()=>{
-                  var all = document.getElementById("leaderboard_cards").getElementsByTagName("div");
+                  var all = document.getElementById("leaderboard_cards").getElementsByClassName("wraap");
                 
                 console.log(all)
                 for(var i=0;i<all.length;i++)
@@ -135,7 +154,7 @@ const LeaderboardPageComponent = () => {
             </div>
             </header>
             
-            <div className="card__collection clear-fix" id="leaderboard_cards">
+            <div className="card__collection clear-fix" id="leaderboard_cards"   >
             {  
                 result.length !== 0 ?
                 (

@@ -217,7 +217,7 @@ function HeaderComponent(){
                      CINECUP
                     </Typography>
 
-                    <Hidden smDown>
+                    <Hidden mdDown>
                     <div style={{position:"absolute",right:0}}>
                     <Link to="/"> 
                     <IconButton edge="start" className={classes.menuButton}  color="inherit" aria-label="menu">
