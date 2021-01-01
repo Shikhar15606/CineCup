@@ -3,7 +3,7 @@ import './AdminDashboardStyle.css';
 import {useSelector,useDispatch} from 'react-redux';
 import {TMDB_API_KEY} from '../../key/key';
 import axios from  'axios';
-import {removeBlacklistedMovie, startVoting} from '../../action/movie_actions';
+import {removeBlacklistedMovie, startVoting, stopVoting} from '../../action/movie_actions';
 import {Button} from '@material-ui/core'
 import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
 import { Link } from 'react-router-dom';
@@ -149,7 +149,7 @@ const AdminDashboardComponent = () => {
       .update({IsAdmin:false})
     }
 
-  // ========================== Start Voting =========================
+  // ========================== Start and Stop Voting =========================
   const [name,setname] = useState("");
   const [nameError,setnameError] = useState("");
   const [altname,setaltname] = useState(false);
@@ -174,6 +174,13 @@ const AdminDashboardComponent = () => {
     var today  = new Date();
     dispatch(startVoting({Name:name,Start:today.toLocaleDateString("en-US", options)}))
   }
+
+  const stop = (e) => {
+    e.preventDefault();
+    var options = {year: 'numeric', month: 'long', day: 'numeric' };
+    var today  = new Date();
+    dispatch(stopVoting({End:today.toLocaleDateString("en-US", options)}))
+  }
   // =========================== Main Return from this component ==================================
   if(user.isLoading)
     return(
@@ -181,39 +188,52 @@ const AdminDashboardComponent = () => {
     )
   return (
     <React.Fragment>
+      <main style={{marginTop:"70px"}}>
+      {
+        !user.isVoting ?
+              <form Validate>
+              <TextField
+                error = {nameError}
+                helperText = {nameError}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="Name"
+                label="Event"
+                name="event"
+                autoComplete="name"
+                autoFocus
+                value={name}
+                onChange={(e) => {setname(e.target.value);setaltname(true);}}
+              />
+       
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={start}  
+                disabled = {disabledSubmit}
+              >
+                Start Voting
+              </Button>
+            </form>
+            :
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={stop}  
+              >
+                Stop Voting
+              </Button>
+      }
+      </main>
       <div style={{marginTop:100}}>
         <h1 style={{color:"white"}}>BlackListed Movies</h1>
       </div>
-      <main>
-      <form Validate>
-            <TextField
-              error = {nameError}
-              helperText = {nameError}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={name}
-              onChange={(e) => {setname(e.target.value);setaltname(true);}}
-            />
-     
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              onClick={start}  
-              disabled = {disabledSubmit}
-            >
-              Start Voting
-            </Button>
-          </form>
-      </main>
       <main>
       <section className="wrapper1">
           {  
