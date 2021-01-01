@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {ACCESS_TOKEN} from '../../key/key'
 import {useSelector,useDispatch} from 'react-redux'
 import { Link } from 'react-router-dom';
 import {nominate} from '../../action/user_actions';
@@ -13,7 +14,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
+import { useAuth0 } from '@auth0/auth0-react';
 function Result({ result, openPopup }) {
+	const { getAccessTokenSilently } = useAuth0();
 	const useStyles = makeStyles({
 		
 		but:{
@@ -41,18 +44,23 @@ function Result({ result, openPopup }) {
 		dispatch(nominate(dataToSubmit));
 	}
 	const classes = useStyles();
-	const BlacklistMovie = (e) => {
+	const BlacklistMovie = async (e) => {
+		// const token = await getAccessTokenSilently({
+		// 	audience: 'https://cinecup-backend.herokuapp.com',
+		// 	scope: 'read:posts',
+		//   });
 		e.preventDefault();
 		const dataToSubmit = {
 			movieId:result.id,
-			movieName:result.title
+			movieName:result.title,
+			token:ACCESS_TOKEN
 		}
 		console.log(dataToSubmit);
 		dispatch(blackListMovie(dataToSubmit));
 	}
  
 	const isdisabled = (id) => {
-		if(user.isLoggedIn)
+		if(user.isLoggedIn && user.isVoting)
 		{
 			if (user.blacklist && user.blacklist.includes(id.toString()))
 				return true;			

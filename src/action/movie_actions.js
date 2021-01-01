@@ -9,6 +9,7 @@ import {
     BLACKLIST_MOVIE_FETCH,
     REMOVE_BLACKLISTED_MOVIE_SUCCESS,
     REMOVE_BLACKLISTED_MOVIE_FAILURE,
+    FETCH_VOTING_SUCCESS,
 } from './types';
 
 // ==================================== Fetching Movies Data =======================================
@@ -90,7 +91,7 @@ export const fetchBlackListedMovies = () => {
 
 // ================================== Blacklisting Movie =========================================
 
-export const blackListMovie = ({movieId,movieName}) => {
+export const blackListMovie = ({movieId,movieName,token}) => {
     return async (dispatch) => {
         dispatch({
             type: FETCH_MOVIES_DATA_REQUEST
@@ -123,7 +124,14 @@ export const blackListMovie = ({movieId,movieName}) => {
             let moviesRef = db.collection('movies').doc(movieId.toString())
             batch.delete(moviesRef)
 
-            axios.post('https://cinecup-backend.herokuapp.com/send',{receivers:mailto,movieName:movieName})
+            
+
+            axios.post('https://cinecup-backend.herokuapp.com/send',{receivers:mailto,movieName:movieName},
+            {
+                headers: {
+                Authorization: `Bearer ${token}`,
+              }
+            })
             .then((res)=>{
                 console.log(res);
             })
@@ -158,4 +166,27 @@ export const removeBlacklistedMovie = ({movieId}) => {
         });
     }
 }
+// Get ---------------------------VotingOnOff---------------------------------------
+export const getVotingOnOff = () =>{
+    return async (dispatch) => {
+        dispatch({
+            type: FETCH_MOVIES_DATA_REQUEST
+        })
+        const db = firebase.firestore();
+        var docRef = db.collection("on").doc("onoroff");
+        docRef.get().then(function(doc) {
+            if (doc.exists) {
+                dispatch({
+                    type:FETCH_VOTING_SUCCESS,
+                    payload:doc.data().on
+                })
+            } else {
+                console.log("No such document!");
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });
+    }
+}
+
 
