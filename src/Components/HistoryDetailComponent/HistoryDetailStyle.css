@@ -1,0 +1,264 @@
+@import 'https://fonts.googleapis.com/css?family=Do+Hyeon';
+ .wrapper2, .wrapper2:before, .wrapper2:after {
+	 margin: 0 auto;
+	 padding: 0;
+	 box-sizing: border-box;
+	 
+	 
+}
+.courses-container {
+	margin: 0 auto;
+	
+}
+
+.course {
+	background-color: rgb(255, 255, 255);
+	border-radius: 0px;
+	box-shadow: 17px 17px 42px -17px rgba(0,0,0,0.76);
+	-webkit-box-shadow: 17px 17px 42px -17px rgba(0,0,0,0.76);
+	-moz-box-shadow: 17px 17px 42px -17px rgba(0,0,0,0.76);
+	display: flex;
+	flex-direction: row;
+	
+	margin: 20px;
+	overflow: hidden;
+	width: 650px;
+}
+
+.course h6 {
+	height: 30px;
+	width: 30px;
+	color: #fff;
+	margin: 0;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-size: 30px;
+	position: absolute;
+    right: -10px;
+    top: -10px;
+    background-color: #0084ff;
+	border-radius: 50%;
+	padding: 10px;
+}
+.course h4{
+	
+	text-align: left;
+	
+}
+.course h4 span{
+	padding: 5px;
+	color: #fff;
+	margin: 5px;
+	font-size: 15px;
+	font-weight: lighter;
+	border-radius: 5px;
+}
+.course h2 {
+	letter-spacing: 1px;
+	margin: 5px 0;
+	text-align: left;
+	height: 40px;
+	overflow: hidden;
+}
+.course h3{
+	text-align: left;
+}
+.movie_image{
+	width:120px;
+	height:180px;
+	position: relative;
+	border-radius: 0;
+	
+}
+.course-preview {
+	background-color: #0084ff;
+	color: #fff;
+	width: 120px;
+	height: 180px;
+}
+
+.course-preview a {
+	color: #fff;
+	display: inline-block;
+	font-size: 12px;
+	opacity: 0.6;
+	margin-top: 30px;
+	text-decoration: none;
+}
+
+.course-info {
+	padding: 30px;
+	position: relative;
+	width: 100%;
+}
+
+
+
+.btn {
+	background-color:#0084ff;
+	border: 0;
+	border-radius: 5px;
+	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+	color: #fff;
+	font-size: 16px;
+	padding: 6px 12px;
+	position: absolute;
+	bottom: 20px;
+	right: 30px;
+	letter-spacing: 1px;
+}
+
+.genre_list span:nth-child(even){
+	background-color: #0084ff;
+}
+.genre_list span:nth-child(odd){
+	background-color: #ff0000;
+}
+
+
+
+.wraap{
+	margin: 0 auto;
+}
+.movie{
+	
+	padding:25px;
+	
+	
+}
+.movie_details{
+	/* display: block; */
+	width: auto;
+}
+.rank{
+	background-color: #0f9bc0;
+	text-align: center;
+	align-items: center;
+	justify-items: center;
+	width:80px;
+}
+.rank_text{
+	color: #fff;
+	position: relative;
+	text-align: center;
+	font-size: 60px;
+	margin: 15px;
+	
+	
+}
+.rank_img{
+	height:100px;
+	width:80px;
+	position: relative;
+	border-radius: 0;
+	
+}
+ .clear-fix:after {
+	 display: block;
+	 clear: both;
+	 content: '';
+}
+ .img-responsive {
+	 max-width: 100%;
+	 height: auto;
+}
+ .card__collection {
+	 position: relative;
+	 display: grid;
+	 /* width: 60%; */
+	 font-family: 'Do Hyeon', sans-serif;
+	 
+	 align-items: center;
+	 justify-items: center;
+}
+ 
+@media (max-width: 760px){
+	
+	.course {
+		background-color: #fff;
+		border-radius: 0px;
+		box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+		display: flex;
+		flex-direction: column;
+		max-width: 100%;
+		margin: 20px;
+		overflow: hidden;
+		width: 300px;
+		
+	}
+	
+	.course h6 {
+		height: 30px;
+		width: 30px;
+		color: #fff;
+		margin: 0;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		font-size: 30px;
+		position: absolute;
+		top: unset;
+		left: unset;
+		right: -10px;
+		bottom: -10px;
+		background-color: #0084ff;
+		border-radius: 50%;
+		padding: 10px;
+	}
+	.course h4{
+		opacity: 0.7;
+	}
+	.course h2 {
+		letter-spacing: 1px;
+		margin: 5px 0;
+		text-align: center;
+		height: 40px;
+		overflow: hidden;
+	}
+	
+
+	.movie_image{
+		width:300px;
+		height:150px;
+		position: relative;
+		border-radius: 0;
+	}
+	.course-preview {
+		background-color:  #0084ff;
+		color: #fff;
+		width: 300px;
+		height: 150px;
+	}
+	
+	.course-preview a {
+		color: #fff;
+		display: inline-block;
+		font-size: 12px;
+		opacity: 0.6;
+		margin-top: 30px;
+		text-decoration: none;
+	}
+	
+	.course-info {
+		padding: 10px;
+		position: relative;
+		width: 280px;
+		height: 150px;
+	}
+	
+	
+	
+	.btn {
+		background-color: #0084ff;
+		border: 0;
+		border-radius: 5px;
+		box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+		color: #fff;
+		font-size: 16px;
+		padding: 6px 12px;
+		position: absolute;
+		margin-top: 10px;
+		bottom: 10px;
+		right: 100px;
+		letter-spacing: 1px;
+	}
+}

@@ -26,6 +26,7 @@ import clsx from 'clsx';
 import LockOpenRoundedIcon from '@material-ui/icons/LockOpenRounded';
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import HistoryIcon from '@material-ui/icons/History';
 import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
 import Switch from '@material-ui/core/Switch';
@@ -124,10 +125,18 @@ function HeaderComponent(){
                       <ListItemText primary="HOME"  />
                       </ListItem>
                       </Link>
+                      
                       <Link to="/leaderboard"> 
                       <ListItem button key="leaderboard" onClick={toggleDrawer(false)}>
                       <ListItemIcon  > <Timeline color="primary"/> </ListItemIcon>
                       <ListItemText primary="Leaderboard"  />
+                      </ListItem>
+                      </Link>
+
+                      <Link to="/history"> 
+                      <ListItem button key="history" onClick={toggleDrawer(false)}>
+                      <ListItemIcon  > <HistoryIcon color="primary"/> </ListItemIcon>
+                      <ListItemText primary="History"  />
                       </ListItem>
                       </Link>
                       
@@ -231,6 +240,14 @@ function HeaderComponent(){
                       <span className={classes.navText}>LeaderBoard</span>
                     </IconButton>
                     </Link>
+
+                    <Link to="/history"> 
+                    <IconButton edge="start" className={classes.menuButton}  color="inherit" aria-label="menu">
+                    <HistoryIcon fontSize="small"/>
+                      <span className={classes.navText}>History</span>
+                    </IconButton>
+                    </Link>
+
                     <Link to="/search">
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                       <SearchRoundedIcon fontSize="small"/>

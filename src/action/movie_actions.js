@@ -10,6 +10,11 @@ import {
     REMOVE_BLACKLISTED_MOVIE_SUCCESS,
     REMOVE_BLACKLISTED_MOVIE_FAILURE,
     FETCH_VOTING_SUCCESS,
+    START_VOTING_SUCCESS,
+    START_VOTING_FAILURE,
+    END_VOTING_SUCCESS,
+    END_VOTING_FAILURE,
+    FETCH_HISTORY_SUCCESS,
 } from './types';
 
 // ==================================== Fetching Movies Data =======================================
@@ -66,6 +71,28 @@ async function xyz (arr){
             } 
       }
 }
+// ================================ Fetching History ===========================================
+export const fetchHistory = () => {
+    return async (dispatch) => {
+        dispatch({
+            type: FETCH_MOVIES_DATA_REQUEST
+        })
+        const db = firebase.firestore();
+        let unsubscribe = db.collection('history').where("Ongoing", "==", false)
+        .onSnapshot(function(querySnapshot) {
+            let arr = []
+            querySnapshot.forEach(function(doc) {
+                arr.push({...doc.data(),contestid:doc.id})
+            });
+            console.log(arr.length)
+            dispatch({
+                type:FETCH_HISTORY_SUCCESS,
+                payload:arr
+            })
+        })
+    }
+}
+
 // ================================ Fetching Blacklisted Movies ==================================
 
 export const fetchBlackListedMovies = () => {
@@ -189,4 +216,146 @@ export const getVotingOnOff = () =>{
     }
 }
 
+// ===================================== Start Voting =====================================
+export const startVoting = ({Name,Start}) =>{
+    return async (dispatch) => {
+        dispatch({
+            type: FETCH_MOVIES_DATA_REQUEST
+        })
+        const db = firebase.firestore();
+        var docRef = db.collection("on").doc("onoroff");
+        docRef.update({
+            on: true
+        })
+        .then(function() {
+            db.collection("history").add({
+                Name: Name,
+                Start:Start,
+                Ongoing:true,
+            })
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+                dispatch({
+                    type:START_VOTING_SUCCESS
+                })
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+                dispatch({
+                    type:START_VOTING_FAILURE
+                })
+            });
+            
+        })
+        .catch(function(error) {
+            console.error("Error updating document: ", error);
+            dispatch({
+                type:START_VOTING_FAILURE
+            })
+        });
+    }
+}
+
+// ===================================== myfunction ======================================
+async function myfunction({docs}){
+    let topThree = [];
+    console.log(docs.length);
+    for(let i=0;i<docs.length;i++)
+    {
+        let doc = docs[i];
+        topThree.push({movieId:doc.data().MovieId,votes:doc.data().Votes,rank:i+1});
+        if(i === docs.length-1)
+            return topThree;
+    }
+    return topThree;
+}
+
+// ===================================== End Voting =======================================
+
+export const stopVoting = ({End}) => {
+    return async (dispatch) => {
+        try{
+            const db = firebase.firestore();
+            // =================== Getting the top 3 movies =======================
+            let movieRef = db.collection("movies").orderBy("Votes", "desc").limit(3)
+            let querySnapshot = await movieRef.get()
+            // ================= Storing top three in movies array =================
+            let topThree = await myfunction(querySnapshot)
+            if(topThree.length)
+            {
+                var batch = db.batch();
+                db.collection('history').where("Ongoing", "==", true)
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        let history = db.collection('history').doc(doc.id)
+                        batch.set(history, {
+                            Movies:topThree,
+                            Ongoing:false,
+                            End:End
+                        },{merge: true})
+                    });
+                    // =========================== Set voting on to false =================================
+                    let onRef = db.collection('on').doc('onoroff')
+                    batch.set(onRef,{
+                        on:false
+                    })
+                    // =========================== Deleting Votes of all Movies ===========================
+                    db.collection("movies").get()
+                    .then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
+                            let x = db.collection("movies").doc(doc.id);
+                            batch.delete(x);
+                        });
+                        // =========================== Removing all nominations =======================
+                        db.collection("users").get()
+                        .then(function(querySnapshot) {
+                            querySnapshot.forEach(function(doc) {
+                                let x = db.collection("users").doc(doc.id);
+                                batch.update(x,{Nominations:[]})
+                            });
+                            // Commit the batch
+                            batch.commit()
+                            .then(function () {
+                                dispatch({
+                                    type:END_VOTING_SUCCESS,
+                                })
+                            })
+                            .catch(function(error) {
+                                dispatch({
+                                    type:END_VOTING_FAILURE
+                                })
+                            })
+                        })
+                        .catch(function(error) {
+                            dispatch({
+                                type:END_VOTING_FAILURE
+                            })
+                        })
+                    })
+                    .catch(function(error) {
+                        dispatch({
+                            type:END_VOTING_FAILURE
+                        })
+                    });
+                })
+                .catch(function(error) {
+                    dispatch({
+                        type:END_VOTING_FAILURE
+                    })
+                });
+            }
+            else{
+                dispatch({
+                    type:END_VOTING_FAILURE
+                })
+            }
+        }
+        catch(err){
+            dispatch({
+                type:END_VOTING_FAILURE
+            })
+        }
+    }
+}
 
