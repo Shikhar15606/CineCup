@@ -347,9 +347,6 @@ export const auth = () => {
 // ================================================= Nominate ================================================== 
 export const nominate = (user) => {
   return async (dispatch) => {
-    dispatch({
-      type:NOMINATE_MOVIE_REQUEST
-    })
     const db = firebase.firestore();
     var userRef = db.collection('users').doc(user.Email);
     userRef.get().then(function(doc) {
@@ -438,9 +435,6 @@ export const resetPassword = (User) => {
 
 export const remove_nominate = (user) => {
   return async (dispatch) => {
-    dispatch({
-      type:REMOVE_NOMINATE_MOVIE_REQUEST
-    })
     const db = firebase.firestore();
     var userRef = db.collection('users').doc(user.Email);
     userRef.get().then(function(doc) {
