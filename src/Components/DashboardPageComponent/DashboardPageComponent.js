@@ -51,16 +51,16 @@ function DashboardPageComponent(){
     setOpen(false);
   };
   //======================================Fetching data from internet ===========================
-  const getMovieNominations = () => {
+  async function fetchData(){
     let arr = [];
-    user.user.Nominations.forEach(element => {
-      axios(`https://api.themoviedb.org/3/movie/${element}?api_key=${TMDB_API_KEY}`)
-      .then((res) => {
-          let x=res.data
-          arr.push(x);  
-      })
-    });
-    setresult(arr);
+    for(let i=0;i<user.user.Nominations.length;i++){
+      let element = user.user.Nominations[i];
+      let res = await axios(`https://api.themoviedb.org/3/movie/${element}?api_key=${TMDB_API_KEY}`)
+      let x=res.data
+      arr.push(x)
+      if(i===user.user.Nominations.length-1)
+        return arr;
+    }  
   }
   //=========================================== Render Card =========================================
 
@@ -116,7 +116,11 @@ function DashboardPageComponent(){
     // ===================================================================================================
   useEffect(() =>{
     if(user.isLoggedIn){
-      getMovieNominations();
+       if(user.user && user.user.Nominations)
+       fetchData()
+       .then((arr)=>{
+        setresult(arr);
+       })
       console.log("Render Card Chala")
       console.log(result);
      }
@@ -133,10 +137,8 @@ function DashboardPageComponent(){
           </div>
           <main>
           <section className="wrapper1">
-              {
-                console.log(result,result.length)}
               {  
-                result.length !== 0 ?
+                result && result.length !== 0 ?
                 (
                   result.map((resul) => (              
                   <RenderCard key={resul.id} r={resul} />   

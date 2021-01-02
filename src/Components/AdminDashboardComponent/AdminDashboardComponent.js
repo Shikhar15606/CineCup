@@ -48,16 +48,17 @@ const AdminDashboardComponent = () => {
       };
 
     //======================================Fetching data from internet ===========================
-    const getMovieDetails = () => {
-        let arr = [];
-        user.blacklist.forEach(element => {
-        axios(`https://api.themoviedb.org/3/movie/${element}?api_key=${TMDB_API_KEY}`)
-        .then((res) => {
-            let x=res.data
-            arr.push(x);  
-        })
-        });
-        setresult(arr);
+
+    async function fetchData(){
+      let arr = [];
+      for(let i=0;i<user.blacklist.length;i++){
+        let element = user.blacklist[i];
+        let res = await axios(`https://api.themoviedb.org/3/movie/${element}?api_key=${TMDB_API_KEY}`)
+        let x=res.data
+        arr.push(x)
+        if(i===user.blacklist.length-1)
+          return arr;
+      }  
     }
     //=========================================== Render Card =========================================
 
@@ -110,8 +111,13 @@ const AdminDashboardComponent = () => {
     }
     // ===================================================================================================
     useEffect(() =>{
-        if(user.isLoggedIn){
-        getMovieDetails();
+        if(user.isLoggedIn && user.blacklist){
+          console.log("Chala")
+          fetchData()
+          .then((arr)=>{
+            console.log("Ohh ",arr);
+            setresult(arr);
+          })
         }
     },[user.isLoggedIn])
 
@@ -237,7 +243,7 @@ const AdminDashboardComponent = () => {
       <main>
       <section className="wrapper1">
           {  
-            result.length !== 0 ?
+            result && result.length !== 0 ?
             (
               result.map((resul) => (              
               <RenderCard key={resul.id} r={resul} />   

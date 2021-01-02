@@ -122,26 +122,36 @@ const HistoryDetailComponent = () => {
 
     useEffect(()=>{
       if(user.history)
-      for(let i=0;i< user.history.length; i++){
-        if(user.history[i].contestid === contest_id)
-        {
-          setcontest(user.history[i])
-          break;
+      {
+        for(let i=0;i< user.history.length; i++){
+          if(user.history[i].contestid === contest_id)
+          {
+            setcontest(user.history[i])
+            break;
+          }
         }
-    }
-    },[user.history])
+      }
+    },[user.history,contest_id])
+
     useEffect(() => {
-        let arr = [];
         if(contest && contest.Movies)
-        contest.Movies.forEach(element => {
-            axios(`https://api.themoviedb.org/3/movie/${element.movieId}?api_key=${TMDB_API_KEY}`)
-            .then((res) => {
-                let x=res.data
-                arr.push({...x,rank:element.rank,votes:element.votes});  
-            })
-        });
+        fetchData().then((arr)=>{
         setmoviedetail(arr);
+        })
     },[contest])
+
+    async function fetchData(){
+      let arr = [];
+      for(let i=0;i<contest.Movies.length;i++){
+        let element = contest.Movies[i];
+        let res = await axios(`https://api.themoviedb.org/3/movie/${element.movieId}?api_key=${TMDB_API_KEY}`)
+            let x=res.data
+            arr.push({...x,rank:element.rank,votes:element.votes})
+            if(i===contest.Movies.length-1)
+              return arr;
+      }  
+    }
+
     if(user.isLoading)
     return(
       <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>

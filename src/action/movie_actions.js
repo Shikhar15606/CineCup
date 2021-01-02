@@ -27,9 +27,6 @@ export const fetchMoviesData = () => {
         let unsubscribe = db.collection('movies')
         .orderBy("Votes", "desc")
         .onSnapshot(function(querySnapshot) {
-            dispatch({
-                type: FETCH_MOVIES_DATA_REQUEST
-            })
             let arr = []
             let i = 1;
             let j = 1;
@@ -120,9 +117,6 @@ export const fetchBlackListedMovies = () => {
 
 export const blackListMovie = ({movieId,movieName,token}) => {
     return async (dispatch) => {
-        dispatch({
-            type: FETCH_MOVIES_DATA_REQUEST
-        })
         const db = firebase.firestore();
         // getting all users and removing blacklisted movie from their nominations
         db.collection("users").get()
