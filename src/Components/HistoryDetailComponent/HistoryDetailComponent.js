@@ -9,6 +9,56 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
+
+const Cards = () => { 
+  console.log('started')
+  init()
+  function init()
+  {
+    if(document.querySelector(".cards_carousal"))
+    {
+      let cards = document.querySelector(".cards_carousal");
+      cards.addEventListener('click', clicked, false);
+      document.querySelectorAll(".cards_carousal .card_co")[1].click();
+    }
+  }
+
+ 
+  function clicked(e)
+  {
+    let card = e.target;
+    if(card.getAttribute("data-card")){rearrange(card.getAttribute("data-card"));}
+  }
+  
+  function rearrange(card)
+  {
+    let cards = document.querySelectorAll(".cards_carousal .card_co");
+    for(let n = 0; n < cards.length; n++)
+    {
+      cards[n].classList.remove("card--left");
+      cards[n].classList.remove("card--center");
+      cards[n].classList.remove("card--right");
+    }
+    cards[card].classList.add("card--center");
+    if(card == 0)
+    {
+      cards[2].classList.add("card--left");
+      cards[1].classList.add("card--right");
+    }
+    if(card == 1)
+    {
+      cards[0].classList.add("card--left");
+      cards[2].classList.add("card--right");
+    }
+    if(card == 2)
+    {
+      cards[1].classList.add("card--left");
+      cards[0].classList.add("card--right");
+    }
+  }
+};
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -142,32 +192,31 @@ const HistoryDetailComponent = () => {
         });
         setmoviedetail(arr);
     },[contest])
+
+    useEffect(()=>{
+     Cards();
+    },[contest])
     if(user.isLoading)
     return(
       <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
     )
     return (
-        <div className="wrapper2">
-            <header>
-                <h1>{`Result ${contest.Name}`}</h1>
-                <div >
-            </div>
-            </header>
-            
-            <div className="card__collection clear-fix" id="leaderboard_cards"   >
-            {  
-                moviedetail.length !== 0 ?
-                (
-                  moviedetail.map((resul) => (              
-                  <RenderCard key={resul.id} r={resul}  />   
-                  ))
-                )
-                :(
-                  <CircularProgress style={{marginTop:"15vw"}} color="secondary" ></CircularProgress>
-                 )
-              }
-            </div>
-        </div>
+      <div className="wrapper3">
+      <div className="cards_carousal">
+      <div className="card_co fill-orange" data-card="0">
+     <div className="card__icon" data-icon="1"></div>
+     <div className="card__detail">details</div>
+    </div>
+     <div className="card_co fill-orange" data-card="1">
+    <div className="card__icon" data-icon="2"></div>
+    <div className="card__detail">details</div>
+   </div>
+   <div className="card_co fill-orange" data-card="2">
+   <div className="card__icon" data-icon="3"></div>
+   <div className="card__detail">details</div>
+   </div>
+  </div>
+  </div>
     );
 };
 

@@ -2,10 +2,33 @@
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
-    
+    background-color: white;
     
 }
 
+.welcome_text h1{
+    color: black;
+}
+
+.heading_h {
+    width: 100%;
+    
+    font-weight: 400;
+    font-size: 1.218rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1ch;
+    line-height: 1;
+    padding-bottom: 0.5em;
+    margin-bottom: 1rem;
+    position: relative;
+    text-decoration: underline;
+    color: rgb(0, 0, 0);
+    text-decoration-color: #008cff;
+  }
+
+.text_home{
+    padding: 20px;
+}
 .welcome_box{
     height:100%;
     width:100vw;
