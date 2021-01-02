@@ -11,7 +11,7 @@ function HomePageComponent (){
     
         return (
             <>
-            <div>
+            <div className="wrapper_home">
 
             
             <div className="welcome_box">
