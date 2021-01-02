@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const HistoryComponent = () => {
     const user = useSelector(state => state.user);
@@ -31,7 +32,11 @@ const HistoryComponent = () => {
         },
       });
       const classes = useStyles();
-    return (
+      if(user.isLoading)
+      return(
+        <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
+      )
+      return (
         <div>
             <h1>
                 Previous Contests

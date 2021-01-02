@@ -120,29 +120,32 @@ const HistoryDetailComponent = () => {
     const [contest,setcontest] = useState({});
     const classes = useStyles();
 
-    async function getelement(){
-        for(let i=0;i< user.history.length; i++){
-            if(user.history[i].contestid === contest_id)
-                return user.history[i];
+    useEffect(()=>{
+      if(user.history)
+      for(let i=0;i< user.history.length; i++){
+        if(user.history[i].contestid === contest_id)
+        {
+          setcontest(user.history[i])
+          break;
         }
     }
-    useEffect(() => {
-        if(user.history)
-        getelement()
-        .then((contest)=>{
-            let arr = [];
-            contest.Movies.forEach(element => {
-                axios(`https://api.themoviedb.org/3/movie/${element.movieId}?api_key=${TMDB_API_KEY}`)
-                .then((res) => {
-                    let x=res.data
-                    arr.push({...x,rank:element.rank,votes:element.votes});  
-                })
-            });
-            setcontest(contest);
-            setmoviedetail(arr);
-        })
     },[user.history])
-
+    useEffect(() => {
+        let arr = [];
+        if(contest && contest.Movies)
+        contest.Movies.forEach(element => {
+            axios(`https://api.themoviedb.org/3/movie/${element.movieId}?api_key=${TMDB_API_KEY}`)
+            .then((res) => {
+                let x=res.data
+                arr.push({...x,rank:element.rank,votes:element.votes});  
+            })
+        });
+        setmoviedetail(arr);
+    },[contest])
+    if(user.isLoading)
+    return(
+      <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
+    )
     return (
         <div className="wrapper2">
             <header>
@@ -160,7 +163,7 @@ const HistoryDetailComponent = () => {
                   ))
                 )
                 :(
-                  <p style={{color:"white"}}> Nothing Here </p>
+                  <CircularProgress style={{marginTop:"15vw"}} color="secondary" ></CircularProgress>
                  )
               }
             </div>
