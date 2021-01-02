@@ -376,7 +376,9 @@ margin-right: 10px;
 	transform: rotateY(0deg);
   }
   
-
+.share_but_s{
+	margin-top: 10px;
+}
    .button_s {
 	transform: translateZ(40px);
 	cursor: pointer;

@@ -87,7 +87,7 @@
 }
 
 .course-info {
-	padding: 30px;
+	padding: 20px;
 	position: relative;
 	width: 100%;
 }
@@ -103,7 +103,7 @@
 	font-size: 16px;
 	padding: 6px 12px;
 	position: absolute;
-	bottom: 20px;
+	bottom: 10px;
 	right: 30px;
 	letter-spacing: 1px;
 }
@@ -126,41 +126,12 @@
 	
 	
 }
-.movie_details{
-	/* display: block; */
-	width: auto;
-}
-.rank{
-	background-color: #0f9bc0;
-	text-align: center;
-	align-items: center;
-	justify-items: center;
-	width:80px;
-}
-.rank_text{
-	color: #fff;
-	position: relative;
-	text-align: center;
-	font-size: 60px;
-	margin: 15px;
-	
-	
-}
-.rank_img{
-	height:100px;
-	width:80px;
-	position: relative;
-	border-radius: 0;
-	
-}
- .clear-fix:after {
-	 display: block;
-	 clear: both;
-	 content: '';
-}
- .img-responsive {
-	 max-width: 100%;
-	 height: auto;
+.share_but{
+width:150px;
+position: absolute;
+bottom:0px;
+
+	text-align: left;
 }
  .card__collection {
 	 position: relative;
@@ -242,7 +213,7 @@
 		padding: 10px;
 		position: relative;
 		width: 280px;
-		height: 150px;
+		height: 180px;
 	}
 	
 	
@@ -261,4 +232,12 @@
 		right: 100px;
 		letter-spacing: 1px;
 	}
+	.share_but{
+		width:200px;
+		position: relative;
+		bottom:-5px;
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		}
 }

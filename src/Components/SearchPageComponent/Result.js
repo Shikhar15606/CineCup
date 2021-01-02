@@ -5,15 +5,11 @@ import { Link } from 'react-router-dom';
 import {nominate} from '../../action/user_actions';
 import {blackListMovie} from '../../action/movie_actions';
 import {Button, Hidden} from '@material-ui/core'
-import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
+import ShareButton from '../shareButton'
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+
 import Rating from '@material-ui/lab/Rating';
-import Typography from '@material-ui/core/Typography';
+
 import { useAuth0 } from '@auth0/auth0-react';
 function Result({ result, openPopup }) {
 	const { getAccessTokenSilently } = useAuth0();
@@ -112,12 +108,21 @@ function Result({ result, openPopup }) {
 					<Button className="button_s"
 					variant="outlined"
 					color="secondary"
+				
 					disabled={blackbtn || isblackdisabled(result.id)}
 					 onClick={(e) => {setblackbtn(true); setbtn(true); BlacklistMovie(e)}}>Blacklist</Button>
 					:
 					<span>
 					</span>
 		}
+		<div  className="share_but_s">
+          <ShareButton 
+          url={`https://cinecup-9b0ac.web.app/movie/${result.id}`}
+           image={`https://image.tmdb.org/t/p/w500/${result.poster_path}`}
+            title={`${result.title} - ${result.overview} 
+            Check out the trailer on this page`}
+           />
+        </div>
 		</div>
 		
       </div>
