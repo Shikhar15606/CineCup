@@ -8,7 +8,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-
+import { faStar} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Cards = () => { 
   console.log('started')
@@ -133,33 +134,27 @@ const useStyles = makeStyles((theme) => ({
 
 
   function RenderCard ({r}) {     
-      
+      let x=r.rank - 1
     return(  
-<div className="wraap" id="movie_card">
-<div class="courses-container">
-
-<div class="course">
-  <div class="course-preview">
-<img src={`https://image.tmdb.org/t/p/w500/${r.poster_path}`} alt="Cards Image" className="movie_image"/>
-  </div>
-  <div class="course-info">
-    <h2>{r.title}</h2>
-<h3>Votes : {r.votes}</h3>
-      <h6>{r.rank}</h6>
-<h4 className="genre_list">{
-  r.genres.map(genre=>{
-    return <span> {genre.name} </span>
-  })
-}</h4>
-<Link to={`/movie/${r.id}`}   >
-      <button class="btn">Explore</button>
-</Link>
-  </div>
-</div>
-
-</div>
-</div> 
-       
+      <>
+      <div className="card_co fill-blue" data-card={x}>
+      <div className="card__icon" >
+      <img src={`https://image.tmdb.org/t/p/w500/${r.poster_path}`} alt="Cards Image" className="card--image"/>
+      </div>
+      <div className="card__detail">
+        <h1>
+        <FontAwesomeIcon icon={faStar} color="#FFD700" size="lg">
+        
+        </FontAwesomeIcon>
+        <span className="ranky">{r.rank}</span>
+        </h1>
+     
+        <h1>{r.title}</h1>
+        <h1>{r.votes}</h1>
+        </div>
+     </div>
+      
+     </>  
     )
   }
 
@@ -188,8 +183,11 @@ const HistoryDetailComponent = () => {
         fetchData().then((arr)=>{
         setmoviedetail(arr);
         })
+        
     },[contest])
-
+    useEffect(()=>{
+      Cards()
+    })
     async function fetchData(){
       let arr = [];
       for(let i=0;i<contest.Movies.length;i++){
@@ -208,21 +206,24 @@ const HistoryDetailComponent = () => {
     )
     return (
       <div className="wrapper3">
-      <div className="cards_carousal">
-      <div className="card_co fill-orange" data-card="0">
-     <div className="card__icon" data-icon="1"></div>
-     <div className="card__detail">details</div>
-    </div>
-     <div className="card_co fill-orange" data-card="1">
-    <div className="card__icon" data-icon="2"></div>
-    <div className="card__detail">details</div>
-   </div>
-   <div className="card_co fill-orange" data-card="2">
-   <div className="card__icon" data-icon="3"></div>
-   <div className="card__detail">details</div>
-   </div>
-  </div>
-  </div>
+          {  
+                moviedetail.length !== 0 ?
+                (
+                <div className="cards_carousal">
+                  {
+             moviedetail.map((resul) => (              
+                  <RenderCard key={resul.id} r={resul}  />   
+                  ))
+                  }
+                </div>
+                
+                )
+                :(
+                  <CircularProgress style={{marginTop:"15vw"}} color="secondary" ></CircularProgress>
+                 )
+        }
+      
+      </div>
     );
 };
 

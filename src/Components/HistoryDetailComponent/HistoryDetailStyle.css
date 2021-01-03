@@ -1,11 +1,4 @@
-@import 'https://fonts.googleapis.com/css?family=Do+Hyeon';
- .wrapper2, .wrapper2:before, .wrapper2:after {
-	 margin: 0 auto;
-	 padding: 0;
-	 box-sizing: border-box;
-	 
-	 
-}
+
 @import 'https://fonts.googleapis.com/css?family=Do+Hyeon';
 
 .wrapper3, .wrapper3:before, .wrapper3:after
@@ -17,7 +10,7 @@
   height:100vh;
   margin:0;
   padding:0;
-  background-image: linear-gradient(90deg, #ffb170, #ff76d5);
+  background-image: linear-gradient(90deg, #ffffff, #ffffff);
   font-family: Helvetica;
 }
 
@@ -26,20 +19,21 @@
   background-image: linear-gradient(90deg, #4addff, #a34dfe);
 }
 
-.fill-green
-{
-  background-image: linear-gradient(90deg, #ffe40c, #33d497);
-}
 
-.fill-blue
+
+.fill-blue:nth-of-type(1)
 {
   background-image: linear-gradient(90deg, #285ca5, #18d5ff);
 }
-
-.fill-orange
+.fill-blue:nth-of-type(2)
 {
-  background-image: linear-gradient(90deg, #fcf595, #ff954d);
+	background-image: linear-gradient(90deg, #fcf595, #ff954d);
 }
+.fill-blue:nth-of-type(3)
+{
+	background-image: linear-gradient(90deg, #ffe40c, #33d497);
+}
+
 
 .cards_carousal
 {
@@ -98,7 +92,7 @@
 
 .card__icon
 {
-  width:30%;
+  width:40%;
   height:100%;
   background:rgba(255,255,255,0.5);
   position:relative;
@@ -125,9 +119,23 @@
 {
   flex:1;
   display:flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+.card__detail h1{
+  margin-top: 20px;
+  height: 33.33%;
+  overflow: hidden;
+}
+
+.ranky{
+  position: absolute;
+  right: 28.5%;
+  top: 8%;
+  font-size:35px;
+}
+
 
 @media only screen and (max-width : 736px)
 {
@@ -140,7 +148,8 @@
   .card_co
   {
     display:flex;
-    width:90%;
+	width:90%;
+	
   }
 
   .card--left
