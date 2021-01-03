@@ -14,6 +14,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import firebase from 'firebase';
 import Rating from '@material-ui/lab/Rating';
 import TextField from '@material-ui/core/TextField';
+import ShareButton from '../shareButton'
 const AdminDashboardComponent = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
@@ -102,6 +103,14 @@ const AdminDashboardComponent = () => {
        <Button className="button_s"  style={{marginBottom:10}}
        variant="outlined" color="primary" onClick={(e) => {RemoveFromBlackList(e)}} >
          Remove</Button>
+         <div  className="share_but_s">
+          <ShareButton 
+          url={`https://cinecup-9b0ac.web.app/movie/${result.id}`}
+           image={`https://image.tmdb.org/t/p/w500/${result.poster_path}`}
+            title={`${result.title} - ${result.overview} 
+            Check out the trailer on this page`}
+           />
+        </div>
       
        </div>
        

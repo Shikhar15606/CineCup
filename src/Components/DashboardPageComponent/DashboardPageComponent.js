@@ -12,6 +12,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Rating from '@material-ui/lab/Rating';
+import ShareButton from '../shareButton'
 function DashboardPageComponent(){
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
@@ -106,6 +107,14 @@ function DashboardPageComponent(){
      <Button className="button_s"  style={{marginBottom:10}}
      variant="outlined" color="primary" onClick={(e) => {Remove_Nominate(e)}} >
        Remove</Button>
+       <div  className="share_but_s">
+          <ShareButton 
+          url={`https://cinecup-9b0ac.web.app/movie/${result.id}`}
+           image={`https://image.tmdb.org/t/p/w500/${result.poster_path}`}
+            title={`${result.title} - ${result.overview} 
+            Check out the trailer on this page`}
+           />
+        </div>
     
      </div>
      
