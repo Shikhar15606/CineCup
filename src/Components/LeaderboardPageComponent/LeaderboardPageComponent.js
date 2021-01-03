@@ -11,6 +11,8 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper';
 import Rating from '@material-ui/lab/Rating';
 import ShareButton from '../shareButton'
+import { faArrowCircleRight} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -34,11 +36,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     margin: 0 ,
-    width: '60%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: '20%',
-    },
+    width: '100%',
+    
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -52,25 +51,22 @@ const useStyles = makeStyles((theme) => ({
   },
   inputRoot: {
     color: 'inherit',
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: fade(theme.palette.common.black, 0.45),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.black, 0.55),
     },
+    width:"100%",
   },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
+    
     color:"white",
 
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
-    width: '70%',
-    [theme.breakpoints.up('sm')]: {
-      width: '50ch',
-      '&:focus': {
-        width: '60ch',
-      },
-    },
+    width: "100%",
+    maxWidth: 600,
+    
   },
   paper: {
     // padding: theme.spacing(1),
@@ -91,13 +87,13 @@ const LeaderboardPageComponent = () => {
       
           return(  
     <div className="wraap" id="movie_card">
-    <div class="courses-container">
+    <div className="courses-container">
     
-	<div class="course">
-		<div class="course-preview">
+	<div className="course">
+		<div className="course-preview">
     <img src={`https://image.tmdb.org/t/p/w500/${r.poster_path}`} alt="Cards Image" className="movie_image"/>
 		</div>
-		<div class="course-info">
+		<div className="course-info">
 		  <h2>{r.title}</h2>
       <h3>Votes : {r.votes}</h3>
 			<h6>{r.rank}</h6>
@@ -117,7 +113,7 @@ const LeaderboardPageComponent = () => {
       </div>
     
       <Link to={`/movie/${r.id}`}   >
-			<button class="btn">Explore</button>
+			<button className="btn">Explore</button>
       </Link>
 		</div>
 	</div>
@@ -133,11 +129,12 @@ const LeaderboardPageComponent = () => {
       )
     return (
         <div className="wrapper2">
-            <header>
-                <h1>LeaderBoard</h1>
-                <div >
-           
-            <InputBase
+                      <div className="wrapper_history">
+                     
+  <div className="list">
+    <div className="list__header">
+      <h1 style={{color:"black"}}>Leaderboard</h1>
+      <InputBase
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,
@@ -145,7 +142,7 @@ const LeaderboardPageComponent = () => {
               }}
               inputProps={{ 'aria-label': 'search','id':'sear'}}
               onKeyUp={()=>{
-                  var all = document.getElementById("leaderboard_cards").getElementsByClassName("wraap");
+                  var all = document.getElementById("list-table").getElementsByClassName("list__row");
                 
                 console.log(all)
                 for(var i=0;i<all.length;i++)
@@ -162,22 +159,53 @@ const LeaderboardPageComponent = () => {
               }}
               
             />
-            </div>
-            </header>
-            
-            <div className="card__collection clear-fix" id="leaderboard_cards"   >
-            {  
+      
+    </div>
+    <div className="list__body">
+      <table className="list__table" id="list-table">
+      <tr className="header_row">
+      <th className="list__cell">Rank</th>
+    <th className="list__cell">Movie</th>
+    <th className="list__cell">Genre</th>
+    <th className="list__cell">Votes</th>
+    <th class="list__cell">Explore</th>
+  </tr>
+      
+     {  
                 result.length !== 0 ?
                 (
                   result.map((resul) => (              
-                  <RenderCard key={resul.id} r={resul}  />   
+                    <tr className="list__row" >
+         
+         <td className="list__cell"><span className="list__value">{resul.rank}</span></td>
+         <td className="list__cell"><span className="list__value">{resul.title}</span></td>
+         <td className="list__cell">
+           {
+         resul.genres.slice(0,1).map(genre=>{
+          return <span> {genre.name} </span>
+        })
+      }</td>
+        
+         <td className="list__cell"><span className="list__value">{resul.votes}</span></td>
+         <td className="list__cell"> 
+         <Link to={`/movie/${resul.id}`}   >
+         <span class="list__value"><FontAwesomeIcon icon={faArrowCircleRight} /></span> 
+         </Link></td>
+       </tr>
                   ))
                 )
                 :(
                   <p style={{color:"white"}}> Nothing Here </p>
                  )
-              }
-            </div>
+              }              
+      
+        
+  
+        
+      </table>
+    </div>
+  </div>
+</div>
         </div>
     );
 };
