@@ -16,6 +16,7 @@ function HomePageComponent (){
             
             <div className="welcome_box">
             <Grid container >
+            
                 <Grid item xs={12} md={5} className="welcome_text">
                  <h1 >Cinecup Presents</h1>
                  <p className="text_home">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam venenatis turpis ut mauris pellentesque lobortis. Aliquam interdum facilisis varius. Vestibulum eu orci nibh. Duis non nibh quis urna faucibus tempus. Fusce non nisi luctus, iaculis lectus vitae, blandit metus. Ut sit amet viverra turpis, nec fermentum nisi. Cras et aliquet urna, ac euismod erat. Quisque rhoncus cursus vehicula. Nam dolor lorem, consectetur fringilla interdum sit amet, vehicula vitae libero.</p>
@@ -24,11 +25,12 @@ function HomePageComponent (){
                 <img src="https://templatemo.com/templates/templatemo_537_art_factory/assets/images/slider-icon.png"
                          className="wel_image" alt="First Vector Graphic" />
                 </Grid>
+                
             </Grid>
 
             </div>
-            <div className="section1">
-            <Grid container >
+           
+            <Grid container className="section" >
             <Grid item xs={12} md={6} className="welcome_image">
             <img src="https://templatemo.com/templates/templatemo_537_art_factory/assets/images/left-image.png"
                          className="wel_image" alt="First Vector Graphic" />
@@ -43,9 +45,13 @@ function HomePageComponent (){
                 
             </Grid>
 
-            </div>
-            <div className="section2">
-            <Grid container >
+            
+            
+            <Grid container className="section" >
+               <Grid item xs={12} md={6} className="welcome_image">
+                <img src="https://templatemo.com/templates/templatemo_537_art_factory/assets/images/right-image.png"
+                         className="wel_image" alt="First Vector Graphic" />
+                </Grid>
             
                 <Grid item xs={12} md={6} className="welcome_text">
                  <h1 className="heading_h">Nomination</h1>
@@ -54,21 +60,18 @@ function HomePageComponent (){
                    Nominate
                  </Button>
                 </Grid>
-                <Grid item xs={12} md={6} className="welcome_image">
-                <img src="https://templatemo.com/templates/templatemo_537_art_factory/assets/images/right-image.png"
-                         className="wel_image" alt="First Vector Graphic" />
-                </Grid>
+                
                 
             </Grid>
 
-            </div>
-            <div className="section3">
-            <Grid container >
-            <Grid item xs={12} md={6} className="welcome_image">
+            
+            
+            <Grid container className="section">
+            <Grid item xs={12} md={6} className="imag">
                 <img src="https://image.freepik.com/free-vector/social-media-isometric-concept-with-characters-landing-page-template-illustration_106788-1300.jpg"
                          className="wel_image" alt="First Vector Graphic" />
                 </Grid>
-                <Grid item xs={12} md={6} className="welcome_text">
+                <Grid item xs={12} md={6} className="me_text">
                  <h1 className="heading_h">Ranking Algorithm</h1>
                  <p className="text_home">Lorem Ipsum is simply dummy text of the printing and typesetting industry.  not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
                  <Button variant="outlined" color="secondary" small>
@@ -78,7 +81,7 @@ function HomePageComponent (){
                 
             </Grid>
 
-            </div>
+           
             </div>
             
                

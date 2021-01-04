@@ -30,7 +30,7 @@
     padding: 20px;
 }
 .welcome_box{
-    height:100%;
+    height:100vh;
     width:100vw;
     /* background-image: url(../../assets/images/banner-bg.png);
     background-size: cover;
@@ -52,6 +52,7 @@
 .welcome_image{
     /* background-color: rgb(255, 255, 255); */
     padding: 20px;
+    
 }
 .wel_image{
     max-width: 600px;
@@ -59,37 +60,28 @@
     height:auto;
     position: relative;
 }
-.section1{
-    height:100%;
+.section{
+    height:100vh;
     width:100vw;
-    display: flex;
+    display:flex ;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     position: relative;
-    
+    flex-direction: row;
 }
-.section2{
-    height:100%;
-    width:100%;
-    display: flex;
-    flex-wrap: wrap-reverse;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    
 
+.section:nth-of-type(even){
+    flex-direction: row-reverse;
 }
-.section3{
-    height:100%;
-    width:100vw;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    
+
+.imag{
+    float: inline-end;
 }
+.we_text{
+    float: inline-start;
+}
+
 .footer_h{
     
 }
