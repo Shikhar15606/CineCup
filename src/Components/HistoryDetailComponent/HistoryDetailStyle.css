@@ -135,8 +135,10 @@
   top: 8%;
   font-size:35px;
 }
-
-
+.star{
+  height: 50px;
+  width: 50px;
+}
 @media only screen and (max-width : 736px)
 {
   .cards_carousal
