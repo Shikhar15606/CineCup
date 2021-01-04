@@ -19,24 +19,40 @@ import firebase from 'firebase';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import Paper from '@material-ui/core/Paper';
 // redux
 import {register} from '../../action/user_actions';
 import {useDispatch,useSelector} from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop:'80px',
+    height: '80vh',
+    backgroundColor: "rgb(0, 18, 34)",
+    
+    
+  },
+  image: {
+    backgroundImage: 'url(https://image.freepik.com/free-vector/account-concept-illustration_114360-399.jpg)',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor:
+      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    backgroundSize: 'contain',
+    backgroundPosition: 'center',
+  },
     paper: {
       marginTop: theme.spacing(8),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      padding:theme.spacing(1)
     },
     avatar: {
       margin: theme.spacing(1),
       backgroundColor: theme.palette.secondary.main,
     },
     form: {
-      width: '100%', // Fix IE 11 issue.
+      width: '80%', // Fix IE 11 issue.
       marginTop: theme.spacing(3),
     },
     submit: {
@@ -163,8 +179,10 @@ function SignUpPageComponent(){
       <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
     )
         return (
-          <Container component="main" maxWidth="xs" >
-     <CssBaseline />
+          <Grid container component="main" className={classes.root}>
+     {/* <CssBaseline /> */}
+     <Grid item xs={false} sm={4} md={6} className={classes.image} />
+      <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -277,7 +295,7 @@ function SignUpPageComponent(){
             : <div></div>
           }
           <Grid container justify="flex-end">
-            <Grid item>
+            <Grid item xs={12}>
               <Link href="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
@@ -285,7 +303,9 @@ function SignUpPageComponent(){
           </Grid>
         </form>
       </div>
-    </Container>
+      
+      </Grid>
+    </Grid>
         );
     
 }

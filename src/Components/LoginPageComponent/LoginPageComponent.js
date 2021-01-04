@@ -31,11 +31,11 @@ const useStyles = makeStyles((theme) => ({
       
     },
     image: {
-      backgroundImage: 'url(https://source.unsplash.com/random)',
+      backgroundImage: 'url(https://image.freepik.com/free-vector/login-concept-illustration_114360-739.jpg)',
       backgroundRepeat: 'no-repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
+      backgroundSize: 'contain',
       backgroundPosition: 'center',
     },
     paper: {
@@ -213,12 +213,12 @@ function LoginPageComponent(){
             <div></div>
             }
             <Grid container>
-              <Grid item xs>
+              <Grid item xs={12}>
                 <Link href="/resetpassword" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
