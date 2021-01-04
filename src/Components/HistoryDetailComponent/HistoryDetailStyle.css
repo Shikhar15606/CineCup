@@ -127,17 +127,16 @@
   margin-top: 20px;
   height: 33.33%;
   overflow: hidden;
+  font-size: 30px;
 }
 
 .ranky{
-  position: absolute;
-  right: 28.5%;
-  top: 8%;
-  font-size:35px;
+  position: relative;
+  font-size:50px;
 }
 .star{
-  height: 50px;
-  width: 50px;
+  position: relative;
+
 }
 @media only screen and (max-width : 736px)
 {

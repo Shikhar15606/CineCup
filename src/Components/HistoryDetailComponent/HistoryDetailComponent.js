@@ -143,14 +143,20 @@ const useStyles = makeStyles((theme) => ({
       </div>
       <div className="card__detail">
         <h1>
-        <FontAwesomeIcon icon={faStar} color="#FFD700" size="lg">
+          <span className="star">
+          <FontAwesomeIcon icon={faStar} color="#FFD700" size="2x" >
         
         </FontAwesomeIcon>
-        <span className="ranky">{r.rank}</span>
+          </span>
+       
+        <span className="ranky">
+        {r.rank}
+        </span>
+        
         </h1>
      
         <h1>{r.title}</h1>
-        <h1>{r.votes}</h1>
+        <h1>Votes : {r.votes}</h1>
         </div>
      </div>
       
