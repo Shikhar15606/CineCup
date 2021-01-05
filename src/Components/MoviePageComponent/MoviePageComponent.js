@@ -102,17 +102,7 @@ const MoviePageComponent = () => {
         </div>
 		</div>
 	</div>
-  {/* <div className="descrip">
-   
-       {
-        
-        cast.slice(0,3).map((x)=>{
-          return <span>{x.name}</span>
-        })
-        
-      }
-      
-    </div> */}
+
 	<div className="afterImage">
 		<div className="left1">
 			<h3>Description</h3>

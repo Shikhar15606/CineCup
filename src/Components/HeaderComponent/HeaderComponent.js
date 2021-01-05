@@ -1,11 +1,11 @@
-import React, { Component} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import DashboardRoundedIcon from '@material-ui/icons/DashboardRounded';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Timeline from '@material-ui/icons/Timeline';
@@ -13,8 +13,7 @@ import Timeline from '@material-ui/icons/Timeline';
 import {Hidden} from '@material-ui/core'
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import Divider from '@material-ui/core/Divider';
+
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import List from '@material-ui/core/List';
@@ -23,19 +22,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
-import clsx from 'clsx';
+
 import LockOpenRoundedIcon from '@material-ui/icons/LockOpenRounded';
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import HistoryIcon from '@material-ui/icons/History';
-import Paper from '@material-ui/core/Paper';
-import Slide from '@material-ui/core/Slide';
+
 import Switch from '@material-ui/core/Switch';
-import { useSelector,useDispatch,useStore } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import {logout} from '../../action/user_actions';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMedal, faRegistered, faSignInAlt, faSignOutAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
+
 import { ExitToAppRounded } from '@material-ui/icons';
 function HeaderComponent(){
         const user = useSelector(state => state.user);
@@ -152,7 +148,7 @@ function HeaderComponent(){
                       <ListItem  key="Dark Mode" >
                       <ListItemIcon> <Brightness4Icon color="primary"/> </ListItemIcon>
                       <Switch />
-                      <ListItemText primary="DARK" />
+                      
                       
                       </ListItem>
                       
@@ -219,7 +215,7 @@ function HeaderComponent(){
           
             return (
               <div className={classes.root}>
-                <AppBar position="fixed" style={{backgroundColor: "rgb(0, 18, 34)"}}>
+                <AppBar position="fixed" style={{backgroundColor: "3454D8"}}>
                   <Toolbar>
                     
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>

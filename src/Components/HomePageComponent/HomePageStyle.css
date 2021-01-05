@@ -2,7 +2,7 @@
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
-    background-color: white;
+    
     
 }
 
@@ -13,8 +13,7 @@
 .heading_h {
     width: 100%;
     
-    font-weight: 400;
-    font-size: 1.218rem;
+   
     text-transform: uppercase;
     letter-spacing: 0.1ch;
     line-height: 1;
@@ -22,7 +21,7 @@
     margin-bottom: 1rem;
     position: relative;
     text-decoration: underline;
-    color: rgb(0, 0, 0);
+   
     text-decoration-color: #008cff;
   }
 
@@ -45,10 +44,7 @@
     margin-top: 50px;
     
 }
-.welcome_text{
-    /* background-color: chartreuse; */
-    
-}
+
 .welcome_image{
     /* background-color: rgb(255, 255, 255); */
     padding: 20px;
@@ -71,6 +67,8 @@
     flex-direction: row;
 }
 
+
+
 .section:nth-of-type(even){
     flex-direction: row-reverse;
 }
@@ -82,9 +80,7 @@
     float: inline-start;
 }
 
-.footer_h{
-    
-}
+
 
 @media (max-width: 760px){
     .welcome_box{
@@ -103,10 +99,7 @@
         margin-top: 50px;
         
     }
-    .welcome_text{
-        /* background-color: chartreuse; */
-        
-    }
+  
     .welcome_image{
         /* background-color: rgb(255, 255, 255); */
         padding: 20px;
@@ -117,36 +110,5 @@
         height:auto;
         position: relative;
     }
-    .section1{
-        height:100%;
-        width:100vw;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        
-    }
-    .section2{
-        height:100%;
-        width:100%;
-        display: flex;
-        flex-wrap: wrap-reverse;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        
     
-    }
-    .section3{
-        height:100%;
-        width:100vw;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        
-    }
 }

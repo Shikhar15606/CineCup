@@ -1,6 +1,5 @@
 import React from 'react'
-import HelmetMetaData from './helmetData'
-import Popper from '@material-ui/core/Popper'
+
 import { makeStyles } from '@material-ui/core/styles';
 import {FacebookShareButton,FacebookIcon,WhatsappIcon,WhatsappShareButton,TwitterIcon,TwitterShareButton}
  from 'react-share'

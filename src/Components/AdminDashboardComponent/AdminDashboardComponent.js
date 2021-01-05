@@ -293,7 +293,7 @@ const AdminDashboardComponent = () => {
       }
       </main>
       <div style={{marginTop:100}}>
-        <h1 style={{color:"white"}}>BlackListed Movies</h1>
+        <h1 >BlackListed Movies</h1>
       </div>
       <main>
       <section className="wrapper1">
@@ -328,7 +328,7 @@ const AdminDashboardComponent = () => {
         }
       {/* Admin */}
       <div style={{marginTop:100}}>
-        <h1 style={{color:"white"}}>All Administrators</h1>
+        <h1 >All Administrators</h1>
       </div>
       <main>
           {  
@@ -361,8 +361,8 @@ const AdminDashboardComponent = () => {
       </main>
       {/* Users */}
       </main>
-      <div style={{marginTop:100}}>
-        <h1 style={{color:"white"}}>All users</h1>
+      <div style={{marginTop:100,textAlign:"center"}}>
+        <h1 >All users</h1>
       </div>
       <main>
           {  

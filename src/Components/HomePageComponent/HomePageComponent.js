@@ -1,10 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './HomePageStyle.css'
-// import '../../assets/css/flex-slider.css'
-// import '../../assets/css/bootstrap.min.css'
-// import '../../assets/css/templatemo-art-factory.css'
-// import '../../assets/css/font-awesome.css'
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button'
 function HomePageComponent (){
@@ -18,7 +13,7 @@ function HomePageComponent (){
             <Grid container >
             
                 <Grid item xs={12} md={5} className="welcome_text">
-                 <h1 >Cinecup Presents</h1>
+                 <h1 className="heading_h" style={{textDecoration:"none"}}>Cinecup Presents</h1>
                  <p className="text_home">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam venenatis turpis ut mauris pellentesque lobortis. Aliquam interdum facilisis varius. Vestibulum eu orci nibh. Duis non nibh quis urna faucibus tempus. Fusce non nisi luctus, iaculis lectus vitae, blandit metus. Ut sit amet viverra turpis, nec fermentum nisi. Cras et aliquet urna, ac euismod erat. Quisque rhoncus cursus vehicula. Nam dolor lorem, consectetur fringilla interdum sit amet, vehicula vitae libero.</p>
                 </Grid>
                 <Grid item xs={12} md={7} className="welcome_image">
@@ -48,7 +43,7 @@ function HomePageComponent (){
             
             
             <Grid container className="section" >
-               <Grid item xs={12} md={6} className="welcome_image">
+               <Grid item xs={12} md={6} className="imag">
                 <img src="https://templatemo.com/templates/templatemo_537_art_factory/assets/images/right-image.png"
                          className="wel_image" alt="First Vector Graphic" />
                 </Grid>
@@ -68,7 +63,7 @@ function HomePageComponent (){
             
             <Grid container className="section">
             <Grid item xs={12} md={6} className="imag">
-                <img src="https://image.freepik.com/free-vector/social-media-isometric-concept-with-characters-landing-page-template-illustration_106788-1300.jpg"
+                <img src="https://lukaszadam.com/assets/downloads/javascript_illustration.svg"
                          className="wel_image" alt="First Vector Graphic" />
                 </Grid>
                 <Grid item xs={12} md={6} className="me_text">

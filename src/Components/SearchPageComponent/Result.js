@@ -60,10 +60,7 @@ function Result({ result, openPopup }) {
 	}
 
 	const BlacklistMovie = async (e) => {
-		// const token = await getAccessTokenSilently({
-		// 	audience: 'https://cinecup-backend.herokuapp.com',
-		// 	scope: 'read:posts',
-		//   });
+		
 		e.preventDefault();
 		const dataToSubmit = {
 			movieId:result.id,

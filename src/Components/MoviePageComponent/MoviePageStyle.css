@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+
 
 * {
 	margin: 0;
@@ -14,9 +14,7 @@
 	flex-direction: column;
 }
 
-body {
-	font-family: Roboto, sans-serif;
-}
+
 
 .image {
 	height: 100vh;
@@ -130,6 +128,19 @@ body {
 .trail{
     height:250px;
     width:400px;
+}
+@media (max-width: 500px)
+{
+	.image img {
+	height: 100vh;
+	width: 100vw;
+	z-index: -1;
+	object-fit: cover;
+	
+	filter: saturate(140%);
+	position: fixed;
+}
+
 }
 
 @media (max-width: 2000px) {
@@ -304,9 +315,7 @@ body {
 	letter-spacing: 0.02rem;
 	
   }
-  .container .reviews{
-
-  }
+  
   .container .testimonial-wrapper .testimonial .attribution {
 	color: #d78118;
 	text-transform: uppercase;

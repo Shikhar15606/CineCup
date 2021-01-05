@@ -1,13 +1,8 @@
-/* header {
-	padding: 50px 15px 0px;
-} */
-
 header h1 {
-	color: rgb(245, 245, 245);
-	font-size: 40px;
-	font-weight: 400;
+	
+	
 	text-align: center;
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	
 	margin-top: 80px;
 }
 
@@ -30,7 +25,7 @@ section {
 	outline: none;
 	background: none;
 
-	background-color: #EEE;
+	background-color: rgb(255, 255, 255);
 	border-radius: 8px;
 
 	color: #53565A;
@@ -328,18 +323,7 @@ margin-right: 10px;
 	overflow: hidden;
 	font-family: Poppins, sans-serif;
   }
-  /* .front_s:before {
-	position: absolute;
-	display: block;
-	content: "";
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: linear-gradient(135deg, #1a9be6, #1a57e6);
-	opacity: 0.25;
-	z-index: -1;
-  } */
+
   .card_s:hover .front_s {
 	transform: rotateY(180deg);
   }

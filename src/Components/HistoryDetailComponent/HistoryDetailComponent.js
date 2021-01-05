@@ -1,11 +1,11 @@
 import React,{useState,useEffect} from 'react';
-import {useSelector,useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {TMDB_API_KEY} from '../../key/key';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import './HistoryDetailStyle.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import InputBase from '@material-ui/core/InputBase';
+
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { faStar} from '@fortawesome/free-solid-svg-icons';

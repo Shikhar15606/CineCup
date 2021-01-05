@@ -1,15 +1,12 @@
 import React from 'react';
 import './LeaderboardStyles.css';
 import { Link } from 'react-router-dom';
-import Badge from '@material-ui/core/Badge';
+
 import {useSelector} from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper';
-import Rating from '@material-ui/lab/Rating';
+
 import ShareButton from '../shareButton'
 import { faArrowCircleRight} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -195,7 +192,7 @@ const LeaderboardPageComponent = () => {
                   ))
                 )
                 :(
-                  <p style={{color:"white"}}> Nothing Here </p>
+                  <p > Nothing Here </p>
                  )
               }              
       

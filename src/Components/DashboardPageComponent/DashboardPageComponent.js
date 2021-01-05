@@ -5,7 +5,7 @@ import {remove_nominate} from '../../action/user_actions';
 import {TMDB_API_KEY} from '../../key/key';
 import axios from  'axios';
 import {Button} from '@material-ui/core'
-import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
+
 import { Link } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -142,7 +142,7 @@ function DashboardPageComponent(){
         return (
         <React.Fragment>
           <div style={{marginTop:100}}>
-            <h1 style={{color:"white"}}>Your Nominations</h1>
+            <h1 >Your Nominations</h1>
           </div>
           <main>
           <section className="wrapper1">

@@ -3,7 +3,7 @@ import './fontawesome';
 import './App.css';
 import DashBoardPageComponent from './Components/DashboardPageComponent/DashboardPageComponent';
 import ErrorPageComponent from './Components/ErrorPageComponent/ErrorPageComponent';
-import FooterComponent from './Components/FooterComponent/FooterComponent';
+
 import HeaderComponent from './Components/HeaderComponent/HeaderComponent';
 import HomePageComponent from './Components/HomePageComponent/HomePageComponent';
 import LoginPageComponent from './Components/LoginPageComponent/LoginPageComponent';

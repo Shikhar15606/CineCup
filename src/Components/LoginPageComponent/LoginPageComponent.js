@@ -21,7 +21,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // redux
 import {loginwithfacebook, loginwithgoogle, login} from '../../action/user_actions';
 import {useDispatch,useSelector} from 'react-redux';
-import ResetPassword from './ResetPassword'
+
 const useStyles = makeStyles((theme) => ({
     root: {
       marginTop:'80px',
