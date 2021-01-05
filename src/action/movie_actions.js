@@ -75,12 +75,12 @@ export const fetchHistory = () => {
             type: FETCH_MOVIES_DATA_REQUEST
         })
         const db = firebase.firestore();
-        let unsubscribe = db.collection('history').where("Ongoing", "==", false)
+        let unsubscribe = db.collection('history').orderBy("Start",'desc')
         .onSnapshot(function(querySnapshot) {
             let arr = []
             querySnapshot.forEach(function(doc) {
-
-                let sdate; 
+                if(doc.data().End){
+                    let sdate; 
                 let sDay;
                 let sTime;
                 if(doc.data().Start){
@@ -97,6 +97,7 @@ export const fetchHistory = () => {
                     eTime = `${edate.getHours()}:${edate.getMinutes()}`;
                 }
                 arr.push({...doc.data(),contestid:doc.id,sDay:sDay,sTime:sTime,eDay:eDay,eTime:eTime})
+                }
             });
             console.log(arr.length)
             dispatch({
