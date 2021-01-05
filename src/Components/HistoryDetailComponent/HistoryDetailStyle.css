@@ -4,13 +4,13 @@
 .wrapper3, .wrapper3:before, .wrapper3:after
 {
   display:flex;
-  align-items:center;
+  
   justify-content:center;
-  width:100vw;
-  height:100vh;
-  margin:0;
-  padding:0;
-  background-image: linear-gradient(90deg, #ffffff, #ffffff);
+  flex-direction: column;
+  
+  height:fit-content;
+  
+ 
   font-family: Helvetica;
 }
 
@@ -35,6 +35,14 @@
 }
 
 
+.wrapper_history1{
+  
+  align-items: center;
+  justify-items: center;
+  
+  position: relative;
+  flex: 1;
+}
 .cards_carousal
 {
   display:flex;
@@ -44,6 +52,8 @@
   position: relative;
   height:21.875rem;
   width:100%;
+  margin: 0 auto;
+  margin-top: 100px;
 }
 
 .card_co
@@ -143,7 +153,8 @@
   .cards_carousal
   {
     flex-direction:column;
-    margin:auto 0;
+    
+    margin-top: 200px;
   }
 
   .card_co

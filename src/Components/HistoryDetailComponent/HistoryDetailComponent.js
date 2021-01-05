@@ -9,8 +9,9 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { faStar} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { faArrowCircleRight} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Cards = () => { 
   console.log('started')
   init()
@@ -212,12 +213,13 @@ const HistoryDetailComponent = () => {
     )
     return (
       <div className="wrapper3">
+        
           {  
                 moviedetail.length !== 0 ?
                 (
                 <div className="cards_carousal">
                   {
-             moviedetail.slice(0,3).map((resul) => (              
+                  moviedetail.slice(0,3).map((resul) => (              
                   <RenderCard key={resul.id} r={resul}  />   
                   ))
                   }
@@ -229,6 +231,60 @@ const HistoryDetailComponent = () => {
                   <CircularProgress style={{marginTop:"15vw"}} color="secondary" ></CircularProgress>
                  )
         }
+        
+         <div className="wrapper_history1">
+                     
+                     <div className="list">
+                       <div className="list__header">
+                         <h1 style={{color:"black"}}>Leaderboard</h1>
+                        
+                         
+                       </div>
+                       <div className="list__body">
+                         <table className="list__table" id="list-table">
+                         <tr className="header_row">
+                         <th className="list__cell">Rank</th>
+                       <th className="list__cell">Movie</th>
+                       <th className="list__cell">Genre</th>
+                       <th className="list__cell">Votes</th>
+                       <th class="list__cell">Explore</th>
+                     </tr>
+                         
+                        {  
+                                 moviedetail.length !== 0 ?  
+                                   (
+                                    moviedetail.map((resul) => (              
+                                       <tr className="list__row" >
+                            
+                            <td className="list__cell"><span className="list__value">{resul.rank}</span></td>
+                            <td className="list__cell"><span className="list__value">{resul.title}</span></td>
+                            <td className="list__cell">
+                              {
+                            resul.genres.slice(0,1).map(genre=>{
+                             return <span> {genre.name} </span>
+                           })
+                         }</td>
+                           
+                            <td className="list__cell"><span className="list__value">{resul.votes}</span></td>
+                            <td className="list__cell"> 
+                            <Link to={`/movie/${resul.id}`}   >
+                            <span class="list__value"><FontAwesomeIcon icon={faArrowCircleRight} /></span> 
+                            </Link></td>
+                          </tr>
+                                     ))
+                                   )
+                                   :(
+                                     <p style={{color:"white"}}> Nothing Here </p>
+                                    )
+                                 }              
+                         
+                           
+                     
+                           
+                         </table>
+                       </div>
+                     </div>
+                   </div>
       
       </div>
     );

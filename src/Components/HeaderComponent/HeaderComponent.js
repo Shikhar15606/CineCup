@@ -13,6 +13,7 @@ import Timeline from '@material-ui/icons/Timeline';
 import {Hidden} from '@material-ui/core'
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 import Divider from '@material-ui/core/Divider';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
@@ -33,8 +34,9 @@ import Switch from '@material-ui/core/Switch';
 import { useSelector,useDispatch,useStore } from "react-redux";
 import {logout} from '../../action/user_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMedal } from '@fortawesome/free-solid-svg-icons';
-
+import { faMedal, faRegistered, faSignInAlt, faSignOutAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import { ExitToAppRounded } from '@material-ui/icons';
 function HeaderComponent(){
         const user = useSelector(state => state.user);
         const User = useSelector(state => state.user.user);
@@ -129,14 +131,14 @@ function HeaderComponent(){
                       <Link to="/leaderboard"> 
                       <ListItem button key="leaderboard" onClick={toggleDrawer(false)}>
                       <ListItemIcon  > <Timeline color="primary"/> </ListItemIcon>
-                      <ListItemText primary="Leaderboard"  />
+                      <ListItemText primary="LEADERBOARD"  />
                       </ListItem>
                       </Link>
 
                       <Link to="/history"> 
                       <ListItem button key="history" onClick={toggleDrawer(false)}>
                       <ListItemIcon  > <HistoryIcon color="primary"/> </ListItemIcon>
-                      <ListItemText primary="History"  />
+                      <ListItemText primary="HISTORY"  />
                       </ListItem>
                       </Link>
                       
@@ -149,8 +151,9 @@ function HeaderComponent(){
                       
                       <ListItem  key="Dark Mode" >
                       <ListItemIcon> <Brightness4Icon color="primary"/> </ListItemIcon>
-                      {/* <ListItemText primary="DARK MODE" /> */}
                       <Switch />
+                      <ListItemText primary="DARK" />
+                      
                       </ListItem>
                       
                       {
@@ -275,13 +278,26 @@ function HeaderComponent(){
                         <Link></Link>
                       }
                       
-
-                      <Button variant="contained" color="secondary" onClick={Logout} className={classes.Button1}> Logout</Button>
+                      <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={Logout}>
+                      <ExitToAppRounded fontSize="small" />
+                          <span className={classes.navText}>Logout</span>
+                        </IconButton>
+                     
                       </React.Fragment>
                       :
                       <React.Fragment>
-                        <Button variant="contained" color="secondary" href="/login" className={classes.Button1}> Login</Button>
-                        <Button variant="contained" color="primary" href="/signup" className={classes.Button1}> Signup</Button>
+                         <Link to="/login">
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                       <LockOpenRoundedIcon fontSize="small" />
+                          <span className={classes.navText}>Login</span>
+                        </IconButton>
+                        </Link>
+                        <Link to="/signup">
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <PersonAddRoundedIcon fontSize="small" />
+                          <span className={classes.navText}>Signup</span>
+                        </IconButton>
+                        </Link>
                       </React.Fragment>
                     }
                     </div>
