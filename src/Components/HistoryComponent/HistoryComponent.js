@@ -65,12 +65,12 @@ const HistoryComponent = () => {
           <td class="list__cell"><span class="list__value">{index+1}</span></td>
           <td class="list__cell"><span class="list__value">{`${element.Name}`}</span></td>
           <td class="list__cell">
-            <span class="list__value">{`${element.Start}`}</span>
-            {/* <small class="list__label">20:10 hrs</small> */}
+            <span class="list__value">{`${element.sDay}`}</span>
+            <small class="list__label">{`${element.sTime}`}</small>
             </td>
           
-          <td class="list__cell"><span class="list__value">{`${element.End}`}</span>
-          {/* <small class="list__label">23:45 hrs</small> */}
+          <td class="list__cell"><span class="list__value">{`${element.eDay}`}</span>
+          <small class="list__label">{`${element.eTime}`}</small>
           </td>
          <td class="list__cell">
          <Link to={`/history/${element.contestid}`} className="linky"> 

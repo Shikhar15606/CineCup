@@ -79,7 +79,24 @@ export const fetchHistory = () => {
         .onSnapshot(function(querySnapshot) {
             let arr = []
             querySnapshot.forEach(function(doc) {
-                arr.push({...doc.data(),contestid:doc.id})
+
+                let sdate; 
+                let sDay;
+                let sTime;
+                if(doc.data().Start){
+                   sdate = new Date(doc.data().Start.toMillis());
+                   sDay = `${sdate.getDate()} ${sdate.toLocaleString('default', { month: 'short' })},${sdate.getFullYear()}`;
+                   sTime = `${sdate.getHours()}:${sdate.getMinutes()}`;
+                }
+                let edate;
+                let eDay;
+                let eTime;
+                if(doc.data() && doc.data().End ){
+                    edate = new Date(doc.data().End.toMillis());
+                    eDay = `${edate.getDate()} ${edate.toLocaleString('default', { month: 'short' })},${edate.getFullYear()}`;
+                    eTime = `${edate.getHours()}:${edate.getMinutes()}`;
+                }
+                arr.push({...doc.data(),contestid:doc.id,sDay:sDay,sTime:sTime,eDay:eDay,eTime:eTime})
             });
             console.log(arr.length)
             dispatch({
@@ -211,7 +228,7 @@ export const getVotingOnOff = () =>{
 }
 
 // ===================================== Start Voting =====================================
-export const startVoting = ({Name,Start}) =>{
+export const startVoting = ({Name}) =>{
     return async (dispatch) => {
         dispatch({
             type: FETCH_MOVIES_DATA_REQUEST
@@ -224,7 +241,7 @@ export const startVoting = ({Name,Start}) =>{
         .then(function() {
             db.collection("history").add({
                 Name: Name,
-                Start:Start,
+                Start:new Date(),
                 Ongoing:true,
             })
             .then(function(docRef) {
@@ -266,12 +283,12 @@ async function myfunction({docs}){
 
 // ===================================== End Voting =======================================
 
-export const stopVoting = ({End}) => {
+export const stopVoting = () => {
     return async (dispatch) => {
         try{
             const db = firebase.firestore();
             // =================== Getting the top 3 movies =======================
-            let movieRef = db.collection("movies").orderBy("Votes", "desc").limit(3)
+            let movieRef = db.collection("movies").orderBy("Votes", "desc")
             let querySnapshot = await movieRef.get()
             // ================= Storing top three in movies array =================
             let topThree = await myfunction(querySnapshot)
@@ -286,7 +303,7 @@ export const stopVoting = ({End}) => {
                         batch.set(history, {
                             Movies:topThree,
                             Ongoing:false,
-                            End:End
+                            End:new Date()
                         },{merge: true})
                     });
                     // =========================== Set voting on to false =================================
