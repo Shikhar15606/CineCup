@@ -7,6 +7,7 @@ import {blackListMovie} from '../../action/movie_actions';
 import {Button, Hidden} from '@material-ui/core'
 import ShareButton from '../shareButton'
 import { makeStyles } from '@material-ui/core/styles';
+import swal from 'sweetalert';
 
 import Rating from '@material-ui/lab/Rating';
 
@@ -40,6 +41,24 @@ function Result({ result, openPopup }) {
 		dispatch(nominate(dataToSubmit));
 	}
 	const classes = useStyles();
+
+	function BlacklistMovieAlert(e){
+		e.preventDefault();
+		swal({
+		  title: 'Are you sure ?',
+		  text: `${result.title} will be blacklisted and it's votes will be reduced to 0`,
+		  icon:"warning",
+		  dangerMode: true,
+		  buttons: true,
+		}).then((isConfirm) => {
+		  if (isConfirm) {
+			setblackbtn(true); 
+			setbtn(true);
+			BlacklistMovie(e);
+		  }
+	  })
+	}
+
 	const BlacklistMovie = async (e) => {
 		// const token = await getAccessTokenSilently({
 		// 	audience: 'https://cinecup-backend.herokuapp.com',
@@ -110,7 +129,7 @@ function Result({ result, openPopup }) {
 					color="secondary"
 				
 					disabled={blackbtn || isblackdisabled(result.id)}
-					 onClick={(e) => {setblackbtn(true); setbtn(true); BlacklistMovie(e)}}>Blacklist</Button>
+					 onClick={(e) => {BlacklistMovieAlert(e)}}>Blacklist</Button>
 					:
 					<span>
 					</span>

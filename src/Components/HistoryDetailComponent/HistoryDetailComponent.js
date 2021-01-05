@@ -217,11 +217,12 @@ const HistoryDetailComponent = () => {
                 (
                 <div className="cards_carousal">
                   {
-             moviedetail.map((resul) => (              
+             moviedetail.slice(0,3).map((resul) => (              
                   <RenderCard key={resul.id} r={resul}  />   
                   ))
                   }
                 </div>
+                
                 
                 )
                 :(

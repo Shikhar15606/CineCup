@@ -15,6 +15,7 @@ import firebase from 'firebase';
 import Rating from '@material-ui/lab/Rating';
 import TextField from '@material-ui/core/TextField';
 import ShareButton from '../shareButton'
+import swal from 'sweetalert';
 const AdminDashboardComponent = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
@@ -150,7 +151,22 @@ const AdminDashboardComponent = () => {
       })
     },[])
 
-    function makeAdmin(emailid,e){
+    function makeAdminAlert(name,emailid,e){
+      e.preventDefault();
+      swal({
+        title: 'Are you sure ?',
+        text: `${name} (${emailid}) will become an admin and, he/she will have the rights to remove you from admin.`,
+        icon:"warning",
+        dangerMode: true,
+        buttons: true,
+      }).then((isConfirm) => {
+        if (isConfirm) {
+          makeAdmin(name,emailid,e)
+        }
+    })
+  }
+
+    function makeAdmin(name,emailid,e){
       e.preventDefault()
       const db = firebase.firestore();
       db.collection("users").doc(emailid)
@@ -177,11 +193,27 @@ const AdminDashboardComponent = () => {
   },[altname,name])
 
   useEffect(() => {
-    if(!nameError)
-      setdisabledSubmit(false);
-    else
+    if(nameError)
       setdisabledSubmit(true);
+    else
+      setdisabledSubmit(false);
+      
   },[nameError])
+
+  const startAlert = (e) => {
+    e.preventDefault();
+    swal({
+      title: 'Are you sure ?',
+      text: ` Voting for ${name} will start now.`,
+      icon:"warning",
+      dangerMode: true,
+      buttons: true,
+    }).then((isConfirm) => {
+      if (isConfirm) {
+        start(e);
+      }
+  })
+  }
 
   const start = (e) => {
     e.preventDefault();
@@ -190,6 +222,20 @@ const AdminDashboardComponent = () => {
     dispatch(startVoting({Name:name,Start:today.toLocaleDateString("en-US", options)}))
   }
 
+  const stopAlert = (e) => {
+    e.preventDefault();
+    swal({
+      title: 'Are you sure ?',
+      text: `Contest will end now.`,
+      icon:"warning",
+      dangerMode: true,
+      buttons: true,
+    }).then((isConfirm) => {
+      if (isConfirm) {
+        stop(e);
+      }
+  })
+  }
   const stop = (e) => {
     e.preventDefault();
     var options = {year: 'numeric', month: 'long', day: 'numeric' };
@@ -228,7 +274,7 @@ const AdminDashboardComponent = () => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={start}  
+                onClick={startAlert}  
                 disabled = {disabledSubmit}
               >
                 Start Voting
@@ -240,7 +286,7 @@ const AdminDashboardComponent = () => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={stop}  
+                onClick={stopAlert}  
               >
                 Stop Voting
               </Button>
@@ -334,7 +380,7 @@ const AdminDashboardComponent = () => {
                           <h4 class="title">{user.Email}</h4>
                         </div>
                         <ul class="social">
-                        <Button variant="contained" style={{width:"100%", backgroundColor:" #1369ce"}} onClick={(e) => {makeAdmin(user.Email,e)}} endIcon={<LocalMoviesIcon />} className="but1">
+                        <Button variant="contained" style={{width:"100%", backgroundColor:" #1369ce"}} onClick={(e) => {makeAdminAlert(user.Name,user.Email,e)}} endIcon={<LocalMoviesIcon />} className="but1">
                         Make Admin</Button>
                         </ul>
                       </div>
