@@ -5,6 +5,7 @@ import {TMDB_API_KEY} from '../../key/key';
 import axios from 'axios';
 import './MoviePageStyle.css'
 import ShareButton from '../shareButton'
+import Anime, {anime} from 'react-anime'
 const MoviePageComponent = () => {
     const [result, setresult] = useState({});
     const [trailerurl , settrailerurl] = useState("");
@@ -13,6 +14,8 @@ const MoviePageComponent = () => {
     const [reviews,setReviews]=useState([]);
 
     var creditsapi = `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${TMDB_API_KEY}`
+    
+
     useEffect(()=>{
       axios(creditsapi)
       .then(({data} ) => {
@@ -76,13 +79,23 @@ const MoviePageComponent = () => {
 	<div className="image">
 		<img src={`https://image.tmdb.org/t/p/original/${result.backdrop_path}`} />
 		<div className="overlay">
+    <Anime easing="easeOutElastic"
+         duration={1000}
+         direction="alternate"
+         loop={true}
+         delay={(el, index) => index * 240}
+         translateX={[-50,20]}
+         scale={[.75, .9]}
+         >
 			<h1>{result.title}</h1>
 			<h4>{result.runtime} min | {result.release_date}</h4>
+      </Anime>
       {/* <h4>{result.genres[0].name}</h4> */}
+      
       <div  className="share_but_m">
           <ShareButton 
           url={`https://cinecup-9b0ac.web.app/movie/${result.id}`}
-           image={`https://image.tmdb.org/t/p/w500/${result.poster_path}`}
+           image={`https://image.tmdb.org/t/p/w500/${result.backdrop_path}`}
             title={`${result.title} - ${result.overview} 
             Check out the trailer on this page`}
            />
