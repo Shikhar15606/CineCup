@@ -38,7 +38,7 @@ const HistoryComponent = () => {
             <div class="wrapper_history">
   <div class="list">
     <div class="list__header">
-      <h1 style={{color:"black"}}>Previous Contests</h1>
+      <h1 >Previous Contests</h1>
       
     </div>
     <div class="list__body">

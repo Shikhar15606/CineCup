@@ -252,7 +252,7 @@ const AdminDashboardComponent = () => {
       <main style={{marginTop:"70px"}}>
       {
         !user.isVoting ?
-              <form Validate>
+              <form Validate className="voting">
               <TextField
                 error = {nameError}
                 helperText = {nameError}

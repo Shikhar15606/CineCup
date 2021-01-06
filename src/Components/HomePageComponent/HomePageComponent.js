@@ -66,7 +66,7 @@ function HomePageComponent (){
                 <img src="https://lukaszadam.com/assets/downloads/javascript_illustration.svg"
                          className="wel_image" alt="First Vector Graphic" />
                 </Grid>
-                <Grid item xs={12} md={6} className="me_text">
+                <Grid item xs={12} md={6} className="welcome_text">
                  <h1 className="heading_h">Ranking Algorithm</h1>
                  <p className="text_home">Lorem Ipsum is simply dummy text of the printing and typesetting industry.  not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
                  <Button variant="outlined" color="secondary" small>

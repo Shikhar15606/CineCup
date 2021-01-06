@@ -80,46 +80,7 @@ const LeaderboardPageComponent = () => {
     const user = useSelector(state => state.user);
     let result = user.movies ? user.movies : [] ;
 
-    function RenderCard ({r}) {     
-      
-          return(  
-    <div className="wraap" id="movie_card">
-    <div className="courses-container">
-    
-	<div className="course">
-		<div className="course-preview">
-    <img src={`https://image.tmdb.org/t/p/w500/${r.poster_path}`} alt="Cards Image" className="movie_image"/>
-		</div>
-		<div className="course-info">
-		  <h2>{r.title}</h2>
-      <h3>Votes : {r.votes}</h3>
-			<h6>{r.rank}</h6>
-      <h4 className="genre_list">{
-        r.genres.slice(0,3).map(genre=>{
-          return <span> {genre.name} </span>
-        })
-      }</h4>
-      <div className="share_but">
-      <ShareButton 
-      url={`https://cinecup-9b0ac.web.app/movie/${r.id}`}
-      image={`https://image.tmdb.org/t/p/w500/${r.poster_path}`}
-      title={`${r.title} - ${r.overview} 
-      Check out the trailer on this page`}
-      className="share_but"
-      />
-      </div>
-    
-      <Link to={`/movie/${r.id}`}   >
-			<button className="btn">Explore</button>
-      </Link>
-		</div>
-	</div>
-  
-</div>
-</div> 
-             
-          )
-        }
+   
     if(user.isLoading)
       return(
         <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
@@ -130,7 +91,7 @@ const LeaderboardPageComponent = () => {
                      
   <div className="list">
     <div className="list__header">
-      <h1 style={{color:"black"}}>Leaderboard</h1>
+      <h1 >Leaderboard</h1>
       <InputBase
               placeholder="Search…"
               classes={{

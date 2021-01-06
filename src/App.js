@@ -20,19 +20,28 @@ import {fetchBlackListedMovies, fetchHistory, fetchMoviesData,getVotingOnOff} fr
 import React,{useEffect,useState} from 'react';
 import HistoryComponent from './Components/HistoryComponent/HistoryComponent';
 import HistoryDetailComponent from './Components/HistoryDetailComponent/HistoryDetailComponent';
+import { ThemeProvider } from 'styled-components';
 
+import { useDarkMode } from './useDarkMode';
+import { lightTheme, darkTheme } from './theme';
+import { GlobalStyles } from './global';
 function App() {
   const dispatch = useDispatch();
+  const [theme, toggleTheme, componentMounted] = useDarkMode();
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
   useEffect(()=>{
     dispatch(fetchMoviesData());
     dispatch(fetchBlackListedMovies());
     dispatch(getVotingOnOff());
     dispatch(fetchHistory());
 },[])
+
   return (
+    <ThemeProvider theme={themeMode}>
     <>    
     <BrowserRouter>
       <div className="App">
+      <GlobalStyles />
         <HeaderComponent></HeaderComponent>
         <Switch>
           <Route exact path="/" component={Auth(HomePageComponent,null)}></Route>
@@ -54,6 +63,7 @@ function App() {
     
     
     </>
+    </ThemeProvider>
   );
 }
 
