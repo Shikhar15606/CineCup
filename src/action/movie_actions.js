@@ -15,6 +15,7 @@ import {
     END_VOTING_SUCCESS,
     END_VOTING_FAILURE,
     FETCH_HISTORY_SUCCESS,
+    FETCH_ANNOUNCEMENT_SUCCESS,
 } from './types';
 
 // ==================================== Fetching Movies Data =======================================
@@ -371,3 +372,26 @@ export const stopVoting = () => {
     }
 }
 
+// ================================= fetch announcement ================================
+
+export const getAnnouncement = () =>{
+    return async (dispatch) => {
+        dispatch({
+            type: FETCH_MOVIES_DATA_REQUEST
+        })
+        const db = firebase.firestore();
+        var docRef = db.collection("on").doc("announce");
+        docRef.get().then(function(doc) {
+            if (doc.exists) {
+                dispatch({
+                    type:FETCH_ANNOUNCEMENT_SUCCESS,
+                    payload:doc.data().list
+                })
+            } else {
+                console.log("No such document!");
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });
+    }
+}

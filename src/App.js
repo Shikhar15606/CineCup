@@ -14,9 +14,8 @@ import LeaderboardPageComponent from './Components/LeaderboardPageComponent/Lead
 import AdminDashboardComponent from './Components/AdminDashboardComponent/AdminDashboardComponent';
 import Auth from './auth';
 import ResetPassword from './Components/LoginPageComponent/ResetPassword';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import {useDispatch} from 'react-redux';
-import {fetchBlackListedMovies, fetchHistory, fetchMoviesData,getVotingOnOff} from './action/movie_actions';
+import {fetchBlackListedMovies, fetchHistory, fetchMoviesData,getAnnouncement,getVotingOnOff} from './action/movie_actions';
 import React,{useEffect,useState} from 'react';
 import HistoryComponent from './Components/HistoryComponent/HistoryComponent';
 import HistoryDetailComponent from './Components/HistoryDetailComponent/HistoryDetailComponent';
@@ -34,6 +33,7 @@ function App() {
     dispatch(fetchBlackListedMovies());
     dispatch(getVotingOnOff());
     dispatch(fetchHistory());
+    dispatch(getAnnouncement());
 },[])
 
   return (

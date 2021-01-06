@@ -1,9 +1,19 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import './HomePageStyle.css'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button'
+import {useSelector,useDispatch} from 'react-redux';
+import { init } from 'ityped';
+
 function HomePageComponent (){
-    
+        const user = useSelector(state => state.user);
+       
+        useEffect(()=>{
+          if(user.announcement){
+            const myElement = document.querySelector('#myElement')
+          init(myElement, { showCursor: false, strings:user.announcement })
+          }
+        },[user.announcement])
         return (
             <>
             <div className="wrapper_home">
@@ -76,7 +86,17 @@ function HomePageComponent (){
                 
             </Grid>
 
-           
+            <Grid container className="section" >
+                <Grid item xs={12} md={6} className="welcome_text">
+                 <h1 className="heading_h">Announcements</h1>
+                 <p className="text_home" id="type">
+                 <div id="myElement"></div>
+                 </p>
+                </Grid>
+                
+                
+            </Grid>
+
             </div>
             
                

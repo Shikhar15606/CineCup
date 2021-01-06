@@ -29,7 +29,8 @@ import {
     START_VOTING_FAILURE,
     END_VOTING_SUCCESS,
     END_VOTING_FAILURE,
-    FETCH_HISTORY_SUCCESS
+    FETCH_HISTORY_SUCCESS,
+    FETCH_ANNOUNCEMENT_SUCCESS,
 } from '../action/types';
 
 
@@ -130,6 +131,9 @@ export default function user (state = {}, action){
             break;
         case FETCH_HISTORY_SUCCESS:
             state = {...state,history:action.payload,isLoading:false}
+            break;
+        case FETCH_ANNOUNCEMENT_SUCCESS:
+            state = {...state,announcement:action.payload,isLoading:false}
             break;
         default :
             return { ...state}
