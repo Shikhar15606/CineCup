@@ -24,7 +24,7 @@ function HomePageComponent (){
             
                 <Grid item xs={12} md={5} className="welcome_text">
                  <h1 className="heading_h" style={{textDecoration:"none"}}>Cinecup Presents</h1>
-                 <p className="text_home">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam venenatis turpis ut mauris pellentesque lobortis. Aliquam interdum facilisis varius. Vestibulum eu orci nibh. Duis non nibh quis urna faucibus tempus. Fusce non nisi luctus, iaculis lectus vitae, blandit metus. Ut sit amet viverra turpis, nec fermentum nisi. Cras et aliquet urna, ac euismod erat. Quisque rhoncus cursus vehicula. Nam dolor lorem, consectetur fringilla interdum sit amet, vehicula vitae libero.</p>
+                 <p className="text_home">CineCup is an online movie voting platform to promote deserving movies. We are hosting several contests in which you can vote for your favourite movie. Whether you want to watch out the latest movies trailer or want to know about the cast or rating we have got you covered. So have a seat and Chill  </p>
                 </Grid>
                 <Grid item xs={12} md={7} className="welcome_image">
                 <img src="https://templatemo.com/templates/templatemo_537_art_factory/assets/images/slider-icon.png"
@@ -42,7 +42,7 @@ function HomePageComponent (){
             </Grid>
                 <Grid item xs={12} md={6} className="welcome_text">
                  <h1 className="heading_h">LeaderBoard</h1>
-                 <p className="text_home">Lorem Ipsum is simply dummy text of the printing and typesetting industry. ive centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                 <p className="text_home">A place to look for the ranking of the movies in the current contest. Your movie not at the top ?? Do not worry you can search for it and you will get it's current rank and the no of votes it has got till now. You do not need to refresh the leaderboard is updated in realtime.</p>
                  <Button variant="outlined" color="secondary" small>
                    Leaderboard
                  </Button>
@@ -60,7 +60,7 @@ function HomePageComponent (){
             
                 <Grid item xs={12} md={6} className="welcome_text">
                  <h1 className="heading_h">Nomination</h1>
-                 <p className="text_home">Lorem Ipsum is simply dummy text of the printing and typesetting industry. book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                 <p className="text_home">Hey you can nominate your favourite movie for the award. Hey are you a movie fanatic and love a lot of movies ?? No worries needed you can nominate for 5 of your favourite movies, and do not forget to share your movie with your friends and increase it's chances of winning the contest.</p>
                  <Button variant="outlined" color="secondary" small>
                    Nominate
                  </Button>
@@ -78,7 +78,7 @@ function HomePageComponent (){
                 </Grid>
                 <Grid item xs={12} md={6} className="welcome_text">
                  <h1 className="heading_h">Ranking Algorithm</h1>
-                 <p className="text_home">Lorem Ipsum is simply dummy text of the printing and typesetting industry.  not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                 <p className="text_home">The movie with more votes will get a lower rank. But if two movies will have the same no of votes in a running contest then they will be ranked the same. If the two movies will have the same no of votes till the contest ends then they will be given the ranks decided by the cinecup team.</p>
                  <Button variant="outlined" color="secondary" small>
                    Dashboard
                  </Button>

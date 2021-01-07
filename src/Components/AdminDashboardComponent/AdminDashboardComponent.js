@@ -16,12 +16,9 @@ import Rating from '@material-ui/lab/Rating';
 import TextField from '@material-ui/core/TextField';
 import ShareButton from '../shareButton'
 import swal from 'sweetalert';
-<<<<<<< HEAD
 import Grid from '@material-ui/core/Grid';
 
-=======
 import Img2 from '../../icons/Asset 1@2x.png'
->>>>>>> 4b48c72768a9ccb3217d3b6fb6a05d1e5f93ea31
 const AdminDashboardComponent = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
