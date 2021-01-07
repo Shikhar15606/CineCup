@@ -31,3 +31,7 @@ export const END_VOTING_SUCCESS = 'end_voting_success';
 export const END_VOTING_FAILURE = 'end_voting_failure';
 export const FETCH_HISTORY_SUCCESS = 'fetch_history_success';
 export const FETCH_ANNOUNCEMENT_SUCCESS = 'fetch_announcement_success';
+export const ADD_ANNOUNCEMENT_SUCCESS = 'add_announcement_success';
+export const ADD_ANNOUNCEMENT_FAILURE = 'add_announcement_failure';
+export const REMOVE_ANNOUNCEMENT_SUCCESS = 'remove_announcement_success';
+export const REMOVE_ANNOUNCEMENT_FAILURE = 'remove_announcement_failure';

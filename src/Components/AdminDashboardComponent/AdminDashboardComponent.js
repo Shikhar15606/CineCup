@@ -3,7 +3,7 @@ import './AdminDashboardStyle.css';
 import {useSelector,useDispatch} from 'react-redux';
 import {TMDB_API_KEY} from '../../key/key';
 import axios from  'axios';
-import {removeBlacklistedMovie, startVoting, stopVoting} from '../../action/movie_actions';
+import {removeBlacklistedMovie, startVoting, stopVoting, removeAnnouncement, addAnnouncement} from '../../action/movie_actions';
 import {Button} from '@material-ui/core'
 import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
 import { Link } from 'react-router-dom';
@@ -16,6 +16,8 @@ import Rating from '@material-ui/lab/Rating';
 import TextField from '@material-ui/core/TextField';
 import ShareButton from '../shareButton'
 import swal from 'sweetalert';
+import Grid from '@material-ui/core/Grid';
+
 const AdminDashboardComponent = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
@@ -182,9 +184,13 @@ const AdminDashboardComponent = () => {
 
   // ========================== Start and Stop Voting =========================
   const [name,setname] = useState("");
+  const [announcement,setannouncement] = useState("");
   const [nameError,setnameError] = useState("");
+  const [announcementError,setannouncementError] = useState("");
   const [altname,setaltname] = useState(false);
+  const [altannouncement,setaltannouncement] = useState(false);
   const [disabledSubmit,setdisabledSubmit] = useState(true);
+  const [disabledAnnounce,setdisabledAnnounce] = useState(true);
   useEffect(() => {
     if(altname && name.length<3)
     setnameError("name must be more than 2 characters")
@@ -195,10 +201,24 @@ const AdminDashboardComponent = () => {
   useEffect(() => {
     if(nameError)
       setdisabledSubmit(true);
-    else
+    else if(altname)
       setdisabledSubmit(false);
       
-  },[nameError])
+  },[nameError,altname])
+
+  useEffect(() => {
+    if(announcementError)
+      setdisabledAnnounce(true);
+    else if(altannouncement)
+      setdisabledAnnounce(false);
+  },[announcementError,altannouncement])
+
+  useEffect(() => {
+    if(altannouncement && announcement.length<3)
+    setannouncementError("Announcement must have more than 2 characters")
+    else 
+    setannouncementError("")
+  },[altannouncement,announcement])
 
   const startAlert = (e) => {
     e.preventDefault();
@@ -242,6 +262,17 @@ const AdminDashboardComponent = () => {
     var today  = new Date();
     dispatch(stopVoting({End:today.toLocaleDateString("en-US", options)}))
   }
+  const removeannouncement = (e,element) => {
+    e.preventDefault();
+    dispatch(removeAnnouncement(element))
+  }
+  
+  const addannouncement = (e) => {
+    e.preventDefault();
+    dispatch(addAnnouncement(announcement))
+    setannouncement("")
+  }
+
   // =========================== Main Return from this component ==================================
   if(user.isLoading)
     return(
@@ -250,6 +281,82 @@ const AdminDashboardComponent = () => {
   return (
     <React.Fragment>
       <main style={{marginTop:"70px"}}>
+      {user.announcement ?
+      <>
+      {(user.announcement.map(element => (
+      <Grid container style={{marginTop:"10px"}}>
+        <Grid item xs={12} md={9}>
+        <Alert variant="filled" severity="success">
+          {element}
+        </Alert>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Button variant="outlined" color="secondary" small onClick={e => removeannouncement(e,element)}>
+            Remove
+          </Button>
+        </Grid>
+      </Grid>
+        ))
+      )}
+      <form Validate className="voting">
+      <TextField
+        error = {announcementError}
+        helperText = {announcementError}
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        id="Name"
+        label="Announce"
+        name="announce"
+        autoComplete="name"
+        autoFocus
+        value={announcement}
+        onChange={(e) => {setannouncement(e.target.value);setaltannouncement(true);}}
+      />
+
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        color="primary"
+        onClick={(e) => addannouncement(e)}  
+        disabled = {disabledAnnounce}
+      >
+      Announce
+      </Button>
+    </form>
+    </>
+      :
+      <form Validate className="voting">
+      <TextField
+        error = {announcementError}
+        helperText = {announcementError}
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        id="Name"
+        label="Event"
+        name="event"
+        autoComplete="name"
+        autoFocus
+        value={announcement}
+        onChange={(e) => {setannouncement(e.target.value);setaltannouncement(true);}}
+      />
+
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        color="primary"
+        onClick={(e) => addannouncement(e)}  
+        disabled = {disabledAnnounce}
+      >
+      Announce
+      </Button>
+    </form>
+      }
       {
         !user.isVoting ?
               <form Validate className="voting">

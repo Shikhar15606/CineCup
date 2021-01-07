@@ -31,6 +31,10 @@ import {
     END_VOTING_FAILURE,
     FETCH_HISTORY_SUCCESS,
     FETCH_ANNOUNCEMENT_SUCCESS,
+    REMOVE_ANNOUNCEMENT_SUCCESS,
+    ADD_ANNOUNCEMENT_SUCCESS,
+    REMOVE_ANNOUNCEMENT_FAILURE,
+    ADD_ANNOUNCEMENT_FAILURE
 } from '../action/types';
 
 
@@ -135,9 +139,21 @@ export default function user (state = {}, action){
         case FETCH_ANNOUNCEMENT_SUCCESS:
             state = {...state,announcement:action.payload,isLoading:false}
             break;
-        default :
-            return { ...state}
+        case ADD_ANNOUNCEMENT_SUCCESS:
+            state = {...state,successmsg:"Announcement Made Successfully"}
             break;
+        case REMOVE_ANNOUNCEMENT_SUCCESS:
+            state = {...state,successmsg:"Announcement Removed Successfully"}
+            break;
+        case ADD_ANNOUNCEMENT_FAILURE:
+            state = {...state,error:"Announcement can not be made"}
+            break;
+        case REMOVE_ANNOUNCEMENT_FAILURE:
+            state = {...state,error:"Announcement can't be removed"}
+            break;
+        default :
+        state = { ...state}
+        break;
     }
     console.log(state);
     return state;

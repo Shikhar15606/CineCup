@@ -16,6 +16,10 @@ import {
     END_VOTING_FAILURE,
     FETCH_HISTORY_SUCCESS,
     FETCH_ANNOUNCEMENT_SUCCESS,
+    ADD_ANNOUNCEMENT_SUCCESS,
+    ADD_ANNOUNCEMENT_FAILURE,
+    REMOVE_ANNOUNCEMENT_FAILURE,
+    REMOVE_ANNOUNCEMENT_SUCCESS
 } from './types';
 
 // ==================================== Fetching Movies Data =======================================
@@ -381,7 +385,7 @@ export const getAnnouncement = () =>{
         })
         const db = firebase.firestore();
         var docRef = db.collection("on").doc("announce");
-        docRef.get().then(function(doc) {
+        docRef.onSnapshot(function(doc) {
             if (doc.exists) {
                 dispatch({
                     type:FETCH_ANNOUNCEMENT_SUCCESS,
@@ -390,8 +394,49 @@ export const getAnnouncement = () =>{
             } else {
                 console.log("No such document!");
             }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
+        })
+    }
+}
+
+// ============================== add announcement ======================================
+export const addAnnouncement = (announcement) => {
+    return async (dispatch) => {
+        const db = firebase.firestore();
+        var announcementRef = db.collection("on").doc("announce");
+        announcementRef.update({
+            list: firebase.firestore.FieldValue.arrayUnion(announcement)
+        })
+        .then(()=>{
+            dispatch({
+                type:ADD_ANNOUNCEMENT_SUCCESS
+            })
+        })
+        .catch((err)=>{
+            dispatch({
+                type:ADD_ANNOUNCEMENT_FAILURE
+            })
+        })
+    }
+}
+
+
+// ============================= REMOVE ANNOUNCEMENT =====================================
+export const removeAnnouncement = (announcement) => {
+    return async (dispatch) => {
+        const db = firebase.firestore();
+        var announcementRef = db.collection("on").doc("announce");
+        announcementRef.update({
+            list: firebase.firestore.FieldValue.arrayRemove(announcement)
+        })
+        .then(()=>{
+            dispatch({
+                type:REMOVE_ANNOUNCEMENT_SUCCESS
+            })
+        })
+        .catch((err)=>{
+            dispatch({
+                type:REMOVE_ANNOUNCEMENT_FAILURE
+            })
+        })
     }
 }
