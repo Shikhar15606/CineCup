@@ -40,4 +40,18 @@ export const GlobalStyles = createGlobalStyle`
   background-color:${({ theme }) => theme.search_bar}
 
 }
+.drawe{
+  color: ${({ theme }) => theme.text};
+  background-color:${({ theme }) => theme.search_card_background}
+}
+.voting_text{
+  color: ${({ theme }) => theme.text};
+}
+.noresults{
+  max-height:300px;
+  height:100%;
+  width:auto;
+  position:relative;
+  
+}
 `;

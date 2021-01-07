@@ -16,8 +16,12 @@ import Rating from '@material-ui/lab/Rating';
 import TextField from '@material-ui/core/TextField';
 import ShareButton from '../shareButton'
 import swal from 'sweetalert';
+<<<<<<< HEAD
 import Grid from '@material-ui/core/Grid';
 
+=======
+import Img2 from '../../icons/Asset 1@2x.png'
+>>>>>>> 4b48c72768a9ccb3217d3b6fb6a05d1e5f93ea31
 const AdminDashboardComponent = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
@@ -374,6 +378,7 @@ const AdminDashboardComponent = () => {
                 autoFocus
                 value={name}
                 onChange={(e) => {setname(e.target.value);setaltname(true);}}
+                InputProps={{className:"voting_text"}}
               />
        
               <Button
@@ -411,9 +416,11 @@ const AdminDashboardComponent = () => {
               <RenderCard key={resul.id} r={resul} />   
               ))
             )
-            :(<p>
-                   There are no blacklisted movies
-             </p>)
+            :(<div className="results">
+				<img src={Img2} className="noresults"/>
+				<h2>No Blacklisted movie</h2>
+				
+			</div>)
           }
         </section>
         {
@@ -449,7 +456,7 @@ const AdminDashboardComponent = () => {
                           <img style={{width:"130px",height:"130px"}} src={admin.ProfilePic}/>
                         </div>
                         <div class="team-content">
-                          <h3 class="name" style={{color:"black"}}>{admin.Name}</h3>
+                          <h3 class="name" >{admin.Name}</h3>
                           <h4 class="title">{admin.Email}</h4>
                         </div>
                         <ul class="social">
@@ -461,9 +468,11 @@ const AdminDashboardComponent = () => {
               ))}
               </section>
             )
-            :(<p>
-                   There are no admin users
-             </p>)
+            :(<div className="results">
+				<img src={Img2} className="noresults"/>
+				<h2>No Admin users</h2>
+				
+			</div>)
           }
       </main>
       {/* Users */}
@@ -483,7 +492,7 @@ const AdminDashboardComponent = () => {
                           <img style={{width:"130px",height:"130px"}} src={user.ProfilePic}/>
                         </div>
                         <div class="team-content">
-                          <h3 class="name" style={{color:"black"}}>{user.Name}</h3>
+                          <h3 class="name" >{user.Name}</h3>
                           <h4 class="title">{user.Email}</h4>
                         </div>
                         <ul class="social">
@@ -495,9 +504,11 @@ const AdminDashboardComponent = () => {
               ))}
               </section>
             )
-            :(<p>
-                   There are no non admin users
-             </p>)
+            :(<div className="results">
+				<img src={Img2} className="noresults"/>
+				<h2>No Users found</h2>
+				
+			</div>)
           }
         </main>
     </React.Fragment>

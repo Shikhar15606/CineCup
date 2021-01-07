@@ -5,7 +5,7 @@ import {remove_nominate} from '../../action/user_actions';
 import {TMDB_API_KEY} from '../../key/key';
 import axios from  'axios';
 import {Button} from '@material-ui/core'
-
+import Img2 from '../../icons/Asset 1@2x.png'
 import { Link } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -153,9 +153,11 @@ function DashboardPageComponent(){
                   <RenderCard key={resul.id} r={resul} />   
                   ))
                 )
-                :(<p>
-                       You have not nominated any movie
-                 </p>)
+                :(       <div className="results">
+				<img src={Img2} className="noresults"/>
+				<h2>No Movies Nominated</h2>
+				
+			</div>)
               }
             </section>
             {

@@ -1,7 +1,7 @@
 import React from 'react'
 import './SearchPageStyle.css'
 import Result from './Result'
-
+import Img2 from '../../icons/Asset 1@2x.png'
 function Results ({ results, openPopup,}) {
 	if(results.length){
 		return (
@@ -16,11 +16,11 @@ function Results ({ results, openPopup,}) {
 	}
 	else{
 		return(
-			<section className="results">
-				<div style={{textAlign:"center",width:"100%",fontSize:"24px",color:"white"}}>
-				Nothing Found
-				</div>
-			</section>
+			<div className="results">
+				<img src={Img2} className="noresults"/>
+				<h2>Nothing found</h2>
+				
+			</div>
 		)
 	}
 	

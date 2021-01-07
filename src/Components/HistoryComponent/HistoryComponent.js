@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 
 import './HistoryStyle.css';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Img2 from '../../icons/Asset 1@2x.png'
 import { Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { faArrowCircleRight} from '@fortawesome/free-solid-svg-icons';
@@ -41,6 +41,9 @@ const HistoryComponent = () => {
       <h1 >Previous Contests</h1>
       
     </div>
+    {
+                user.history && user.history.length ?
+                (
     <div class="list__body">
       <table class="list__table">
       <tr class="header_row">
@@ -50,22 +53,17 @@ const HistoryComponent = () => {
     <th class="list__cell">End date</th>
     <th class="list__cell">Link</th>
   </tr>
-      {
-                user.history && user.history.length ?
-                (
-                    user.history.map((element,index) => {
+      {user.history.map((element,index) => {
                         return(
                                        
        <tr class="list__row" >
-         
-          <td class="list__cell"><span class="list__value">{index+1}</span></td>
+         <td class="list__cell"><span class="list__value">{index+1}</span></td>
           <td class="list__cell"><span class="list__value">{`${element.Name}`}</span></td>
           <td class="list__cell">
             <span class="list__value">{`${element.sDay}`}</span>
             <small class="list__label">{`${element.sTime}`}</small>
             </td>
-          
-          <td class="list__cell"><span class="list__value">{`${element.eDay}`}</span>
+         <td class="list__cell"><span class="list__value">{`${element.eDay}`}</span>
           <small class="list__label">{`${element.eTime}`}</small>
           </td>
          <td class="list__cell">
@@ -74,22 +72,19 @@ const HistoryComponent = () => {
          </Link>
          </td>
         </tr>
+        )})
         
-      
-  
-
-                        )
-                    })
+         }
+        </table>
+        </div>
                 )
-                :
-                <h1>
-                    No previous contests
-                </h1>
-            }
-       
-        
-      </table>
-    </div>
+          :(
+                <div className="results">
+				<img src={Img2} className="noresults"/>
+				<h2>No past contests</h2>
+         </div>
+                )
+                }
   </div>
 </div>
         </div>

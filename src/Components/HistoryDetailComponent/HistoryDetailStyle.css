@@ -111,19 +111,6 @@
   justify-content: center;
 }
 
-.card__icon:before
-{
-  content:attr(data-icon);
-  font-size:3rem;
-  position:absolute;
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  width:100px;
-  height:100px;
-  border-radius: 50px;
-  background:rgba(255,255,255,1);
-}
 
 .card__detail
 {
