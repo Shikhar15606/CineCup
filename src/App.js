@@ -22,13 +22,41 @@ import HistoryComponent from './Components/HistoryComponent/HistoryComponent';
 import HistoryDetailComponent from './Components/HistoryDetailComponent/HistoryDetailComponent';
 import { ThemeProvider } from 'styled-components';
 
-import { useDarkMode } from './useDarkMode';
+
 import { lightTheme, darkTheme } from './theme';
 import { GlobalStyles } from './global';
+
 function App() {
   const dispatch = useDispatch();
-  const [theme, toggleTheme, componentMounted] = useDarkMode();
-  const themeMode = theme === 'light' ? lightTheme : darkTheme;
+  const [theme, setTheme] = useState('light');
+  const [componentMounted, setComponentMounted] = useState(false);
+  
+   function setMode(mode){
+    window.localStorage.setItem('theme', mode)
+    setTheme(mode)
+  };
+
+   function toggleTheme(){
+    if (theme === 'light') {
+      setMode('dark')
+    } else {
+      setMode('light')
+    }
+    
+  };
+
+  useEffect(() => {
+    const localTheme = window.localStorage.getItem('theme');
+
+    window.matchMedia  && !localTheme ?
+      setMode('dark') :
+      localTheme ?
+        setTheme(localTheme) :
+        setMode('light');
+
+    setComponentMounted(true);
+  }, []);
+ 
   useEffect(()=>{
     dispatch(fetchMoviesData());
     dispatch(fetchBlackListedMovies());
@@ -36,13 +64,14 @@ function App() {
     dispatch(fetchHistory());
 },[])
 
+
   return (
-    <ThemeProvider theme={themeMode}>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
     <>    
     <BrowserRouter>
       <div className="App">
       <GlobalStyles />
-        <HeaderComponent></HeaderComponent>
+        <HeaderComponent toggleTheme={toggleTheme} theme={theme} componentMounted={componentMounted}></HeaderComponent>
         <Switch>
           <Route exact path="/" component={Auth(HomePageComponent,null)}></Route>
           <Route exact path="/leaderboard" component={Auth(LeaderboardPageComponent,null)}></Route>

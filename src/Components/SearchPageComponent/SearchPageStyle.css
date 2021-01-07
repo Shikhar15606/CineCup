@@ -42,9 +42,15 @@ margin-right: 10px;
 .results {
 	display: flex;
 	flex-wrap: wrap;
-	margin: 0px -15px;
-	 
+	margin: 0px auto;
+	flex-direction: column;
+	width: 100%;
+	height: 700px;
+	position: relative;
+align-items: center;
+justify-items: center;	 
 }
+
 
 .results .result {
 	width: 25%;
@@ -195,10 +201,7 @@ margin-right: 10px;
 		height:10px;
 		margin-bottom: 10px;
 	}
-	.results{
-		flex-direction: column;
-		margin: auto;
-	  }
+	
 	  .popup .content .close{
 		  margin-left: 30%;
 	  }

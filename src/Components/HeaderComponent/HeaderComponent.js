@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { useDarkMode } from '../../useDarkMode'
+
 import { lightTheme, darkTheme } from '../../theme';
 import { GlobalStyles } from '../../global';
 
@@ -37,11 +37,11 @@ import { useSelector,useDispatch } from "react-redux";
 import {logout} from '../../action/user_actions';
 
 import { ExitToAppRounded } from '@material-ui/icons';
-function HeaderComponent(){
+function HeaderComponent({theme,toggleTheme,componentMounted}){
         const user = useSelector(state => state.user);
         const User = useSelector(state => state.user.user);
-        const [theme, toggleTheme, componentMounted] = useDarkMode();
-        const themeMode = theme === 'light' ? lightTheme : darkTheme;
+       
+       
         const dispatch = useDispatch();
         const Logout = () => {
           dispatch(logout());
@@ -154,7 +154,7 @@ function HeaderComponent(){
                       <ListItem  key="Dark Mode" >
                       <ListItemIcon> <Brightness4Icon color="primary"/> </ListItemIcon>
                       <Toggle theme={theme} toggleTheme={toggleTheme} />
-                      
+                      {theme === 'light' ? 'Light' : 'Dark'}
                       
                       </ListItem>
                       
@@ -317,8 +317,12 @@ function HeaderComponent(){
         return(
           <></>
         )
+        if (!componentMounted) {
+          return <div />
+        };
         return (
           <>
+          
           <TemporaryDrawer />
           <ButtonAppBar />
           

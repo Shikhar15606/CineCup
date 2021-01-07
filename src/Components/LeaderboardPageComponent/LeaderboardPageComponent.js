@@ -1,7 +1,7 @@
 import React from 'react';
 import './LeaderboardStyles.css';
 import { Link } from 'react-router-dom';
-
+import Img2 from '../../icons/Asset 1@2x.png'
 import {useSelector} from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import InputBase from '@material-ui/core/InputBase';
@@ -92,14 +92,14 @@ const LeaderboardPageComponent = () => {
   <div className="list">
     <div className="list__header">
       <h1 >Leaderboard</h1>
-      <InputBase
+      {result.length !== 0 && <InputBase
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search','id':'sear'}}
-              onKeyUp={()=>{
+              onChange={()=>{
                   var all = document.getElementById("list-table").getElementsByClassName("list__row");
                 
                 console.log(all)
@@ -117,8 +117,11 @@ const LeaderboardPageComponent = () => {
               }}
               
             />
-      
+            }
     </div>
+    {
+      result.length !== 0 ?
+      (
     <div className="list__body">
       <table className="list__table" id="list-table">
       <tr className="header_row">
@@ -129,10 +132,7 @@ const LeaderboardPageComponent = () => {
     <th class="list__cell">Explore</th>
   </tr>
       
-     {  
-                result.length !== 0 ?
-                (
-                  result.map((resul) => (              
+     {result.map((resul) => (              
                     <tr className="list__row" >
          
          <td className="list__cell"><span className="list__value">{resul.rank}</span></td>
@@ -142,7 +142,7 @@ const LeaderboardPageComponent = () => {
          resul.genres.slice(0,1).map(genre=>{
           return <span> {genre.name} </span>
         })
-      }</td>
+        }</td>
         
          <td className="list__cell"><span className="list__value">{resul.votes}</span></td>
          <td className="list__cell"> 
@@ -150,18 +150,21 @@ const LeaderboardPageComponent = () => {
          <span class="list__value"><FontAwesomeIcon icon={faArrowCircleRight} /></span> 
          </Link></td>
        </tr>
-                  ))
-                )
-                :(
-                  <p > Nothing Here </p>
-                 )
-              }              
-      
-        
-  
-        
+         ))  
+      }        
+                
       </table>
     </div>
+      )
+      :(
+                  <div className="results">
+				<img src={Img2} className="noresults"/>
+				<h2>No Ongoing contest</h2>
+				
+			</div>
+      )
+                
+  }
   </div>
 </div>
         </div>
