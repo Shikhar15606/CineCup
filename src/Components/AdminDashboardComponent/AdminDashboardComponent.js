@@ -9,7 +9,7 @@ import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
 import { Link } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,fade } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import firebase from 'firebase';
 import Rating from '@material-ui/lab/Rating';
@@ -17,9 +17,75 @@ import TextField from '@material-ui/core/TextField';
 import ShareButton from '../shareButton'
 import swal from 'sweetalert';
 import Grid from '@material-ui/core/Grid';
-
+import InputBase from '@material-ui/core/InputBase';
 import Img2 from '../../icons/Asset 1@2x.png'
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  search: {
+    position: 'relative',
+    alignSelf:"center",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    margin: 0 ,
+    width: '100%',
+    
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color:"white"
+  },
+  inputRoot: {
+    color: 'inherit',
+    backgroundColor: fade(theme.palette.common.black, 0.45),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.black, 0.55),
+    },
+    width:"100%",
+  },
+  inputInput: {
+    
+    color:"white",
+
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: "100%",
+    maxWidth: 600,
+    
+  },
+  paper: {
+    // padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    height:200,
+    
+    display:"flex",
+    flexDirection:"row",
+  },
+}));
 const AdminDashboardComponent = () => {
+  const classes = useStyles();
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
     console.log(user);
@@ -281,7 +347,7 @@ const AdminDashboardComponent = () => {
     )
   return (
     <React.Fragment>
-      <main style={{marginTop:"70px"}}>
+      <main style={{marginTop:"100px"}}>
       {user.announcement ?
       <>
       {(user.announcement.map(element => (
@@ -314,6 +380,7 @@ const AdminDashboardComponent = () => {
         autoFocus
         value={announcement}
         onChange={(e) => {setannouncement(e.target.value);setaltannouncement(true);}}
+        InputProps={{className:"voting_text"}}
       />
 
       <Button
@@ -344,6 +411,7 @@ const AdminDashboardComponent = () => {
         autoFocus
         value={announcement}
         onChange={(e) => {setannouncement(e.target.value);setaltannouncement(true);}}
+        InputProps={{className:"voting_text"}}
       />
 
       <Button
@@ -478,12 +546,37 @@ const AdminDashboardComponent = () => {
         <h1 >All users</h1>
       </div>
       <main>
+      <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search','id':'sear'}}
+              onChange={()=>{
+                  var all = document.getElementById("users_card").getElementsByClassName("our-team");
+                
+                console.log(all)
+                for(var i=0;i<all.length;i++)
+                  {
+                    var txtValue = all[i].innerText;
+                    console.log(txtValue)
+                    if (txtValue.toLowerCase().includes(document.getElementById("sear").value) ) {
+                      all[i].style.display = "";
+                    } else {
+                      all[i].style.display = "none";
+                    }
+                    
+                  } 
+              }}
+              
+            />
           {  
             allusers.length !== 0 ?
             (
-              <section className="wrapper1">
+              <section className="wrapper1" id="users_card">
               {allusers.map((user) => (              
-                <React.Fragment className="profile-card">
+                <React.Fragment className="profile-card" >
                       <div class="our-team" style={{width:"250px",height:"220px"}}>
                         <div class="picture">
                           <img style={{width:"130px",height:"130px"}} src={user.ProfilePic}/>

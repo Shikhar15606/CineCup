@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button'
 import {useSelector,useDispatch} from 'react-redux';
 import { init } from 'ityped';
-
+import {Link} from 'react-router-dom'
 function HomePageComponent (){
         const user = useSelector(state => state.user);
        
@@ -43,9 +43,13 @@ function HomePageComponent (){
                 <Grid item xs={12} md={6} className="welcome_text">
                  <h1 className="heading_h">LeaderBoard</h1>
                  <p className="text_home">A place to look for the ranking of the movies in the current contest. Your movie not at the top ?? Do not worry you can search for it and you will get it's current rank and the no of votes it has got till now. You do not need to refresh the leaderboard is updated in realtime.</p>
+                 <Link to="/leaderboard">
+
+                
                  <Button variant="outlined" color="secondary" small>
                    Leaderboard
                  </Button>
+                 </Link>
                 </Grid>
                 
             </Grid>
@@ -61,9 +65,13 @@ function HomePageComponent (){
                 <Grid item xs={12} md={6} className="welcome_text">
                  <h1 className="heading_h">Nomination</h1>
                  <p className="text_home">Hey you can nominate your favourite movie for the award. Hey are you a movie fanatic and love a lot of movies ?? No worries needed you can nominate for 5 of your favourite movies, and do not forget to share your movie with your friends and increase it's chances of winning the contest.</p>
+                 <Link to="/search">
+
+                 
                  <Button variant="outlined" color="secondary" small>
                    Nominate
                  </Button>
+                 </Link>
                 </Grid>
                 
                 
@@ -79,9 +87,7 @@ function HomePageComponent (){
                 <Grid item xs={12} md={6} className="welcome_text">
                  <h1 className="heading_h">Ranking Algorithm</h1>
                  <p className="text_home">The movie with more votes will get a lower rank. But if two movies will have the same no of votes in a running contest then they will be ranked the same. If the two movies will have the same no of votes till the contest ends then they will be given the ranks decided by the cinecup team.</p>
-                 <Button variant="outlined" color="secondary" small>
-                   Dashboard
-                 </Button>
+                 
                 </Grid>
                 
             </Grid>
