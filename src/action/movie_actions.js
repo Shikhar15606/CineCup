@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import axios from 'axios';
-import {TMDB_API_KEY} from '../key/key';
+import {TMDB_API_KEY,USERNAME,PASSWORD,API} from '../key/key';
 import {
     FETCH_MOVIES_DATA_REQUEST,
     FETCH_MOVIES_DATA_SUCCESS,
@@ -145,7 +145,7 @@ export const blackListMovie = ({movieId,movieName,token}) => {
         db.collection("users").get()
         .then(async function(querySnapshot) {
             var batch = db.batch();
-            
+
             let mailto = [];
 
             querySnapshot.forEach(doc => {
@@ -168,18 +168,20 @@ export const blackListMovie = ({movieId,movieName,token}) => {
             let moviesRef = db.collection('movies').doc(movieId.toString())
             batch.delete(moviesRef)
 
-            
-
-            axios.post('https://cinecup-backend.herokuapp.com/send',{receivers:mailto,movieName:movieName},
-            {
-                headers: {
-                Authorization: `Bearer ${token}`,
-              }
-            })
-            .then((res)=>{
-                console.log(res);
-            })
-
+            let res = await axios.post(`${API}/token`,{username:USERNAME,password:PASSWORD});
+            console.log(res);
+            if(res.data.accessToken){
+                let token = res.data.accessToken;
+                axios.post(`${API}/send`,{receivers:mailto,movieName:movieName},
+                {
+                    headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+                })
+                .then((res)=>{
+                    console.log(res);
+                })
+            }
             // Commit the batch
             batch.commit()
             .then(function () {
