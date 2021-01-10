@@ -88,13 +88,13 @@
         background-size: cover;
         background-repeat: no-repeat; */
        
-        margin-top: -10vh;
+        /* margin-top: -10vh; */
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
         position: relative;
-        margin-top: 50px;
+        margin-top: 100px;
         
     }
   
