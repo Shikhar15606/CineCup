@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import {ACCESS_TOKEN} from '../../key/key'
 import {useSelector,useDispatch} from 'react-redux'
 import { Link } from 'react-router-dom';
 import {nominate} from '../../action/user_actions';
@@ -11,9 +10,8 @@ import swal from 'sweetalert';
 
 import Rating from '@material-ui/lab/Rating';
 
-import { useAuth0 } from '@auth0/auth0-react';
+
 function Result({ result, openPopup }) {
-	const { getAccessTokenSilently } = useAuth0();
 	const useStyles = makeStyles({
 		
 		but:{
@@ -65,7 +63,6 @@ function Result({ result, openPopup }) {
 		const dataToSubmit = {
 			movieId:result.id,
 			movieName:result.title,
-			token:ACCESS_TOKEN
 		}
 		console.log(dataToSubmit);
 		dispatch(blackListMovie(dataToSubmit));

@@ -138,7 +138,7 @@ export const fetchBlackListedMovies = () => {
 
 // ================================== Blacklisting Movie =========================================
 
-export const blackListMovie = ({movieId,movieName,token}) => {
+export const blackListMovie = ({movieId,movieName}) => {
     return async (dispatch) => {
         const db = firebase.firestore();
         // getting all users and removing blacklisted movie from their nominations
