@@ -149,36 +149,3 @@ function Result({ result, openPopup }) {
 export default Result;
 
 
-/*
-
-
-.wrapper
-	.card
-		img(src="https://images.unsplash.com/photo-1477666250292-1419fac4c25c?auto=format&fit=crop&w=667&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D")
-		.info
-			h1 Mountain
-			p Lorem Ipsum is simply dummy text from the printing and typeseting industry
-			button Read More
-
-
-
-
-*/
-
-
-{/* <Link to={`/movie/${result.id}`} classNameName="card"  >
-			<img src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`} />
-			<div classNameName="info">
-				<h1>{result.title}</h1>
-				<Button variant="contained" color="secondary" disabled={btn || isdisabled(result.id)} onClick={(e) => {setbtn(true); Nominate(e)}} endIcon={<LocalMoviesIcon />} classNameName="but1">
-                 Nominate</Button>
-				{
-					user.user && user.user.IsAdmin ?
-					<Button variant="contained" color="primary" disabled={blackbtn || isblackdisabled(result.id)} onClick={(e) => {setblackbtn(true); setbtn(true); BlacklistMovie(e)}} endIcon={<LocalMoviesIcon />} classNameName="but1">
-                 	BlackList</Button>
-					:
-					<span>
-					</span>
-				}
-			</div>
-		</Link> */}

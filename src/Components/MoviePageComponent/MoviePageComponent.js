@@ -1,17 +1,29 @@
 import {React,useState,useEffect } from 'react';
 import YouTube from 'react-youtube';
+import {useSelector,useDispatch} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import {TMDB_API_KEY} from '../../key/key';
 import axios from 'axios';
 import './MoviePageStyle.css'
 import ShareButton from '../shareButton'
 import Anime, {anime} from 'react-anime'
+import Rating from '@material-ui/lab/Rating';
 const MoviePageComponent = () => {
+    const user = useSelector(state => state.user);
     const [result, setresult] = useState({});
     const [trailerurl , settrailerurl] = useState("");
     const { movie_id } = useParams();
     const [cast,setCast]=useState([]);
     const [reviews,setReviews]=useState([]);
+
+    let User;
+  if(user.isLoggedIn)
+  {
+    User=user.user
+  }
+  else{
+    User=null
+  }
 
     var creditsapi = `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${TMDB_API_KEY}`
     
@@ -139,6 +151,41 @@ const MoviePageComponent = () => {
       </div>
     
     </div>
+    {
+      user.isLoggedIn ?
+      (
+    <div className="reviews_wrapper">
+    <h1 className="reviews_header">
+        ADD REVIEW
+    </h1>
+    <div class="supaviews">
+
+	
+	<div class="supaviews__add">
+		<div class="supaview">
+			<h1 class="supaview__title">Add a new review</h1>
+			<form id="review">
+        <div className="user_data">
+          <img src={User.ProfilePic} className="avatar" />
+          <span>{User.Name}</span>
+        </div>
+      <Rating precision="0.5"  />
+				<div class="supaview__copy">
+				
+					<textarea name="message" placeholder="Review" rows="5"></textarea>
+				</div>
+				<button class="supaview__submit">Submit review</button>
+			</form>
+		</div>
+	</div>
+	
+</div>
+
+    </div>
+      )
+      :
+      <div></div>
+    }
     <div className="reviews_wrapper">
       <h1 className="reviews_header">
         REVIEWS
