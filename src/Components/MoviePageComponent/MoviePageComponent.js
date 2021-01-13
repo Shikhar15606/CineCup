@@ -8,6 +8,9 @@ import './MoviePageStyle.css'
 import ShareButton from '../shareButton'
 import Anime, {anime} from 'react-anime'
 import Rating from '@material-ui/lab/Rating';
+import firebase from 'firebase';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 const MoviePageComponent = () => {
     const user = useSelector(state => state.user);
     const [result, setresult] = useState({});
@@ -15,6 +18,61 @@ const MoviePageComponent = () => {
     const { movie_id } = useParams();
     const [cast,setCast]=useState([]);
     const [reviews,setReviews]=useState([]);
+    const [newReview,setnewReview] = useState("");
+    const [newRating,setnewRating] = useState(0);
+    const [alreadyReviewed,setalreadyReviewed] = useState(false);
+
+    async function getUserDetails(obj){
+      let querySnapshot = obj.docs;
+      const db = firebase.firestore();
+      let arr = [];
+      for(let i=0;i<querySnapshot.length;i++){
+        let doc = querySnapshot[i];
+        if(user.isLoggedIn && doc.data().uid === user.user.Email)
+          setalreadyReviewed(true);
+        var docRef = db.doc(`users/${doc.data().uid}`);
+        let userdoc = await docRef.get()
+        if (userdoc.exists) {
+            arr.push({...userdoc.data(),...doc.data()})
+        } else {
+            console.log("No such document!");
+        }
+      }
+      return arr;
+    }
+    // Fetch Review
+    useEffect(()=>{
+      const db = firebase.firestore();
+      db.collection("reviews").where("mid", "==", movie_id)
+      .get()
+      .then(async function(querySnapshot) {
+          let arr = [];
+          arr = await getUserDetails(querySnapshot)
+          setReviews(arr);
+      })
+      .catch(function(error) {
+          console.log("Error getting documents: ", error);
+      });
+    },[user.isLoggedIn])
+    // Write Review
+    const postReview = (e) => {
+      e.preventDefault();
+      const db = firebase.firestore();
+      db.collection("reviews").add({
+        mid:movie_id,
+        uid: user.user.Email,
+        rating:newRating,
+        review:newReview
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+          setReviews([...reviews,{mid:movie_id, uid:user.user.Email, rating:newRating, review:newReview, Email:user.user.Email, ProfilePic:user.user.ProfilePic, Name: user.user.Name}])
+          setalreadyReviewed(true);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+    }
 
     let User;
   if(user.isLoggedIn)
@@ -39,22 +97,6 @@ const MoviePageComponent = () => {
       })
       
     },[])
-
-    var reviewsapi = `https://api.themoviedb.org/3/movie/${movie_id}/reviews?api_key=${TMDB_API_KEY}`
-    useEffect(()=>{
-      axios(reviewsapi)
-      .then(({data} ) => {
-        if(data && data.results && data.results.length )
-        {
-          
-          setReviews(data.results);
-          console.log(reviews)
-        }
-      })
-      
-    },[])
-
-
 
     var apiurl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${TMDB_API_KEY}`;
     useEffect(() =>{
@@ -82,6 +124,10 @@ const MoviePageComponent = () => {
           autoplay: 0
         },
       };
+      if(user.isLoading)
+      return(
+        <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
+      )
     return ( 
         <div>
           
@@ -152,33 +198,29 @@ const MoviePageComponent = () => {
     
     </div>
     {
-      user.isLoggedIn ?
+      user.isLoggedIn && !alreadyReviewed ? 
       (
     <div className="reviews_wrapper">
     <h1 className="reviews_header">
         ADD REVIEW
     </h1>
     <div class="supaviews">
-
-	
-	<div class="supaviews__add">
-		<div class="supaview">
-			<h1 class="supaview__title">Add a new review</h1>
-			<form id="review">
-        <div className="user_data">
-          <img src={User.ProfilePic} className="avatar" />
-          <span>{User.Name}</span>
-        </div>
-      <Rating precision="0.5"  />
-				<div class="supaview__copy">
-				
-					<textarea name="message" placeholder="Review" rows="5"></textarea>
-				</div>
-				<button class="supaview__submit">Submit review</button>
-			</form>
-		</div>
-	</div>
-	
+    <div class="supaviews__add">
+      <div class="supaview">
+        <h1 class="supaview__title">Add a new review</h1>
+        <form id="review">
+          <div className="user_data">
+            <img src={User.ProfilePic} className="avatar" />
+            <span>{User.Name}</span>
+          </div>
+        <Rating precision="0.5" value={newRating} onChange={e => setnewRating(e.target.value)} />
+          <div class="supaview__copy">
+            <textarea name="message" placeholder="Review" rows="5" value={newReview} onChange={e => setnewReview(e.target.value)}></textarea>
+          </div>
+          <button class="supaview__submit" onClick={e => postReview(e) }>Submit review</button>
+        </form>
+      </div>
+    </div>
 </div>
 
     </div>
@@ -194,13 +236,13 @@ const MoviePageComponent = () => {
 
 <div class="reviews">
    {
-     (reviews.length!=0)?
+     (reviews && reviews.length!=0)?
       (
-      reviews.slice(0,5).map((x)=>{
+      reviews.map((x)=>{
         return <div class="column is-4 testimonial-wrapper">
       <div class="testimonial">
-      <p class="quote"> {x.content.slice(0,100)}</p>
-      <p class="attribution">- {x.author}</p>
+      <p class="quote"> {x.review}</p>
+      <p class="attribution">- {x.Name}</p>
     </div>
   </div>
       })
