@@ -1,7 +1,7 @@
 import {React,useState,useEffect } from 'react';
 import YouTube from 'react-youtube';
 import {useSelector,useDispatch} from 'react-redux';
-import {useParams} from 'react-router-dom';
+import {useParams,Link} from 'react-router-dom';
 import {TMDB_API_KEY} from '../../key/key';
 import axios from 'axios';
 import './MoviePageStyle.css'
@@ -242,7 +242,7 @@ const MoviePageComponent = () => {
         return <div class="column is-4 testimonial-wrapper">
       <div class="testimonial">
       <p class="quote"> {x.review}</p>
-      <p class="attribution">- {x.Name}</p>
+      <p class="attribution">-<Link to={`/user/${x.Email}`}> {x.Name}</Link></p>
     </div>
   </div>
       })

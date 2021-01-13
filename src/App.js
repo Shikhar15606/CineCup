@@ -24,6 +24,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { lightTheme, darkTheme } from './theme';
 import { GlobalStyles } from './global';
+import UserProfile from './Components/UserProfile/UserProfile';
 
 function App() {
   const dispatch = useDispatch();
@@ -84,6 +85,7 @@ function App() {
           <Route exact path="/admin" component={Auth(AdminDashboardComponent,true,true)}></Route>
           <Route exact path="/search" component={Auth(SearchPageComponent,null)}></Route>
           <Route exact path="/movie/:movie_id" component={Auth(MoviePageComponent,null)}></Route>
+          <Route exact path="/user/:user_id" component={Auth(UserProfile,null)}></Route>
           <Route path="*" component={Auth(ErrorPageComponent,null)}></Route>
         </Switch>
        
