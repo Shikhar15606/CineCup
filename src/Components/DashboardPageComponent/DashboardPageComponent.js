@@ -20,6 +20,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Swal from 'sweetalert2';
 
 function DashboardPageComponent(){
   const useStyles = makeStyles({
@@ -70,17 +71,84 @@ function DashboardPageComponent(){
       }
   },[user.isLoggedIn])
 
-  const deleteReview = async (e,reviewID,x) => {
-    console.log("DElete Review")
+  const deleteReview = async (e,x) => {
     e.preventDefault();
     const db = firebase.firestore();
     let arr = reviewDetail.filter(element => element !== x)
-    console.log(arr);   
-    db.collection("reviews").doc(reviewID).delete().then(function() {
+    db.collection("reviews").doc(x.reviewID).delete().then(function() {
         setreviewDetail(arr);
-  }).catch(function(error) {
+    }).catch(function(error) {
       console.error("Error removing document: ", error);
-  });
+    });
+  }
+  // ================================= EDIT Review ====================================
+  async function editReview(x,newreview,newrating){
+    const db = firebase.firestore();
+    let arr = reviewDetail.map((element) => {
+      if(element === x)
+        return {...element,review:newreview,rating:newrating};
+      return element;
+    }
+    )   
+    try{
+      let response = await db.collection("reviews").doc(x.reviewID).update({review:newreview,rating:newrating})
+        setreviewDetail(arr);
+        return true;
+    }catch(error){
+      return false;
+    }
+  }
+  const EditReviewAlert = async (e,x) => {
+    e.preventDefault();
+    Swal.mixin({
+      input: 'text',
+      confirmButtonText: 'Next &rarr;',
+      showCancelButton: true,
+      progressSteps: ['1', '2']
+    }).queue([
+      {
+        title: 'Edit Your Rating',
+        input: 'range',
+        inputLabel: 'New Rating',
+        inputAttributes: {
+          min: 0.5,
+          max: 5,
+          step: 0.5
+        },
+        inputValue: 2.5
+      },
+      {
+        title: 'Edit Your Review',
+        input: 'textarea',
+        inputLabel: 'New Review',
+        inputValue:x.review ,
+        inputPlaceholder: 'Type your message here...',
+        inputAttributes: {
+        'aria-label': 'Type your message here'
+        },
+  showCancelButton: true
+      }
+    ]).then(async (result) => {
+      if (result.value) {
+        console.log(result.value);
+        let res = await editReview(x,result.value[1],result.value[0])
+        console.log(res);
+        if(res){
+          Swal.fire({
+            icon:"success",
+            title:"Review Updated Successfully",
+            confirmButtonText: 'OK'
+          })
+        }
+        else{
+          Swal.fire({
+            icon:"error",
+            title:"Some Error Occured",
+            confirmButtonText: 'OK'
+          })
+        }
+      }
+    })
   }
   let nominations;
   if(user.isLoggedIn)
@@ -198,6 +266,7 @@ function DashboardPageComponent(){
       console.log(result);
      }
   },[user.isLoggedIn])
+
   // Main Return from this component
   if(user.isLoading || !user.isLoggedIn)
     return(
@@ -285,10 +354,10 @@ function DashboardPageComponent(){
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={(e)=>{EditReviewAlert(e,x)}}>
                 Edit
                 </Button>
-                <Button size="small" color="primary" onClick={(e)=>{ deleteReview(e,x.reviewID,x); }}>
+                <Button size="small" color="primary" onClick={(e)=>{ deleteReview(e,x); }}>
                 Delete
                 </Button>
             </CardActions>
