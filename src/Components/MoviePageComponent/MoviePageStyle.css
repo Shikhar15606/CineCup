@@ -523,11 +523,11 @@
 
 .review-item {
 	position: relative;
-	padding: 20px;
+	
 	margin: 0 auto;
 	margin-bottom: 20px;
     height:150px;
-	width:400px;
+	width:380px;
 	
 	border-radius: 5px;
 	overflow: hidden;
@@ -557,7 +557,7 @@
 	
 }
 .review-item p {
-	
+	padding: 20px;
 	color: rgb(230, 165, 1);
 }
 

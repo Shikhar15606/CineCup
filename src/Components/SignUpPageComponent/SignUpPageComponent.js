@@ -175,10 +175,10 @@ function SignUpPageComponent(){
       <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
     )
         return (
-          <Grid container component="main" className={classes.root}>
+          <Grid container component="main" className="login-root">
    
-     <Grid item xs={false} sm={4} md={6} className={classes.image} />
-      <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
+     <Grid item xs={false} sm={4} md={6} className="signup-image" />
+      <Grid item xs={12} sm={8} md={6} >
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -202,6 +202,10 @@ function SignUpPageComponent(){
                 value={firstname}
                 onChange={(e) => {setfirstname(e.target.value);setaltfirstname(true);}}
                 autoFocus
+                InputProps={{className:"voting_text"}}
+              InputLabelProps={{
+                className:"voting_text"
+           }} 
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -217,6 +221,10 @@ function SignUpPageComponent(){
                 autoComplete="lname"
                 value={lastname}
                 onChange={(e)=>{setlastname(e.target.value);setaltlastname(true);}}
+                InputProps={{className:"voting_text"}}
+              InputLabelProps={{
+                className:"voting_text"
+           }} 
               />
             </Grid>
             <Grid item xs={12}>
@@ -232,6 +240,10 @@ function SignUpPageComponent(){
                 autoComplete="email"
                 value={email}
                 onChange={(e)=>{setemail(e.target.value);setaltemail(true);}}
+                InputProps={{className:"voting_text"}}
+              InputLabelProps={{
+                className:"voting_text"
+           }} 
               />
             </Grid>
             <Grid item xs={12}>
@@ -248,6 +260,10 @@ function SignUpPageComponent(){
                 autoComplete="current-password"
                 value={password}
                 onChange={(e)=>{setpassword(e.target.value);setaltpassword(true);}}
+                InputProps={{className:"voting_text"}}
+              InputLabelProps={{
+                className:"voting_text"
+           }} 
               />
             </Grid>
             <Grid item xs={12}>

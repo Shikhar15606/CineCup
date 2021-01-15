@@ -54,4 +54,7 @@ export const GlobalStyles = createGlobalStyle`
   position:relative;
   
 }
+.login-root{
+  background-color : ${({ theme }) => theme.login_background};
+}
 `;

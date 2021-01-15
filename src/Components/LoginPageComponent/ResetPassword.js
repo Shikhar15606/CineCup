@@ -74,11 +74,11 @@ function ResetPassword(){
       dispatch(resetPassword({email:email}));
     }
     return (    
-    <Grid container component="main" className={classes.root}>
+    <Grid container component="main" className="login-root">
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
+      <Grid item xs={false} sm={4} md={7} className="login-image" />
+      <Grid item xs={12} sm={8} md={5} >
+        <div className="login-paper">
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -100,6 +100,10 @@ function ResetPassword(){
               autoFocus
               value={email}
               onChange={(e)=>{setemail(e.target.value);setaltemail(true)}}
+              InputProps={{className:"voting_text"}}
+              InputLabelProps={{
+                className:"voting_text"
+              }}
             />
      
             <Button

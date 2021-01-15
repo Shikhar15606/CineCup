@@ -7,7 +7,8 @@ export const lightTheme = {
     search_card_background:'#ffffff',
     list_shadow1:'rgba(0, 0, 0, 0.1)',
     list_shadow2:'rgba(0, 0, 0, 0.07)',
-    search_bar:'rgb(250,250,250)'
+    search_bar:'rgb(250,250,250)',
+    login_background:'#f7f7f7'
   }
   
   export const darkTheme = {
@@ -19,5 +20,6 @@ export const lightTheme = {
     search_card_background:'#000000',
     list_shadow1:'rgba(255, 255, 255, 0.5)',
     list_shadow2:'rgba(255, 255, 255, 0.7)',
-    search_bar:'rgb(255,255,255)'
+    search_bar:'rgb(255,255,255)',
+    login_background:'#141414'
   }

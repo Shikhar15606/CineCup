@@ -17,7 +17,7 @@ import {faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import './LoginStyle.css'
 // redux
 import {loginwithfacebook, loginwithgoogle, login} from '../../action/user_actions';
 import {useDispatch,useSelector} from 'react-redux';
@@ -25,24 +25,16 @@ import {useDispatch,useSelector} from 'react-redux';
 const useStyles = makeStyles((theme) => ({
     root: {
       marginTop:'80px',
+      marginBottom:'40px',
       height: '80vh',
-      backgroundColor: "rgb(0, 18, 34)",
+      
       
       
     },
-    image: {
-      backgroundImage: 'url(https://image.freepik.com/free-vector/login-concept-illustration_114360-739.jpg)',
-      backgroundRepeat: 'no-repeat',
-      backgroundColor:
-        theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'contain',
-      backgroundPosition: 'center',
-    },
+  
     paper: {
       margin: theme.spacing(8, 4),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+      
     },
     avatar: {
       margin: theme.spacing(1),
@@ -145,11 +137,11 @@ function LoginPageComponent(){
       <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
     )
     return (    
-    <Grid container component="main" className={classes.root}>
+    <Grid container component="main" className="login-root">
       {/* <CssBaseline /> */}
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
+      <Grid item xs={false} sm={4} md={7} className="login-image" />
+      <Grid item xs={12} sm={8} md={5} >
+        <div className="login-paper">
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -171,6 +163,10 @@ function LoginPageComponent(){
               autoFocus
               value={email}
               onChange={(e)=>{setemail(e.target.value);setaltemail(true)}}
+              InputProps={{className:"voting_text"}}
+              InputLabelProps={{
+                className:"voting_text"
+           }} 
             />
             <TextField
               error = {passwordError}
@@ -186,6 +182,10 @@ function LoginPageComponent(){
               autoComplete="current-password"
               value={password}
               onChange={(e)=>{setpassword(e.target.value);setaltpassword(true)}}
+              InputProps={{className:"voting_text"}}
+              InputLabelProps={{
+                className:"voting_text"
+           }} 
             />
             <Button
               type="submit"
