@@ -21,7 +21,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Swal from 'sweetalert2';
-
+import Grid from '@material-ui/core/Grid';
 function DashboardPageComponent(){
   const useStyles = makeStyles({
     root: {
@@ -310,67 +310,52 @@ function DashboardPageComponent(){
             :
             <div></div>
             }
-                    <div>
-        <Card className={classes.root} style={{marginTop:"10vh"}}>
-            <CardActionArea>
-                <CardMedia
-                className={classes.media}
-                image={user.user.ProfilePic}
-                />
-                <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    {user.user.Name}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    {user.user.Email}
-                </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                Share
-                </Button>
-                <Button size="small" color="primary">
-                Learn More
-                </Button>
-            </CardActions>
-            </Card>
-            {
-                (reviewDetail.length) ?
-                (
-                    reviewDetail.map((x) => {
-                        return(
-                            <Card className={classes.root} style={{marginTop:"5vh"}}>
-            <CardActionArea>
-                <CardMedia
-                className={classes.media}
-                image={`https://image.tmdb.org/t/p/w500${x.backdrop_path}`}
-                />
-                <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    {x.review}
-                </Typography>
-                <Rating precision="0.5" value={x.rating} readOnly/>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary" onClick={(e)=>{EditReviewAlert(e,x)}}>
-                Edit
-                </Button>
-                <Button size="small" color="primary" onClick={(e)=>{ deleteReview(e,x); }}>
-                Delete
-                </Button>
-            </CardActions>
-            </Card>
-                        )
-                    })
-                )
-                :
-                <div>
-                    Nothing Here
-                </div>
-            }
-        </div>
+                 <div className="users_reviews"  >
+          
+          <h1>Reviews</h1>
+         
+      
+        {
+              (reviewDetail.length) ?
+              (
+                  reviewDetail.map((x) => {
+                      return(
+                         <Grid container spacing={1} className="user_reviewed">
+                           <Grid item xs={12} md={3}>
+                           <img src={`https://image.tmdb.org/t/p/w500${x.poster_path}`} />
+                             </Grid>
+                           
+                            <Grid item xs={12} md={6} className="reviewed">
+                           <h2>{x.title}</h2>
+                           <Rating precision="0.5" value={x.rating} readOnly />
+                           <h3 className="user_review1">"{x.review}"</h3>
+                           
+                          </Grid>
+                          <Grid item xs={12} md={3}>
+                      
+    <Button variant="outlined" color="primary" onClick={(e)=>{EditReviewAlert(e,x)}} style={{margin:10}}>
+      Edit
+    </Button>
+    <Button variant="outlined" color="secondary" onClick={(e)=>{ deleteReview(e,x); }} style={{margin:10}}>
+      Remove
+    </Button>
+    
+                          </Grid>
+                           
+                          </Grid>
+                      )
+                  })
+              )
+              :
+              (
+                <div className="results">
+      <img src={Img2} className="noresults"/>
+      <h2>No Movies Nominated</h2>
+      
+    </div>
+              )
+          }
+      </div>
           </main>
         </React.Fragment>
         );
