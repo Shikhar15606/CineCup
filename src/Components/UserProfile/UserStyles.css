@@ -1,0 +1,38 @@
+.user_wrapper{
+  margin-top: 100px;
+}
+
+.user_avatar{
+  height: 200px;
+  width: 200px;
+  position: relative;
+  border-radius: 50%;
+}
+.user_details_u{
+
+ 
+  padding:10px;
+ margin: 10px;
+ border-radius: 10px;
+}
+.user_reviewed{
+ 
+ margin-top:50px;
+ padding: 50px 0;
+
+}
+.user_review1{
+  color: darkgoldenrod;
+}
+.user_reviewed img{
+  height: 200px;
+  width: 150px;
+  position: relative;
+}
+/* .reviewed{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  margin: 20px;
+} */

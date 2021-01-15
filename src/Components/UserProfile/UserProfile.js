@@ -14,8 +14,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
-
-
+import './UserStyles.css'
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
+import ShareButton from '../shareButton'
+import Img2 from '../../icons/Asset 1@2x.png'
 const UserProfile = () => {
     const useStyles = makeStyles({
         root: {
@@ -23,6 +27,12 @@ const UserProfile = () => {
         },
         media: {
           height: 140,
+        },
+        paper: {
+          padding: 2,
+          textAlign: 'center',
+          color: 'white',
+          backgroundColor:'#101010'
         },
       });
     const classes = useStyles();
@@ -77,67 +87,68 @@ const UserProfile = () => {
     },[])
 
     return (
-        <div>
-        <Card className={classes.root} style={{marginTop:"10vh"}}>
-            <CardActionArea>
-                <CardMedia
-                className={classes.media}
-                image={userDetail.ProfilePic}
-                />
-                <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    {userDetail.Name}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    {userDetail.Email}
-                </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                Share
-                </Button>
-                <Button size="small" color="primary">
-                Learn More
-                </Button>
-            </CardActions>
-            </Card>
-            {
+        <div className="user_wrapper">
+          <Grid container spacing={1} className="user_details_u">
+        <Grid item xs={12} >
+        <div >
+        <img src={userDetail.ProfilePic} className="user_avatar" />
+        </div>
+         
+        </Grid>
+        <Grid item xs={12}  >
+          <div >
+           <h2>{userDetail.Name}</h2>
+           <h3 style={{color:"gold"}}>Email : <span style={{color:"grey"}}>{userDetail.Email}</span></h3>
+          </div>
+        </Grid>
+        
+        
+      </Grid>
+      
+      <div className="users_reviews"  >
+          
+            <h1>Reviews</h1>
+           
+        
+          {
                 (reviewDetail.length) ?
                 (
                     reviewDetail.map((x) => {
                         return(
-                            <Card className={classes.root} style={{marginTop:"5vh"}}>
-            <CardActionArea>
-                <CardMedia
-                className={classes.media}
-                image={`https://image.tmdb.org/t/p/w500${x.backdrop_path}`}
-                />
-                <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    {x.review}
-                </Typography>
-                <Rating precision="0.5" value={x.rating} readOnly/>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                Share
-                </Button>
-                <Button size="small" color="primary">
-                Learn More
-                </Button>
-            </CardActions>
-            </Card>
+                           <Grid container spacing={1} className="user_reviewed">
+                             <Grid item xs={12} md={3}>
+                             <img src={`https://image.tmdb.org/t/p/w500${x.poster_path}`} />
+                               </Grid>
+                             
+                              <Grid item xs={12} md={6} className="reviewed">
+                             <h2>{x.title}</h2>
+                             <Rating precision="0.5" value={x.rating} readOnly />
+                             <h3 className="user_review1">"{x.review}"</h3>
+                             
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                            <Link to={`/movie/${x.id}`}   >
+      <Button variant="outlined" color="secondary" href="#outlined-buttons" style={{margin:10}}>
+        Explore
+      </Button>
+      </Link>
+                            </Grid>
+                             
+                            </Grid>
                         )
                     })
                 )
                 :
-                <div>
-                    Nothing Here
-                </div>
+                (
+                  <div className="results">
+				<img src={Img2} className="noresults"/>
+				<h2>No Movies Nominated</h2>
+				
+			</div>
+                )
             }
         </div>
+      </div>
     );
 };
 

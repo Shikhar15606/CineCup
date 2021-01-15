@@ -109,9 +109,9 @@ function DashboardPageComponent(){
        Remove</Button>
        <div  className="share_but_s">
           <ShareButton 
-          url={`https://cinecup-9b0ac.web.app/movie/${result.id}`}
-           image={`https://image.tmdb.org/t/p/w500/${result.poster_path}`}
-            title={`${result.title} - ${result.overview} 
+          url={`https://cinecup-9b0ac.web.app/movie/${r.id}`}
+           image={`https://image.tmdb.org/t/p/w500/${r.poster_path}`}
+            title={`${r.title} - ${r.overview} 
             Check out the trailer on this page`}
            />
         </div>

@@ -201,9 +201,7 @@ const MoviePageComponent = () => {
       user.isLoggedIn && !alreadyReviewed ? 
       (
     <div className="reviews_wrapper">
-    <h1 className="reviews_header">
-        ADD REVIEW
-    </h1>
+    
     <div class="supaviews">
     <div class="supaviews__add">
       <div class="supaview">
@@ -235,16 +233,27 @@ const MoviePageComponent = () => {
     <div class="container">
 
 <div class="reviews">
+
    {
      (reviews && reviews.length!=0)?
       (
       reviews.map((x)=>{
-        return <div class="column is-4 testimonial-wrapper">
-      <div class="testimonial">
-      <p class="quote"> {x.review}</p>
-      <p class="attribution">-<Link to={`/user/${x.Email}`}> {x.Name}</Link></p>
-    </div>
-  </div>
+        return (<div class="review-item">
+           <Link to={`/user/${x.Email}`}>
+             <div className="reviewer">
+							<img src={x.ProfilePic} class="user_im" alt="Customer Feedback" />
+              <div claas="cius">
+              <h3 class="customer-name">{x.Name}</h3>
+              <Rating precision="0.5" value={x.rating} readOnly />
+              </div>
+							
+              </div>
+              </Link>
+              
+							<p>{x.review}</p>
+						
+						</div>
+            )
       })
       ):
       <h2 className="text_re">No reviews found</h2>

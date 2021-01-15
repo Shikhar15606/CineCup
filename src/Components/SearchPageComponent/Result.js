@@ -75,12 +75,24 @@ function Result({ result, openPopup }) {
 				return true;			
 			else if(user && user.user && user.user.Nominations.length)
 			{
-				if(user.user.Nominations.length === 5 || user.user.Nominations.includes(id))
+				if(user.user.Nominations.length === 5 && !user.user.Nominations.includes(id) )
 					return true;
 			}
 			return false;
 		}
 		return true;
+	}
+	const isNominatedbyUser = (id) => {
+		if(user.isLoggedIn && user.isVoting)
+		{
+			 if(user && user.user && user.user.Nominations.length)
+			{
+				if(user.user.Nominations.includes(id))
+					return true;
+			}
+			return false;
+		}
+		return false;
 	}
 	const isblackdisabled = (id) => {
 		if(user.isLoggedIn)
@@ -113,9 +125,15 @@ function Result({ result, openPopup }) {
 		<Link to={`/movie/${result.id}`}   >
 		<Button className="button_s" variant="outlined" color="secondary" style={{marginBottom:10}}>Explore</Button>
 		</Link>
-		<Button className="button_s" disabled={btn || isdisabled(result.id)} style={{marginBottom:10}}
-		variant="outlined" color="primary" onClick={(e) => {setbtn(true); Nominate(e)}}>
-			Nominate</Button>
+		<Button className="button_s" disabled={isdisabled(result.id)} style={{marginBottom:10}}
+		variant="outlined" color="primary" onClick={(e) => { Nominate(e)}}>
+			{
+				(isNominatedbyUser(result.id))?
+				<span>Nominated</span>
+				:
+				<span>Nominate</span>
+			}
+			</Button>
 		{
 					user.user && user.user.IsAdmin ?
 					<Button className="button_s"
