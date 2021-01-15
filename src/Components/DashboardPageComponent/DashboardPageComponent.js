@@ -12,12 +12,144 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Rating from '@material-ui/lab/Rating';
-import ShareButton from '../shareButton'
+import ShareButton from '../shareButton';
+import firebase from 'firebase';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import Swal from 'sweetalert2';
+
 function DashboardPageComponent(){
+  const useStyles = makeStyles({
+    root: {
+      maxWidth: 345,
+    },
+    media: {
+      height: 140,
+    },
+  });
+  const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [result,setresult] = useState([]);  
   const [open, setOpen] = useState(false);
+  const [reviewDetail,setreviewDetail] = useState([]);
+
+    async function getMovieDetails(obj){
+      let querySnapshot = obj.docs;
+      let arr = [];
+      for(let i=0;i<querySnapshot.length;i++){
+        let doc = querySnapshot[i];
+        console.log(doc);
+            try{
+                console.log(doc.data().mid);
+                let res = await axios.get(`https://api.themoviedb.org/3/movie/${doc.data().mid}?api_key=${TMDB_API_KEY}`)
+                arr.push({...res.data, review:doc.data().review, rating:doc.data().rating, reviewID:doc.id})
+            }catch(err){
+                console.log(err);
+            }
+        }
+        return arr;
+    }
+    useEffect(() => {
+      if(user.user && user.user.Email){
+        const db = firebase.firestore();
+      db.collection("reviews").where("uid", "==", user.user.Email)
+      .get()
+      .then(async function(querySnapshot) {
+          let arr = [];
+          arr = await getMovieDetails(querySnapshot);
+          console.log(arr);
+          setreviewDetail(arr);
+      })
+      .catch(function(error) {
+          console.log("Error getting documents: ", error);
+      });
+      }
+  },[user.isLoggedIn])
+
+  const deleteReview = async (e,x) => {
+    e.preventDefault();
+    const db = firebase.firestore();
+    let arr = reviewDetail.filter(element => element !== x)
+    db.collection("reviews").doc(x.reviewID).delete().then(function() {
+        setreviewDetail(arr);
+    }).catch(function(error) {
+      console.error("Error removing document: ", error);
+    });
+  }
+  // ================================= EDIT Review ====================================
+  async function editReview(x,newreview,newrating){
+    const db = firebase.firestore();
+    let arr = reviewDetail.map((element) => {
+      if(element === x)
+        return {...element,review:newreview,rating:newrating};
+      return element;
+    }
+    )   
+    try{
+      let response = await db.collection("reviews").doc(x.reviewID).update({review:newreview,rating:newrating})
+        setreviewDetail(arr);
+        return true;
+    }catch(error){
+      return false;
+    }
+  }
+  const EditReviewAlert = async (e,x) => {
+    e.preventDefault();
+    Swal.mixin({
+      input: 'text',
+      confirmButtonText: 'Next &rarr;',
+      showCancelButton: true,
+      progressSteps: ['1', '2']
+    }).queue([
+      {
+        title: 'Edit Your Rating',
+        input: 'range',
+        inputLabel: 'New Rating',
+        inputAttributes: {
+          min: 0.5,
+          max: 5,
+          step: 0.5
+        },
+        inputValue: 2.5
+      },
+      {
+        title: 'Edit Your Review',
+        input: 'textarea',
+        inputLabel: 'New Review',
+        inputValue:x.review ,
+        inputPlaceholder: 'Type your message here...',
+        inputAttributes: {
+        'aria-label': 'Type your message here'
+        },
+  showCancelButton: true
+      }
+    ]).then(async (result) => {
+      if (result.value) {
+        console.log(result.value);
+        let res = await editReview(x,result.value[1],result.value[0])
+        console.log(res);
+        if(res){
+          Swal.fire({
+            icon:"success",
+            title:"Review Updated Successfully",
+            confirmButtonText: 'OK'
+          })
+        }
+        else{
+          Swal.fire({
+            icon:"error",
+            title:"Some Error Occured",
+            confirmButtonText: 'OK'
+          })
+        }
+      }
+    })
+  }
   let nominations;
   if(user.isLoggedIn)
   {
@@ -134,8 +266,9 @@ function DashboardPageComponent(){
       console.log(result);
      }
   },[user.isLoggedIn])
+
   // Main Return from this component
-  if(user.isLoading)
+  if(user.isLoading || !user.isLoggedIn)
     return(
       <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
     )
@@ -177,6 +310,67 @@ function DashboardPageComponent(){
             :
             <div></div>
             }
+                    <div>
+        <Card className={classes.root} style={{marginTop:"10vh"}}>
+            <CardActionArea>
+                <CardMedia
+                className={classes.media}
+                image={user.user.ProfilePic}
+                />
+                <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                    {user.user.Name}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                    {user.user.Email}
+                </Typography>
+                </CardContent>
+            </CardActionArea>
+            <CardActions>
+                <Button size="small" color="primary">
+                Share
+                </Button>
+                <Button size="small" color="primary">
+                Learn More
+                </Button>
+            </CardActions>
+            </Card>
+            {
+                (reviewDetail.length) ?
+                (
+                    reviewDetail.map((x) => {
+                        return(
+                            <Card className={classes.root} style={{marginTop:"5vh"}}>
+            <CardActionArea>
+                <CardMedia
+                className={classes.media}
+                image={`https://image.tmdb.org/t/p/w500${x.backdrop_path}`}
+                />
+                <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                    {x.review}
+                </Typography>
+                <Rating precision="0.5" value={x.rating} readOnly/>
+                </CardContent>
+            </CardActionArea>
+            <CardActions>
+                <Button size="small" color="primary" onClick={(e)=>{EditReviewAlert(e,x)}}>
+                Edit
+                </Button>
+                <Button size="small" color="primary" onClick={(e)=>{ deleteReview(e,x); }}>
+                Delete
+                </Button>
+            </CardActions>
+            </Card>
+                        )
+                    })
+                )
+                :
+                <div>
+                    Nothing Here
+                </div>
+            }
+        </div>
           </main>
         </React.Fragment>
         );
