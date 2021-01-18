@@ -12,6 +12,11 @@ import { faStar} from '@fortawesome/free-solid-svg-icons';
 
 import { faArrowCircleRight} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  useWindowSize,
+} from '@react-hook/window-size'
+import Confetti from 'confetti-react';
+
 const Cards = () => { 
   console.log('started')
   init()
@@ -171,6 +176,7 @@ const HistoryDetailComponent = () => {
     const [moviedetail,setmoviedetail] = useState([]);
     const [contest,setcontest] = useState({});
     const classes = useStyles();
+    const [width, height] = useWindowSize()
 
     useEffect(()=>{
       if(user.history)
@@ -213,8 +219,8 @@ const HistoryDetailComponent = () => {
     )
     return (
       <div className="wrapper3">
-        
-          {  
+        <Confetti width={width} height={height} style={{zIndex:"10"}} numberOfPieces={400}/>
+          {     
                 moviedetail.length !== 0 ?
                 (
                 <div className="cards_carousal">
