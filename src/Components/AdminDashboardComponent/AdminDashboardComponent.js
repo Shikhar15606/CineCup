@@ -20,6 +20,9 @@ import Grid from '@material-ui/core/Grid';
 import InputBase from '@material-ui/core/InputBase';
 import Img2 from '../../icons/Asset 1@2x.png'
 const useStyles = makeStyles((theme) => ({
+  disabledButton: {
+    backgroundColor:  'red'
+  },
   root: {
     flexGrow: 1,
   },
@@ -57,15 +60,14 @@ const useStyles = makeStyles((theme) => ({
   },
   inputRoot: {
     color: 'inherit',
-    backgroundColor: fade(theme.palette.common.black, 0.45),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.black, 0.55),
-    },
-    width:"100%",
+    backgroundColor: '#ffffff',
+    alignSelf:'center',
+    width:"80%",
+    borderRadius:5
   },
   inputInput: {
     
-    color:"white",
+    color:"black",
 
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
@@ -365,7 +367,7 @@ const AdminDashboardComponent = () => {
       </Grid>
         ))
       )}
-      <form Validate className="voting">
+      <form Validate className="voting" style={{marginBottom:20}}>
       <TextField
         error = {announcementError}
         helperText = {announcementError}
@@ -381,6 +383,9 @@ const AdminDashboardComponent = () => {
         value={announcement}
         onChange={(e) => {setannouncement(e.target.value);setaltannouncement(true);}}
         InputProps={{className:"voting_text"}}
+        InputLabelProps={{
+                className:"voting_text"
+           }} 
       />
 
       <Button
@@ -390,6 +395,7 @@ const AdminDashboardComponent = () => {
         color="primary"
         onClick={(e) => addannouncement(e)}  
         disabled = {disabledAnnounce}
+        className="button1"
       >
       Announce
       </Button>
@@ -412,6 +418,9 @@ const AdminDashboardComponent = () => {
         value={announcement}
         onChange={(e) => {setannouncement(e.target.value);setaltannouncement(true);}}
         InputProps={{className:"voting_text"}}
+        InputLabelProps={{
+                className:"voting_text"
+           }} 
       />
 
       <Button
@@ -421,6 +430,7 @@ const AdminDashboardComponent = () => {
         color="primary"
         onClick={(e) => addannouncement(e)}  
         disabled = {disabledAnnounce}
+        className="button1"
       >
       Announce
       </Button>
@@ -444,6 +454,9 @@ const AdminDashboardComponent = () => {
                 value={name}
                 onChange={(e) => {setname(e.target.value);setaltname(true);}}
                 InputProps={{className:"voting_text"}}
+                InputLabelProps={{
+                className:"voting_text"
+           }} 
               />
        
               <Button
@@ -453,6 +466,7 @@ const AdminDashboardComponent = () => {
                 color="primary"
                 onClick={startAlert}  
                 disabled = {disabledSubmit}
+                className="button1"
               >
                 Start Voting
               </Button>
@@ -525,7 +539,7 @@ const AdminDashboardComponent = () => {
                           <h4 class="title">{admin.Email}</h4>
                         </div>
                         <ul class="social">
-                        <Button variant="contained" style={{width:"100%", backgroundColor:" #1369ce"}} onClick={(e) => {removeFromAdmin(admin.Email,e)}} endIcon={<LocalMoviesIcon />} className="but1">
+                        <Button variant="contained" style={{width:"100%", backgroundColor:" #1369ce"}} onClick={(e) => {removeFromAdmin(admin.Email,e)}}  className="but1">
                         Dismiss From Admin</Button>
                         </ul>
                       </div>
@@ -586,7 +600,7 @@ const AdminDashboardComponent = () => {
                           <h4 class="title">{user.Email}</h4>
                         </div>
                         <ul class="social">
-                        <Button variant="contained" style={{width:"100%", backgroundColor:" #1369ce"}} onClick={(e) => {makeAdminAlert(user.Name,user.Email,e)}} endIcon={<LocalMoviesIcon />} className="but1">
+                        <Button variant="contained" style={{width:"100%", backgroundColor:" #1369ce"}} onClick={(e) => {makeAdminAlert(user.Name,user.Email,e)}} className="but1">
                         Make Admin</Button>
                         </ul>
                       </div>

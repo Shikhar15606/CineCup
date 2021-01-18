@@ -215,12 +215,21 @@ const HistoryDetailComponent = () => {
 
     if(user.isLoading)
     return(
+       <div className="wrapper3">
       <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
+      </div>
     )
     return (
       <div className="wrapper3">
+<<<<<<< HEAD
         <Confetti width={width} height={height} style={{zIndex:"10"}} numberOfPieces={400}/>
           {     
+=======
+        <div className="head_det">
+        <h1>Winners of  {contest.Name}</h1>
+        </div>
+          {  
+>>>>>>> 9cea3bb776f3cfc6869e0c62039d368931d03b7d
                 moviedetail.length !== 0 ?
                 (
                 <div className="cards_carousal">

@@ -94,10 +94,7 @@ const LeaderboardPageComponent = () => {
       <h1 >Leaderboard</h1>
       {result.length !== 0 && <InputBase
               placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
+              className="searchbox"
               inputProps={{ 'aria-label': 'search','id':'sear'}}
               onChange={()=>{
                   var all = document.getElementById("list-table").getElementsByClassName("list__row");
@@ -127,7 +124,7 @@ const LeaderboardPageComponent = () => {
       <tr className="header_row">
       <th className="list__cell">Rank</th>
     <th className="list__cell">Movie</th>
-    <th className="list__cell">Genre</th>
+    {/* <th className="list__cell">Genre</th> */}
     <th className="list__cell">Votes</th>
     <th class="list__cell">Explore</th>
   </tr>
@@ -137,12 +134,12 @@ const LeaderboardPageComponent = () => {
          
          <td className="list__cell"><span className="list__value">{resul.rank}</span></td>
          <td className="list__cell"><span className="list__value">{resul.title}</span></td>
-         <td className="list__cell">
+         {/* <td className="list__cell">
            {
          resul.genres.slice(0,1).map(genre=>{
           return <span> {genre.name} </span>
         })
-        }</td>
+        }</td> */}
         
          <td className="list__cell"><span className="list__value">{resul.votes}</span></td>
          <td className="list__cell"> 

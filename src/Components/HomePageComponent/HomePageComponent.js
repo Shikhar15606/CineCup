@@ -34,7 +34,16 @@ function HomePageComponent (){
             </Grid>
 
             </div>
-           
+            <Grid container className="section" >
+                <Grid item xs={12} md={6} className="welcome_text">
+                 <h1 className="heading_h">Announcements</h1>
+                 <p className="text_home" id="type">
+                 <div id="myElement"></div>
+                 </p>
+                </Grid>
+                
+                
+            </Grid>
             <Grid container className="section" >
             <Grid item xs={12} md={6} className="welcome_image">
             <img src="https://templatemo.com/templates/templatemo_537_art_factory/assets/images/left-image.png"
@@ -92,16 +101,7 @@ function HomePageComponent (){
                 
             </Grid>
 
-            <Grid container className="section" >
-                <Grid item xs={12} md={6} className="welcome_text">
-                 <h1 className="heading_h">Announcements</h1>
-                 <p className="text_home" id="type">
-                 <div id="myElement"></div>
-                 </p>
-                </Grid>
-                
-                
-            </Grid>
+            
 
             </div>
             

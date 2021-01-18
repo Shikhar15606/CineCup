@@ -55,7 +55,9 @@
   margin: 0 auto;
   margin-top: 100px;
 }
-
+.head_det{
+  margin-top: 100px;
+}
 .card_co
 {
   display:flex;

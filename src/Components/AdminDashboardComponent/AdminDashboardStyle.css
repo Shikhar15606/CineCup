@@ -1,14 +1,19 @@
 
 .wrapper1{
 	display: flex;
-	width: 90%;
+	
 	justify-content: space-around;
 	flex-wrap: wrap;
 	align-items: center;
 	
 }
 
-
+.button1:disabled,
+.button1[disabled]{
+  border: 1px solid #999999;
+  background-color: #cacaca;
+  color: #000000;
+}
 
 
 	
