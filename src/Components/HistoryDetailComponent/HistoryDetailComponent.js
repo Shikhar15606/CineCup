@@ -209,11 +209,15 @@ const HistoryDetailComponent = () => {
 
     if(user.isLoading)
     return(
+       <div className="wrapper3">
       <CircularProgress style={{marginTop:"25vw"}} color="secondary" ></CircularProgress>
+      </div>
     )
     return (
       <div className="wrapper3">
-        
+        <div className="head_det">
+        <h1>Winners of  {contest.Name}</h1>
+        </div>
           {  
                 moviedetail.length !== 0 ?
                 (
