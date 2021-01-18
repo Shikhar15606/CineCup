@@ -14,7 +14,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const MoviePageComponent = () => {
     const user = useSelector(state => state.user);
     const [result, setresult] = useState({});
-    const [trailerurl , settrailerurl] = useState("");
+    const [trailerurl , settrailerurl] = useState([]);
     const { movie_id } = useParams();
     const [cast,setCast]=useState([]);
     const [reviews,setReviews]=useState([]);
@@ -110,17 +110,19 @@ const MoviePageComponent = () => {
     useEffect(()=>{
       axios(trailerapi)
       .then(({data} ) => {
-        if(data && data.results && data.results.length && data.results[0].key)
+        if(data && data.results && data.results.length)
         {
-          console.log(data.results[0].key);
-          settrailerurl(data.results[0].key);
+          let arr = []
+          data.results.forEach(element => {
+            arr.push(element.key)
+            console.log(element.key)
+          });
+          settrailerurl([...arr]);
         }
       })
     },[trailerapi])
       const opts = {
-        
         playerVars: {
-          
           autoplay: 0
         },
       };
@@ -168,14 +170,10 @@ const MoviePageComponent = () => {
 		</div>
 		<div className="right1">
     {
-              trailerurl ? 
-              <YouTube videoId={trailerurl} className="trail" opts={opts}  />
-              :
-              (
-              <div>
-              </div>
-              )  
-            }
+      trailerurl.map((element) => {
+        return <YouTube videoId={element} className="trail" opts={opts}/>
+      })
+    }
      
 		</div>
     <div className="cast_wrapper">

@@ -221,37 +221,34 @@ const HistoryDetailComponent = () => {
     )
     return (
       <div className="wrapper3">
-<<<<<<< HEAD
-        <Confetti width={width} height={height} style={{zIndex:"10"}} numberOfPieces={400}/>
-          {     
-=======
-        <div className="head_det">
-        <h1>Winners of  {contest.Name}</h1>
+        <div style={{height:"100vh"}}>
+        <Confetti width={width} height={height} style={{zIndex:"10"}} numberOfPieces={300}/>
+          <div className="head_det">
+          <h1>Winners of  {contest.Name}</h1>
+          </div>
+            {  
+                  moviedetail.length !== 0 ?
+                  (
+                  <div className="cards_carousal">
+                    {
+                    moviedetail.slice(0,3).map((resul) => (              
+                    <RenderCard key={resul.id} r={resul}  />   
+                    ))
+                    }
+                  </div>
+                  
+                  
+                  )
+                  :(
+                    <CircularProgress style={{marginTop:"15vw"}} color="secondary" ></CircularProgress>
+                  )
+          }
         </div>
-          {  
->>>>>>> 9cea3bb776f3cfc6869e0c62039d368931d03b7d
-                moviedetail.length !== 0 ?
-                (
-                <div className="cards_carousal">
-                  {
-                  moviedetail.slice(0,3).map((resul) => (              
-                  <RenderCard key={resul.id} r={resul}  />   
-                  ))
-                  }
-                </div>
-                
-                
-                )
-                :(
-                  <CircularProgress style={{marginTop:"15vw"}} color="secondary" ></CircularProgress>
-                 )
-        }
-        
          <div className="wrapper_history1">
                      
                      <div className="list">
                        <div className="list__header">
-                         <h1 style={{color:"black"}}>Leaderboard</h1>
+                         <h1>Leaderboard</h1>
                         
                          
                        </div>
