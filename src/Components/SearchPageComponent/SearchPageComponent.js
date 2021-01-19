@@ -8,16 +8,18 @@ import Results from './Results'
 import Popup from './Popup'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import {useSelector} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import Skeleton from '@material-ui/lab/Skeleton';
+import {setqueryString} from './../../action/movie_actions';
+
 function SearchPageComponent(){
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  const [queryString, setqueryString] = useState("");
   const [results,setresults] = useState([]);
   const [selected,setselected] = useState({});
   const [isLoading,setisLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  var apiurl = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${queryString}`;  
+  var apiurl = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${user.queryString}`;  
   
 let nominations;
 if(user.isLoggedIn)
@@ -47,8 +49,8 @@ else{
     },
   }));
   const search = () => {
-      console.log(queryString);
-      if(queryString)
+      console.log(user.queryString);
+      if(user.queryString)
       {
       axios(apiurl)
       .then(({ data }) => {
@@ -71,12 +73,12 @@ else{
       
   const handleInput = (e) => {
     setisLoading(true);
-    setqueryString(e.target.value);
+    dispatch(setqueryString(e.target.value))
   }
 
   useEffect(() => {
     search();
-  },[queryString]);
+  },[user.queryString]);
 
   const openPopup = id => {
     axios(apiurl + "&i=" + id).then(({ data }) => {

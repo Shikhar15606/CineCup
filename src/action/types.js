@@ -35,3 +35,4 @@ export const ADD_ANNOUNCEMENT_SUCCESS = 'add_announcement_success';
 export const ADD_ANNOUNCEMENT_FAILURE = 'add_announcement_failure';
 export const REMOVE_ANNOUNCEMENT_SUCCESS = 'remove_announcement_success';
 export const REMOVE_ANNOUNCEMENT_FAILURE = 'remove_announcement_failure';
+export const SET_QUERY_STRING = 'set_query_string';

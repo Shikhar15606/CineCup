@@ -34,14 +34,15 @@ import {
     REMOVE_ANNOUNCEMENT_SUCCESS,
     ADD_ANNOUNCEMENT_SUCCESS,
     REMOVE_ANNOUNCEMENT_FAILURE,
-    ADD_ANNOUNCEMENT_FAILURE
+    ADD_ANNOUNCEMENT_FAILURE,
+    SET_QUERY_STRING,
 } from '../action/types';
 
 
 
 
 
-export default function user (state = {}, action){
+export default function user (state = {queryString:""}, action){
     switch(action.type){
         case REGISTER_USER_REQUEST:
             state = {...state,isLoading:true,isLoggedIn:false,user:undefined,error:undefined,successmsg:undefined}
@@ -150,6 +151,9 @@ export default function user (state = {}, action){
             break;
         case REMOVE_ANNOUNCEMENT_FAILURE:
             state = {...state,error:"Announcement can't be removed"}
+            break;
+        case SET_QUERY_STRING:
+            state = {...state,queryString:action.payload}
             break;
         default :
         state = { ...state}

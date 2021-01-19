@@ -19,7 +19,8 @@ import {
     ADD_ANNOUNCEMENT_SUCCESS,
     ADD_ANNOUNCEMENT_FAILURE,
     REMOVE_ANNOUNCEMENT_FAILURE,
-    REMOVE_ANNOUNCEMENT_SUCCESS
+    REMOVE_ANNOUNCEMENT_SUCCESS,
+    SET_QUERY_STRING
 } from './types';
 
 // ==================================== Fetching Movies Data =======================================
@@ -439,6 +440,15 @@ export const removeAnnouncement = (announcement) => {
             dispatch({
                 type:REMOVE_ANNOUNCEMENT_FAILURE
             })
+        })
+    }
+}
+// ================================= SEARCH QUERY ====================================
+export const setqueryString = (value) => {
+    return async (dispatch) => {
+        dispatch({
+            type:SET_QUERY_STRING,
+            payload:value
         })
     }
 }
