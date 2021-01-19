@@ -4,10 +4,30 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button'
 import {useSelector,useDispatch} from 'react-redux';
 import { init } from 'ityped';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import TextTransition, { presets } from 'react-text-transition';
+
+const TEXTS = [
+  "Watch Trailers",
+  "Rate and Review Movies",
+  "Vote For Movies",
+];
+const COLORS = [
+  "#f06292",
+  "#e040fb",
+  "#43a047"
+]
+
 function HomePageComponent (){
+        console.log(presets)
         const user = useSelector(state => state.user);
-       
+        const [index, setIndex] = React.useState(0);
+
+        useEffect(() => {
+          const intervalId = setInterval(() =>
+            setIndex(index => index + 1),
+            3000);
+        },[]);
         useEffect(()=>{
           if(user.announcement){
             const myElement = document.querySelector('#myElement')
@@ -17,14 +37,25 @@ function HomePageComponent (){
         return (
             <>
             <div className="wrapper_home">
-
-            
             <div className="welcome_box">
             <Grid container >
-            
                 <Grid item xs={12} md={5} className="welcome_text">
-                 <h1 className="heading_h" style={{textDecoration:"none"}}>Cinecup Presents</h1>
-                 <p className="text_home">CineCup is an online movie voting platform to promote deserving movies. We are hosting several contests in which you can vote for your favourite movie. Whether you want to watch out the latest movies trailer or want to know about the cast or rating we have got you covered. So have a seat and Chill  </p>
+                 {/* <h1 className="heading_h" style={{textDecoration:"none",color:"primary"}}>Cinecup Presents</h1> */}
+                 {/* <p className="text_home">CineCup is an online movie voting platform to promote deserving movies. We are hosting several contests in which you can vote for your favourite movie. Whether you want to watch out the latest movies trailer or want to know about the cast or rating we have got you covered. So have a seat and Chill  </p> */}
+                 {/* <h1 className="heading_h" style={{textDecoration:"none",display:"inline"}}>
+                  CineCup is for you to
+                 </h1> */}
+                 <h1 >
+                  <TextTransition
+                    text={ TEXTS[index % TEXTS.length] }
+                    springConfig ={presets.default}
+                    style={{color:`${COLORS[index % COLORS.length]}`}}
+                    // direction="up"
+                    className="big"
+                    delay={0}
+                    inline
+                  /> 
+                 </h1>
                 </Grid>
                 <Grid item xs={12} md={7} className="welcome_image">
                 <img src="https://templatemo.com/templates/templatemo_537_art_factory/assets/images/slider-icon.png"
@@ -37,9 +68,9 @@ function HomePageComponent (){
             <Grid container className="section" >
                 <Grid item xs={12} md={6} className="welcome_text">
                  <h1 className="heading_h">Announcements</h1>
-                 <p className="text_home" id="type">
+                 <h3 className="text_home" id="type">
                  <div id="myElement"></div>
-                 </p>
+                 </h3>
                 </Grid>
                 
                 

@@ -248,7 +248,7 @@ const HistoryDetailComponent = () => {
                      
                      <div className="list">
                        <div className="list__header">
-                         <h1>Leaderboard</h1>
+                         <h1>Standings</h1>
                         
                          
                        </div>
