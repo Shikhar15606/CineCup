@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import './LeaderboardStyles.css';
 import { Link } from 'react-router-dom';
 import Img2 from '../../icons/Asset 1@2x.png'
@@ -6,10 +6,11 @@ import {useSelector} from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
-
+import ScrollToTop from '../scrollToTop'
 import ShareButton from '../shareButton'
 import { faArrowCircleRight} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {Hidden} from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -79,7 +80,13 @@ const LeaderboardPageComponent = () => {
   const classes = useStyles();
     const user = useSelector(state => state.user);
     let result = user.movies ? user.movies : [] ;
-
+    useEffect(()=>{
+      window.scroll({
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth'
+      });
+    },[])
    
     if(user.isLoading)
       return(
@@ -92,6 +99,7 @@ const LeaderboardPageComponent = () => {
   <div className="list">
     <div className="list__header">
       <h1 >Leaderboard</h1>
+      <Hidden mdDown>
       {result.length !== 0 && <InputBase
               placeholder="Search…"
               className="searchbox"
@@ -114,7 +122,9 @@ const LeaderboardPageComponent = () => {
               }}
               
             />
+           
             }
+             </Hidden>
     </div>
     {
       result.length !== 0 ?
@@ -164,6 +174,7 @@ const LeaderboardPageComponent = () => {
   }
   </div>
 </div>
+<ScrollToTop />  
         </div>
     );
 };

@@ -18,9 +18,7 @@
     padding-bottom: 0.5em;
     margin-bottom: 1rem;
     position: relative;
-    /* text-decoration: underline;
    
-    text-decoration-color: #008cff; */
   }
 
 .text_home{
@@ -42,11 +40,23 @@
     margin-top: 50px;
     
 }
+.welcome_text{
+    padding: 20px;
+}
+.welcome_text .big{
+    text-wrap: wrap;
+    min-height:300px;
+    text-align: center;
+    font-size: 3rem;
+}
+
+
+
 
 .welcome_image{
     /* background-color: rgb(255, 255, 255); */
     padding: 20px;
-    
+   
 }
 .wel_image{
     max-width: 600px;
@@ -109,4 +119,16 @@
         position: relative;
     }
     
+}
+
+.scroll-to-top{
+    position: absoloute;
+    right:10px;
+    bottom:30px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.big{
+    position: relative;
 }

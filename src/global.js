@@ -57,4 +57,13 @@ export const GlobalStyles = createGlobalStyle`
 .login-root{
   background-color : ${({ theme }) => theme.login_background};
 }
+
+.button1:disabled,
+.button1[disabled]{
+  border: 1px solid #999999;
+  background-color: ${({ theme }) => theme.disabled_bg};
+  color: ${({ theme }) => theme.disabled_color};
+}
+
+
 `;

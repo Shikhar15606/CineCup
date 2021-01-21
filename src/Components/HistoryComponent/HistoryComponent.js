@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {useSelector} from 'react-redux';
 
 import './HistoryStyle.css';
@@ -9,6 +9,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { faArrowCircleRight} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const HistoryComponent = () => {
+  useEffect(()=>{
+    window.scroll({
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth'
+    });
+  },[])
     const user = useSelector(state => state.user);
     const useStyles = makeStyles({
         root: {

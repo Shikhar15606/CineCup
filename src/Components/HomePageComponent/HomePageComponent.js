@@ -6,16 +6,18 @@ import {useSelector,useDispatch} from 'react-redux';
 import { init } from 'ityped';
 import {Link} from 'react-router-dom';
 import TextTransition, { presets } from 'react-text-transition';
-
+import ScrollToTop from '../scrollToTop'
 const TEXTS = [
   "Watch Trailers",
   "Rate and Review Movies",
-  "Vote For Movies",
+  "Vote for Movies",
+  "Share movie details"
 ];
 const COLORS = [
   "#f06292",
   "#e040fb",
-  "#43a047"
+  "#43a047",
+  "#f06292",
 ]
 
 function HomePageComponent (){
@@ -26,7 +28,7 @@ function HomePageComponent (){
         useEffect(() => {
           const intervalId = setInterval(() =>
             setIndex(index => index + 1),
-            3000);
+            4000);
         },[]);
         useEffect(()=>{
           if(user.announcement){
@@ -34,13 +36,23 @@ function HomePageComponent (){
           init(myElement, { showCursor: false, strings:user.announcement })
           }
         },[user.announcement])
+
+        useEffect(()=>{
+          window.scroll({
+            top: 0, 
+            left: 0, 
+            behavior: 'smooth'
+          });
+        },[])
+        
+
         return (
             <>
             <div className="wrapper_home">
             <div className="welcome_box">
             <Grid container >
                 <Grid item xs={12} md={5} className="welcome_text">
-                 {/* <h1 className="heading_h" style={{textDecoration:"none",color:"primary"}}>Cinecup Presents</h1> */}
+                 {/* <h1 className="heading_h" style={{fontSize:'3rem'}}>Cinecup </h1> */}
                  {/* <p className="text_home">CineCup is an online movie voting platform to promote deserving movies. We are hosting several contests in which you can vote for your favourite movie. Whether you want to watch out the latest movies trailer or want to know about the cast or rating we have got you covered. So have a seat and Chill  </p> */}
                  {/* <h1 className="heading_h" style={{textDecoration:"none",display:"inline"}}>
                   CineCup is for you to
@@ -53,7 +65,7 @@ function HomePageComponent (){
                     // direction="up"
                     className="big"
                     delay={0}
-                    inline
+                    
                   /> 
                  </h1>
                 </Grid>
@@ -136,7 +148,7 @@ function HomePageComponent (){
 
             </div>
             
-               
+             <ScrollToTop />  
             </>
         );
    

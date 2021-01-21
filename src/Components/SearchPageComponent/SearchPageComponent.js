@@ -35,6 +35,14 @@ else{
         setOpen(true);
     }
   },[user,nominations])
+  
+  useEffect(()=>{
+    window.scroll({
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth'
+    });
+  },[])
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;

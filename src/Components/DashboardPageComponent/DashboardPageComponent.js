@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import './DashboardStyle.css'
+import ScrollToTop from '../scrollToTop'
 import {useSelector,useDispatch} from 'react-redux';
 import {remove_nominate} from '../../action/user_actions';
 import {TMDB_API_KEY} from '../../key/key';
@@ -254,6 +255,13 @@ function DashboardPageComponent(){
      </div></div>
       )
     }
+    useEffect(()=>{
+      window.scroll({
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth'
+      });
+    },[])
     // ===================================================================================================
   useEffect(() =>{
     if(user.isLoggedIn){
@@ -357,6 +365,7 @@ function DashboardPageComponent(){
           }
       </div>
           </main>
+          <ScrollToTop />  
         </React.Fragment>
         );
 }

@@ -19,6 +19,8 @@ import swal from 'sweetalert';
 import Grid from '@material-ui/core/Grid';
 import InputBase from '@material-ui/core/InputBase';
 import Img2 from '../../icons/Asset 1@2x.png'
+import ScrollToTop from '../scrollToTop'
+import {Hidden} from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   disabledButton: {
     backgroundColor:  'red'
@@ -86,6 +88,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection:"row",
   },
 }));
+
+
 const AdminDashboardComponent = () => {
   const classes = useStyles();
     const dispatch = useDispatch();
@@ -100,7 +104,13 @@ const AdminDashboardComponent = () => {
         }
     },[user,user.blacklist])
 
-
+    useEffect(()=>{
+      window.scroll({
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth'
+      });
+    },[])
     // ======================================= ui ================================
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -560,6 +570,7 @@ const AdminDashboardComponent = () => {
         <h1 >All users</h1>
       </div>
       <main>
+      <Hidden mdDown>
       <InputBase
               placeholder="Search…"
               classes={{
@@ -585,6 +596,7 @@ const AdminDashboardComponent = () => {
               }}
               
             />
+            </Hidden>
           {  
             allusers.length !== 0 ?
             (
@@ -615,6 +627,7 @@ const AdminDashboardComponent = () => {
 			</div>)
           }
         </main>
+        <ScrollToTop />  
     </React.Fragment>
     );
 

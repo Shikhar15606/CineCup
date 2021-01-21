@@ -10,7 +10,8 @@ import Anime, {anime} from 'react-anime'
 import Rating from '@material-ui/lab/Rating';
 import firebase from 'firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import OwlCarousel from 'react-owl-carousel2';
+import ScrollToTop from '../scrollToTop'
 const MoviePageComponent = () => {
     const user = useSelector(state => state.user);
     const [result, setresult] = useState({});
@@ -97,7 +98,13 @@ const MoviePageComponent = () => {
       })
       
     },[])
-
+    useEffect(()=>{
+      window.scroll({
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth'
+      });
+    },[])
     var apiurl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${TMDB_API_KEY}`;
     useEffect(() =>{
       axios(apiurl)
@@ -169,12 +176,13 @@ const MoviePageComponent = () => {
 			<p>{result.overview}			</p>
 		</div>
 		<div className="right1">
+    {/* <OwlCarousel margin={10} > */}
     {
       trailerurl.map((element) => {
         return <YouTube videoId={element} className="trail" opts={opts}/>
       })
     }
-     
+     {/* </OwlCarousel>  */}
 		</div>
     <div className="cast_wrapper">
     <h1 className="reviews_header">
@@ -263,8 +271,11 @@ const MoviePageComponent = () => {
 
 	</div>
 </div>
+<ScrollToTop />  
 	</div>
+ 
 	</div>
+ 
  </div>
     );
 };

@@ -5,7 +5,7 @@ import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import './HistoryDetailStyle.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import ScrollToTop from '../scrollToTop'
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { faStar} from '@fortawesome/free-solid-svg-icons';
@@ -29,7 +29,13 @@ const Cards = () => {
       document.querySelectorAll(".cards_carousal .card_co")[1].click();
     }
   }
-
+  useEffect(()=>{
+    window.scroll({
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth'
+    });
+  },[])
  
   function clicked(e)
   {
@@ -297,7 +303,7 @@ const HistoryDetailComponent = () => {
                        </div>
                      </div>
                    </div>
-      
+                   <ScrollToTop />  
       </div>
     );
 };

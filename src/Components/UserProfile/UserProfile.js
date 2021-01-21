@@ -20,6 +20,7 @@ import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 import ShareButton from '../shareButton'
 import Img2 from '../../icons/Asset 1@2x.png'
+import ScrollToTop from '../scrollToTop'
 const UserProfile = () => {
     const useStyles = makeStyles({
         root: {
@@ -71,6 +72,13 @@ const UserProfile = () => {
         }
         return arr;
     }
+    useEffect(()=>{
+      window.scroll({
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth'
+      });
+    },[])
     useEffect(() => {
         const db = firebase.firestore();
         db.collection("reviews").where("uid", "==", user_id)
@@ -148,6 +156,7 @@ const UserProfile = () => {
                 )
             }
         </div>
+        <ScrollToTop />  
       </div>
     );
 };
