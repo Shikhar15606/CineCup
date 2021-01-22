@@ -29,13 +29,7 @@ const Cards = () => {
       document.querySelectorAll(".cards_carousal .card_co")[1].click();
     }
   }
-  useEffect(()=>{
-    window.scroll({
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth'
-    });
-  },[])
+  
  
   function clicked(e)
   {
@@ -196,7 +190,15 @@ const HistoryDetailComponent = () => {
         }
       }
     },[user.history,contest_id])
-
+     
+    useEffect(()=>{
+      window.scroll({
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth'
+      });
+    },[])
+    
     useEffect(() => {
         if(contest && contest.Movies)
         fetchData().then((arr)=>{

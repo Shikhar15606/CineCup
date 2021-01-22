@@ -34,7 +34,7 @@ export default function ScrollToTop() {
           {/* <img src='https://i.postimg.cc/44Ytsk8Z/top-arrow-emoj.png' alt='Go to top' style={{height:100,width:100,position:'relative'}}/>
            */}
            <FontAwesomeIcon icon={faArrowCircleUp} size="2x" />
-           <h3>Scroll to Top</h3>
+           <h4>Scroll to top</h4>
         </div>}
     </div>
   );
