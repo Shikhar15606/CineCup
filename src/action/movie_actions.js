@@ -253,8 +253,24 @@ export const startVoting = ({Name}) =>{
                 Start:new Date(),
                 Ongoing:true,
             })
-            .then(function(docRef) {
+            .then(async function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
+                try{
+                    let {docs} = await db.collection("users").get()
+                    let receivers = []
+                    docs.forEach((doc) => {
+                        receivers.push(doc.id)
+                    })
+                    let tokenres = await axios.post(`${API}/token`,{username:USERNAME,password:PASSWORD});
+                    let res = await axios.post(`${API}/startcontest`,{cname:Name,receivers:receivers},{
+                        headers: {
+                        Authorization: `Bearer ${tokenres.data.accessToken}`,
+                        }
+                    });
+                    console.log(res);
+                }catch(err){
+                    console.log("Email Could Not Be sent",err);
+                }
                 dispatch({
                     type:START_VOTING_SUCCESS
                 })
@@ -294,6 +310,9 @@ async function myfunction({docs}){
 
 export const stopVoting = () => {
     return async (dispatch) => {
+        dispatch({
+            type: FETCH_MOVIES_DATA_REQUEST
+        })
         try{
             const db = firebase.firestore();
             // =================== Getting the top 3 movies =======================
@@ -303,12 +322,14 @@ export const stopVoting = () => {
             let topThree = await myfunction(querySnapshot)
             if(topThree.length)
             {
+                let cidDetail;
                 var batch = db.batch();
                 db.collection('history').where("Ongoing", "==", true)
                 .get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
                         let history = db.collection('history').doc(doc.id)
+                        cidDetail = history
                         batch.set(history, {
                             Movies:topThree,
                             Ongoing:false,
@@ -336,7 +357,24 @@ export const stopVoting = () => {
                             });
                             // Commit the batch
                             batch.commit()
-                            .then(function () {
+                            .then(async function () {
+                                try{
+                                    let doc = await cidDetail.get()
+                                    let {docs} = await db.collection("users").get()
+                                    let receivers = []
+                                    docs.forEach((doc) => {
+                                        receivers.push(doc.id)
+                                    })
+                                    let tokenres = await axios.post(`${API}/token`,{username:USERNAME,password:PASSWORD});
+                                    let res = await axios.post(`${API}/endcontest`,{cname:doc.data().Name,cid:doc.id,receivers:receivers},{
+                                        headers: {
+                                        Authorization: `Bearer ${tokenres.data.accessToken}`,
+                                        }
+                                    });
+                                    console.log(res);
+                                }catch(err){
+                                    console.log("Users Were not notified",err);
+                                }
                                 dispatch({
                                     type:END_VOTING_SUCCESS,
                                 })
