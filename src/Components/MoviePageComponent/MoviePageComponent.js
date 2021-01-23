@@ -12,6 +12,9 @@ import firebase from 'firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import OwlCarousel from 'react-owl-carousel2';
 import ScrollToTop from '../scrollToTop';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+
 const MoviePageComponent = () => {
   const user = useSelector(state => state.user);
   const [result, setresult] = useState({});
@@ -185,13 +188,13 @@ const MoviePageComponent = () => {
             <p>{result.overview} </p>
           </div>
           <div className='right1'>
-            {/* <OwlCarousel margin={10} > */}
+            <Carousel autoPlay={true} interval={4000} infiniteLoop={true} swipeable={true} stopOnHover={true} showArrows={true} showStatus={false} showIndicators={true} showThumbs={false} useKeyboardArrows={true} transitionTime={150} swipeScrollTolerance={5}>
             {trailerurl.map(element => {
               return (
                 <YouTube videoId={element} className='trail' opts={opts} />
               );
             })}
-            {/* </OwlCarousel>  */}
+            </Carousel>
           </div>
           <div className='cast_wrapper'>
             <h1 className='reviews_header'>CAST</h1>

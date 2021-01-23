@@ -106,8 +106,7 @@
 }
 
 .afterImage .right1 {
-  height: 200px;
-  width: 300px;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -120,8 +119,10 @@
 }
 
 .trail {
-  height: 250px;
-  width: 400px;
+  max-height: 70vh;
+  min-height: 200px;
+  min-width: 250px;
+  width: 100%;
 }
 @media (max-width: 500px) {
   .image img {
@@ -143,7 +144,7 @@
     min-height: 200px;
     min-width: 300px;
     width: 90vw;
-    height: 50vw;
+    height: 70vw;
     margin: 2.5vw;
   }
 
@@ -249,7 +250,7 @@
 
   .afterImage .right1 {
     height: auto;
-
+    width: 95vw;
     display: flex;
     flex-direction: column;
     flex: 1;
