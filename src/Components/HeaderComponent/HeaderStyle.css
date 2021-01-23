@@ -1,48 +1,44 @@
 .navbrand {
-    display: -webkit-box;
-    display: flex;
-    flex-direction: column;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-            flex-direction: column;
-    -webkit-box-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-            align-items: center;
-    text-align: center;
-    align-items: center;
-    /* margin-top: 50px; */
-    background-image: url("https://static.vecteezy.com/system/resources/previews/000/582/542/non_2x/vector-abstract-template-black-frame-layout-metallic-red-light-on-dark-background-modern-luxury-futuristic-technology-concept.jpg");
-    
-    min-height: 40vh;
-    
-  }
- .navbrand img.rounded {
-    display: block;
-    width: 100px;
-    height: auto;
-    margin-bottom: 0.5rem;
-    margin-top: 10px;
-    border-radius: 50%;
-    position: relative;
-  }
+  display: -webkit-box;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  text-align: center;
+  align-items: center;
+  /* margin-top: 50px; */
+  background-image: url('https://static.vecteezy.com/system/resources/previews/000/582/542/non_2x/vector-abstract-template-black-frame-layout-metallic-red-light-on-dark-background-modern-luxury-futuristic-technology-concept.jpg');
 
-  .title {
-    font-family: inherit;
-    line-height: inherit;
-    text-transform: capitalize;
-    text-rendering: optimizeLegibility;
-    
-  }
-  .title-medium {
-    font-size: 1.45rem;
-    font-weight: 600;
-    color: white;
-  }
+  min-height: 40vh;
+}
+.navbrand img.rounded {
+  display: block;
+  width: 100px;
+  height: auto;
+  margin-bottom: 0.5rem;
+  margin-top: 10px;
+  border-radius: 50%;
+  position: relative;
+}
 
-  .drawe{
-    height:fit-content;
-    min-height: 100vh;
+.title {
+  font-family: inherit;
+  line-height: inherit;
+  text-transform: capitalize;
+  text-rendering: optimizeLegibility;
+}
+.title-medium {
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: white;
+}
 
-    
-  }
+.drawe {
+  height: fit-content;
+  min-height: 100vh;
+}

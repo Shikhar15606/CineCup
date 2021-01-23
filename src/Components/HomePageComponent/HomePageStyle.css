@@ -1,134 +1,120 @@
-.wrapper_home, .wrapper_home:before, .wrapper_home:after {
-    margin: 0 auto;
-    padding: 0;
-    box-sizing: border-box;
-    margin-top: 50px;
-    
+.wrapper_home,
+.wrapper_home:before,
+.wrapper_home:after {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 50px;
 }
-
-
 
 .heading_h {
-    width: 100%;
-    
-   
-    text-transform: uppercase;
-    letter-spacing: 0.1ch;
-    line-height: 1;
-    padding-bottom: 0.5em;
-    margin-bottom: 1rem;
-    position: relative;
-   
-  }
+  width: 100%;
 
-.text_home{
-    padding: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.1ch;
+  line-height: 1;
+  padding-bottom: 0.5em;
+  margin-bottom: 1rem;
+  position: relative;
 }
-.welcome_box{
-    height:100vh;
-    width:100vw;
-    /* background-image: url(../../assets/images/banner-bg.png);
+
+.text_home {
+  padding: 20px;
+}
+.welcome_box {
+  height: 100vh;
+  width: 100vw;
+  /* background-image: url(../../assets/images/banner-bg.png);
     background-size: cover;
     background-repeat: no-repeat; */
-   
-    margin-top: -10vh;
+
+  margin-top: -10vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 50px;
+}
+.welcome_text {
+  padding: 20px;
+}
+.welcome_text .big {
+  text-wrap: wrap;
+  min-height: 300px;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.welcome_image {
+  /* background-color: rgb(255, 255, 255); */
+  padding: 20px;
+}
+.wel_image {
+  max-width: 600px;
+  width: 80%;
+  height: auto;
+  position: relative;
+}
+.section {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: row;
+}
+
+.section:nth-of-type(even) {
+  flex-direction: row-reverse;
+}
+
+.imag {
+  float: inline-end;
+}
+.we_text {
+  float: inline-start;
+}
+
+@media (max-width: 760px) {
+  .welcome_box {
+    height: 100%;
+    width: 100vw;
+    /* background-image: url(../../assets/images/banner-bg.png);
+        background-size: cover;
+        background-repeat: no-repeat; */
+
+    /* margin-top: -10vh; */
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-top: 50px;
-    
-}
-.welcome_text{
-    padding: 20px;
-}
-.welcome_text .big{
-    text-wrap: wrap;
-    min-height:300px;
-    text-align: center;
-    font-size: 3rem;
-}
+    margin-top: 100px;
+  }
 
-
-
-
-.welcome_image{
+  .welcome_image {
     /* background-color: rgb(255, 255, 255); */
     padding: 20px;
-   
-}
-.wel_image{
+  }
+  .wel_image {
     max-width: 600px;
-    width:80%;
-    height:auto;
+    width: 80%;
+    height: auto;
     position: relative;
-}
-.section{
-    height:100vh;
-    width:100vw;
-    display:flex ;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    flex-direction: row;
+  }
 }
 
-
-
-.section:nth-of-type(even){
-    flex-direction: row-reverse;
+.scroll-to-top {
+  position: absoloute;
+  right: 10px;
+  bottom: 30px;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
-.imag{
-    float: inline-end;
-}
-.we_text{
-    float: inline-start;
-}
-
-
-
-@media (max-width: 760px){
-    .welcome_box{
-        height:100%;
-        width:100vw;
-        /* background-image: url(../../assets/images/banner-bg.png);
-        background-size: cover;
-        background-repeat: no-repeat; */
-       
-        /* margin-top: -10vh; */
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        margin-top: 100px;
-        
-    }
-  
-    .welcome_image{
-        /* background-color: rgb(255, 255, 255); */
-        padding: 20px;
-    }
-    .wel_image{
-        max-width: 600px;
-        width:80%;
-        height:auto;
-        position: relative;
-    }
-    
-}
-
-.scroll-to-top{
-    position: absoloute;
-    right:10px;
-    bottom:30px;
-    margin-bottom: 30px;
-    margin-top: 30px;
-}
-
-.big{
-    position: relative;
+.big {
+  position: relative;
 }
