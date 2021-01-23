@@ -7,6 +7,7 @@ import { init } from 'ityped';
 import { Link } from 'react-router-dom';
 import TextTransition, { presets } from 'react-text-transition';
 import ScrollToTop from '../scrollToTop';
+import ScrollAnimation from 'react-animate-on-scroll';
 const TEXTS = [
   'Watch Trailers',
   'Rate and Review Movies',
@@ -41,6 +42,7 @@ function HomePageComponent() {
   return (
     <>
       <div className='wrapper_home'>
+        
         <div className='welcome_box'>
           <Grid container>
             <Grid item xs={12} md={5} className='welcome_text'>
@@ -65,6 +67,8 @@ function HomePageComponent() {
             </Grid>
           </Grid>
         </div>
+        <ScrollAnimation 
+  animateIn='rollIn'>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='welcome_text'>
             <h1 className='heading_h'>Announcements</h1>
@@ -73,6 +77,9 @@ function HomePageComponent() {
             </h3>
           </Grid>
         </Grid>
+        </ScrollAnimation>
+        <ScrollAnimation animateIn='bounceInRight'
+  animateOut='bounceOutLeft'>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='welcome_image'>
             <img
@@ -81,6 +88,7 @@ function HomePageComponent() {
               alt='First Vector Graphic'
             />
           </Grid>
+          
           <Grid item xs={12} md={6} className='welcome_text'>
             <h1 className='heading_h'>LeaderBoard</h1>
             <p className='text_home'>
@@ -97,7 +105,9 @@ function HomePageComponent() {
             </Link>
           </Grid>
         </Grid>
-
+        </ScrollAnimation>
+        <ScrollAnimation animateIn='bounceInLeft'
+  animateOut='bounceOutRight'>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='imag'>
             <img
@@ -123,7 +133,9 @@ function HomePageComponent() {
             </Link>
           </Grid>
         </Grid>
-
+        </ScrollAnimation>
+        <ScrollAnimation animateIn='bounceInRight'
+  animateOut='bounceOutLeft'>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='imag'>
             <img
@@ -143,6 +155,7 @@ function HomePageComponent() {
             </p>
           </Grid>
         </Grid>
+        </ScrollAnimation>
       </div>
 
       <ScrollToTop />

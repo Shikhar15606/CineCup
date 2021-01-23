@@ -158,7 +158,7 @@ const UserProfile = () => {
         ) : (
           <div className='results'>
             <img src={Img2} className='noresults' />
-            <h2>No Movie reviewed yet</h2>
+            <h3>No movie reviewed yet</h3>
           </div>
         )}
       </div>

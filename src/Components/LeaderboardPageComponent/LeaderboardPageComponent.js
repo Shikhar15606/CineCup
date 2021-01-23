@@ -171,7 +171,7 @@ const LeaderboardPageComponent = () => {
           ) : (
             <div className='results'>
               <img src={Img2} className='noresults' />
-              <h2>No Ongoing contest</h2>
+              <h3>No Ongoing contest</h3>
             </div>
           )}
         </div>

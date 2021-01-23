@@ -541,7 +541,7 @@ const AdminDashboardComponent = () => {
           ) : (
             <div className='results'>
               <img src={Img2} className='noresults' />
-              <h2>No Blacklisted movie</h2>
+              <h3>No Blacklisted movie</h3>
             </div>
           )}
         </section>
@@ -602,7 +602,7 @@ const AdminDashboardComponent = () => {
           ) : (
             <div className='results'>
               <img src={Img2} className='noresults' />
-              <h2>No Admin users</h2>
+              <h3>No Admin users</h3>
             </div>
           )}
         </main>
@@ -679,7 +679,7 @@ const AdminDashboardComponent = () => {
         ) : (
           <div className='results'>
             <img src={Img2} className='noresults' />
-            <h2>No Users found</h2>
+            <h3>No Users found</h3>
           </div>
         )}
       </main>

@@ -15,12 +15,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Rating from '@material-ui/lab/Rating';
 import ShareButton from '../shareButton';
 import firebase from 'firebase';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
 import Swal from 'sweetalert2';
 import Grid from '@material-ui/core/Grid';
 function DashboardPageComponent() {
@@ -336,7 +330,7 @@ function DashboardPageComponent() {
           ) : (
             <div className='results'>
               <img src={Img2} className='noresults' />
-              <h2>No Movies Nominated</h2>
+              <h3>No Movies Nominated</h3>
             </div>
           )}
         </section>
@@ -401,7 +395,7 @@ function DashboardPageComponent() {
           ) : (
             <div className='results'>
               <img src={Img2} className='noresults' />
-              <h2>No Movies Nominated</h2>
+              <h3>No movie reviewed yet.</h3>
             </div>
           )}
         </div>

@@ -95,7 +95,7 @@ const HistoryComponent = () => {
           ) : (
             <div className='results'>
               <img src={Img2} className='noresults' />
-              <h2>No past contests</h2>
+              <h3>No past contests</h3>
             </div>
           )}
         </div>
