@@ -44,11 +44,7 @@ function HomePageComponent() {
         <div className='welcome_box'>
           <Grid container>
             <Grid item xs={12} md={5} className='welcome_text'>
-              {/* <h1 className="heading_h" style={{fontSize:'3rem'}}>Cinecup </h1> */}
-              {/* <p className="text_home">CineCup is an online movie voting platform to promote deserving movies. We are hosting several contests in which you can vote for your favourite movie. Whether you want to watch out the latest movies trailer or want to know about the cast or rating we have got you covered. So have a seat and Chill  </p> */}
-              {/* <h1 className="heading_h" style={{textDecoration:"none",display:"inline"}}>
-                  CineCup is for you to
-                 </h1> */}
+              
               <h1>
                 <TextTransition
                   text={TEXTS[index % TEXTS.length]}
