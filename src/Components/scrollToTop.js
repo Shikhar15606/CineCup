@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowCircleUp} from '@fortawesome/free-solid-svg-icons';
-import './HomePageComponent/HomePageStyle.css'
+import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
+import './HomePageComponent/HomePageStyle.css';
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -19,23 +19,24 @@ export default function ScrollToTop() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth"
+      behavior: 'smooth',
     });
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", toggleVisibility);
+    window.addEventListener('scroll', toggleVisibility);
   }, []);
 
   return (
-    <div className="scroll-to-top">
-      {isVisible && 
+    <div className='scroll-to-top'>
+      {isVisible && (
         <div onClick={scrollToTop}>
           {/* <img src='https://i.postimg.cc/44Ytsk8Z/top-arrow-emoj.png' alt='Go to top' style={{height:100,width:100,position:'relative'}}/>
            */}
-           <FontAwesomeIcon icon={faArrowCircleUp} size="2x" />
-           <h4>Scroll to top</h4>
-        </div>}
+          <FontAwesomeIcon icon={faArrowCircleUp} size='2x' />
+          <h4>Scroll to top</h4>
+        </div>
+      )}
     </div>
   );
 }

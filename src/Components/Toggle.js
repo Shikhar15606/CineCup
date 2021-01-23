@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { func, string } from 'prop-types';
 
 import Switch from '@material-ui/core/Switch';
@@ -8,19 +8,19 @@ const Toggle = ({ theme, toggleTheme }) => {
   const ThemeContext = React.createContext(theme);
   return (
     <>
-    <Switch
+      <Switch
         checked={isLight}
         onChange={toggleTheme}
-        name="Theme"
+        name='Theme'
         inputProps={{ 'aria-label': 'secondary checkbox' }}
       />
-      </>
+    </>
   );
 };
 
 Toggle.propTypes = {
   toggleTheme: func.isRequired,
   theme: string.isRequired,
-}
+};
 
 export default Toggle;

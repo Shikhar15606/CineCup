@@ -55,6 +55,11 @@
       "react-app/jest"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -66,5 +71,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "husky": "^4.3.8",
+    "prettier": "2.2.1",
+    "pretty-quick": "^3.1.0"
   }
 }
