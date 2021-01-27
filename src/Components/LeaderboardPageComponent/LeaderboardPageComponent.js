@@ -166,7 +166,7 @@ const LeaderboardPageComponent = () => {
           ) :( user.isVoting ? 
             <div className='results'>
               <img src={Img2} className='noresults' />
-              <h3>No movie nominated yet</h3>
+              <h3>No movie here</h3>
             </div>
             :
             <div className='results'>
