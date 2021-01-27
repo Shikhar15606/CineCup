@@ -67,10 +67,10 @@ function HomePageComponent() {
             </Grid>
           </Grid>
         </div>
-        <ScrollAnimation 
-  animateIn='rollIn'>
+        <ScrollAnimation animateIn='zoomIn'
+  animateOut='zoomOut'>
         <Grid container className='section'>
-          <Grid item xs={12} md={6} className='welcome_text'>
+          <Grid item xs={12} md={6} className='welcome_text' style={{padding:10}}>
             <h1 className='heading_h'>Announcements</h1>
             <h3 className='text_home' id='type'>
               <div id='myElement'></div>
@@ -78,8 +78,8 @@ function HomePageComponent() {
           </Grid>
         </Grid>
         </ScrollAnimation>
-        <ScrollAnimation animateIn='bounceInRight'
-  animateOut='bounceOutLeft'>
+        <ScrollAnimation animateIn='zoomIn'
+  animateOut='zoomOut' delay={300}>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='welcome_image'>
             <img
@@ -106,8 +106,8 @@ function HomePageComponent() {
           </Grid>
         </Grid>
         </ScrollAnimation>
-        <ScrollAnimation animateIn='bounceInLeft'
-  animateOut='bounceOutRight'>
+        <ScrollAnimation animateIn='zoomIn' delay={300}
+  animateOut='zoomOut'>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='imag'>
             <img
@@ -134,8 +134,8 @@ function HomePageComponent() {
           </Grid>
         </Grid>
         </ScrollAnimation>
-        <ScrollAnimation animateIn='bounceInRight'
-  animateOut='bounceOutLeft'>
+        <ScrollAnimation animateIn='zoomIn' delay={300}
+  animateOut='zoomOut'>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='imag'>
             <img

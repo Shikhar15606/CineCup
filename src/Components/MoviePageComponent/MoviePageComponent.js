@@ -13,7 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import OwlCarousel from 'react-owl-carousel2';
 import ScrollToTop from '../scrollToTop';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
+import { Carousel,props } from 'react-responsive-carousel';
 
 const MoviePageComponent = () => {
   const user = useSelector(state => state.user);
@@ -25,7 +25,7 @@ const MoviePageComponent = () => {
   const [newReview, setnewReview] = useState('');
   const [newRating, setnewRating] = useState(0);
   const [alreadyReviewed, setalreadyReviewed] = useState(false);
-
+  const customRenderItem = (item, props) => <item.type {...item.props} {...props} />;
   async function getUserDetails(obj) {
     let querySnapshot = obj.docs;
     const db = firebase.firestore();
@@ -188,10 +188,10 @@ const MoviePageComponent = () => {
             <p>{result.overview} </p>
           </div>
           <div className='right1'>
-            <Carousel autoPlay={true} interval={4000} infiniteLoop={true} swipeable={true} stopOnHover={true} showArrows={true} showStatus={false} showIndicators={true} showThumbs={false} useKeyboardArrows={true} transitionTime={150} swipeScrollTolerance={5}>
+            <Carousel renderItem={customRenderItem}  infiniteLoop={true} swipeable={true} stopOnHover={true} showArrows={true} showStatus={false} showIndicators={true} showThumbs={false} useKeyboardArrows={true} transitionTime={150} swipeScrollTolerance={5}>
             {trailerurl.map(element => {
               return (
-                <YouTube videoId={element} className='trail' opts={opts} />
+                <YouTube videoId={element} className='trail' opts={opts}  />
               );
             })}
             </Carousel>

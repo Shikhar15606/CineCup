@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import ScrollToTop from '../scrollToTop';
-import ShareButton from '../shareButton';
+import ShareButton from '../shareButton'; 
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Hidden } from '@material-ui/core';
@@ -57,7 +57,6 @@ const useStyles = makeStyles(theme => ({
   inputInput: {
     color: 'white',
 
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -76,6 +75,7 @@ const useStyles = makeStyles(theme => ({
 const LeaderboardPageComponent = () => {
   const classes = useStyles();
   const user = useSelector(state => state.user);
+  
   let result = user.movies ? user.movies : [];
   useEffect(() => {
     window.scroll({
@@ -128,13 +128,13 @@ const LeaderboardPageComponent = () => {
               )}
             </Hidden>
           </div>
-          {result.length !== 0 ? (
+          {result.length  !== 0 ? (
             <div className='list__body'>
               <table className='list__table' id='list-table'>
                 <tr className='header_row'>
                   <th className='list__cell'>Rank</th>
                   <th className='list__cell'>Movie</th>
-                  {/* <th className="list__cell">Genre</th> */}
+                 
                   <th className='list__cell'>Votes</th>
                   <th class='list__cell'>Explore</th>
                 </tr>
@@ -147,12 +147,7 @@ const LeaderboardPageComponent = () => {
                     <td className='list__cell'>
                       <span className='list__value'>{resul.title}</span>
                     </td>
-                    {/* <td className="list__cell">
-           {
-         resul.genres.slice(0,1).map(genre=>{
-          return <span> {genre.name} </span>
-        })
-        }</td> */}
+             
 
                     <td className='list__cell'>
                       <span className='list__value'>{resul.votes}</span>
@@ -168,12 +163,18 @@ const LeaderboardPageComponent = () => {
                 ))}
               </table>
             </div>
-          ) : (
+          ) :( user.isVoting ? 
+            <div className='results'>
+              <img src={Img2} className='noresults' />
+              <h3>No movie nominated yet</h3>
+            </div>
+            :
             <div className='results'>
               <img src={Img2} className='noresults' />
               <h3>No Ongoing contest</h3>
             </div>
-          )}
+            
+          ) }
         </div>
       </div>
       <ScrollToTop />
