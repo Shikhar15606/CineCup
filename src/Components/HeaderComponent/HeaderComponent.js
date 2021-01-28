@@ -153,7 +153,7 @@ function HeaderComponent({ theme, toggleTheme, componentMounted }) {
                       {' '}
                       <HistoryIcon color='primary' />{' '}
                     </ListItemIcon>
-                    <ListItemText primary='HISTORY' />
+                    <ListItemText primary='CONTESTS' />
                   </ListItem>
                 </Link>
 
@@ -173,7 +173,7 @@ function HeaderComponent({ theme, toggleTheme, componentMounted }) {
                     <Brightness4Icon color='primary' />{' '}
                   </ListItemIcon>
                   <Toggle theme={theme} toggleTheme={toggleTheme} />
-                  {theme === 'light' ? 'Light' : 'Dark'}
+                  {theme === 'light' ? 'LIGHT' : 'DARK'}
                 </ListItem>
 
                 {user.isLoggedIn ? (
@@ -315,7 +315,7 @@ function HeaderComponent({ theme, toggleTheme, componentMounted }) {
                     aria-label='menu'
                   >
                     <HistoryIcon fontSize='small' />
-                    <span className={classes.navText}>History</span>
+                    <span className={classes.navText}>Contests</span>
                   </IconButton>
                 </Link>
 
