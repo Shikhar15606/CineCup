@@ -10,7 +10,7 @@ import Anime, { anime } from 'react-anime';
 import Rating from '@material-ui/lab/Rating';
 import firebase from 'firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import OwlCarousel from 'react-owl-carousel2';
+
 import ScrollToTop from '../scrollToTop';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel,props } from 'react-responsive-carousel';

@@ -24,9 +24,6 @@
 .welcome_box {
   height: 100vh;
   width: 100vw;
-  /* background-image: url(../../assets/images/banner-bg.png);
-    background-size: cover;
-    background-repeat: no-repeat; */
 
   margin-top: -10vh;
   display: flex;

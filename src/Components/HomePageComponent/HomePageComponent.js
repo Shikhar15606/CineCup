@@ -79,7 +79,7 @@ function HomePageComponent() {
         </Grid>
         </ScrollAnimation>
         <ScrollAnimation animateIn='zoomIn'
-  animateOut='zoomOut' delay={300}>
+  animateOut='zoomOut' delay={200}>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='welcome_image'>
             <img
@@ -106,7 +106,7 @@ function HomePageComponent() {
           </Grid>
         </Grid>
         </ScrollAnimation>
-        <ScrollAnimation animateIn='zoomIn' delay={300}
+        <ScrollAnimation animateIn='zoomIn' delay={200}
   animateOut='zoomOut'>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='imag'>
@@ -134,7 +134,7 @@ function HomePageComponent() {
           </Grid>
         </Grid>
         </ScrollAnimation>
-        <ScrollAnimation animateIn='zoomIn' delay={300}
+        <ScrollAnimation animateIn='zoomIn' delay={200}
   animateOut='zoomOut'>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='imag'>
