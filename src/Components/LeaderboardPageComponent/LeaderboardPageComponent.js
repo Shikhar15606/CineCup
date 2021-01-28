@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import ScrollToTop from '../scrollToTop';
-import ShareButton from '../shareButton'; 
+import ShareButton from '../shareButton';
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Hidden } from '@material-ui/core';
@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
 const LeaderboardPageComponent = () => {
   const classes = useStyles();
   const user = useSelector(state => state.user);
-  
+
   let result = user.movies ? user.movies : [];
   useEffect(() => {
     window.scroll({
@@ -109,14 +109,18 @@ const LeaderboardPageComponent = () => {
                       .getElementById('list-table')
                       .getElementsByClassName('list__row');
 
-                    console.log(all);
                     for (var i = 0; i < all.length; i++) {
                       var txtValue = all[i].innerText;
-                      console.log(txtValue);
                       if (
                         txtValue
                           .toLowerCase()
-                          .includes(document.getElementById('sear').value)
+                          .trim()
+                          .includes(
+                            document
+                              .getElementById('sear')
+                              .value.toLowerCase()
+                              .trim()
+                          )
                       ) {
                         all[i].style.display = '';
                       } else {
@@ -128,13 +132,13 @@ const LeaderboardPageComponent = () => {
               )}
             </Hidden>
           </div>
-          {result.length  !== 0 ? (
+          {result.length !== 0 ? (
             <div className='list__body'>
               <table className='list__table' id='list-table'>
                 <tr className='header_row'>
                   <th className='list__cell'>Rank</th>
                   <th className='list__cell'>Movie</th>
-                 
+
                   <th className='list__cell'>Votes</th>
                   <th class='list__cell'>Explore</th>
                 </tr>
@@ -147,7 +151,6 @@ const LeaderboardPageComponent = () => {
                     <td className='list__cell'>
                       <span className='list__value'>{resul.title}</span>
                     </td>
-             
 
                     <td className='list__cell'>
                       <span className='list__value'>{resul.votes}</span>
@@ -163,18 +166,17 @@ const LeaderboardPageComponent = () => {
                 ))}
               </table>
             </div>
-          ) :( user.isVoting ? 
+          ) : user.isVoting ? (
             <div className='results'>
               <img src={Img2} className='noresults' />
               <h3>No movie here</h3>
             </div>
-            :
+          ) : (
             <div className='results'>
               <img src={Img2} className='noresults' />
               <h3>No Ongoing contest</h3>
             </div>
-            
-          ) }
+          )}
         </div>
       </div>
       <ScrollToTop />

@@ -52,7 +52,6 @@ export const fetchMoviesData = () => {
           });
           i++;
         });
-        console.log(arr.length);
         xyz(arr).then(result => {
           dispatch({
             type: FETCH_MOVIES_DATA_SUCCESS,
@@ -72,7 +71,6 @@ async function xyz(arr) {
     );
     r.push({ ...res.data, rank: element.rank, votes: element.votes });
     if (i === arr.length - 1) {
-      console.log('BEEP Beep Beep', r.length, 'BEEP Beep Beep');
       return r;
     }
   }
@@ -121,7 +119,6 @@ export const fetchHistory = () => {
             });
           }
         });
-        console.log(arr.length);
         dispatch({
           type: FETCH_HISTORY_SUCCESS,
           payload: arr,
@@ -145,7 +142,6 @@ export const fetchBlackListedMovies = () => {
         querySnapshot.forEach(function (doc) {
           arr.push(doc.id);
         });
-        console.log(arr.length);
         dispatch({
           type: BLACKLIST_MOVIE_FETCH,
           payload: arr,
@@ -179,8 +175,6 @@ export const blackListMovie = ({ movieId, movieName }) => {
             { merge: true }
           );
         });
-
-        console.log('Tu Phodega Tu Phodega Tu Phodega', mailto);
         // adding movie to blacklist
         let blacklistRef = db.collection('blacklist').doc(movieId.toString());
         batch.set(blacklistRef, {
@@ -195,7 +189,6 @@ export const blackListMovie = ({ movieId, movieName }) => {
           username: USERNAME,
           password: PASSWORD,
         });
-        console.log(res);
         if (res.data.accessToken) {
           let token = res.data.accessToken;
           axios
@@ -208,9 +201,7 @@ export const blackListMovie = ({ movieId, movieName }) => {
                 },
               }
             )
-            .then(res => {
-              console.log(res);
-            });
+            .then(res => {});
         }
         // Commit the batch
         batch.commit().then(function () {
@@ -230,7 +221,6 @@ export const removeBlacklistedMovie = ({ movieId }) => {
       .doc(movieId.toString())
       .delete()
       .then(function () {
-        console.log('Document successfully deleted!');
         dispatch({
           type: REMOVE_BLACKLISTED_MOVIE_SUCCESS,
         });
@@ -260,13 +250,9 @@ export const getVotingOnOff = () => {
             type: FETCH_VOTING_SUCCESS,
             payload: doc.data().on,
           });
-        } else {
-          console.log('No such document!');
         }
       })
-      .catch(function (error) {
-        console.log('Error getting document:', error);
-      });
+      .catch(function (error) {});
   };
 };
 
@@ -290,7 +276,6 @@ export const startVoting = ({ Name }) => {
             Ongoing: true,
           })
           .then(async function (docRef) {
-            console.log('Document written with ID: ', docRef.id);
             dispatch({
               type: START_VOTING_SUCCESS,
             });
@@ -313,10 +298,7 @@ export const startVoting = ({ Name }) => {
                   },
                 }
               );
-              console.log(res);
-            } catch (err) {
-              console.log('Email Could Not Be sent', err);
-            }
+            } catch (err) {}
           })
           .catch(function (error) {
             console.error('Error adding document: ', error);
@@ -337,7 +319,6 @@ export const startVoting = ({ Name }) => {
 // ===================================== myfunction ======================================
 async function myfunction({ docs }) {
   let topThree = [];
-  console.log(docs.length);
   for (let i = 0; i < docs.length; i++) {
     let doc = docs[i];
     topThree.push({
@@ -436,10 +417,7 @@ export const stopVoting = () => {
                               },
                             }
                           );
-                          console.log(res);
-                        } catch (err) {
-                          console.log('Users Were not notified', err);
-                        }
+                        } catch (err) {}
                       })
                       .catch(function (error) {
                         dispatch({
@@ -492,8 +470,6 @@ export const getAnnouncement = () => {
           type: FETCH_ANNOUNCEMENT_SUCCESS,
           payload: doc.data().list,
         });
-      } else {
-        console.log('No such document!');
       }
     });
   };

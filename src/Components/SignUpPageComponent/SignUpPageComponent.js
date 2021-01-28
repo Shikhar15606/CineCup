@@ -173,7 +173,6 @@ function SignUpPageComponent() {
       password,
       profilepic,
     };
-    console.log(dataToSubmit);
     dispatch(register(dataToSubmit));
   };
 
@@ -288,15 +287,20 @@ function SignUpPageComponent() {
                 />
               </Grid>
               <Grid item xs={12}>
-              <div class="image-input">
-            <input type="file"
-             onChange={e => {
-                    handleChange(e);
-              }}
-             id="imageInput"/>
-	        <label for="imageInput" class="image-button"> <FontAwesomeIcon icon={faImage} /> Choose image</label>
-	          <span class="change-image">Choose different image</span>
-         </div> 
+                <div class='image-input'>
+                  <input
+                    type='file'
+                    onChange={e => {
+                      handleChange(e);
+                    }}
+                    id='imageInput'
+                  />
+                  <label for='imageInput' class='image-button'>
+                    {' '}
+                    <FontAwesomeIcon icon={faImage} /> Choose image
+                  </label>
+                  <span class='change-image'>Choose different image</span>
+                </div>
               </Grid>
             </Grid>
             <Button
@@ -308,7 +312,6 @@ function SignUpPageComponent() {
               onClick={signUp}
               disabled={disabledSubmit}
             >
-              
               Sign Up
             </Button>
             {user.error ? (

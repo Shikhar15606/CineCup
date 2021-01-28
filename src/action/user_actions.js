@@ -38,8 +38,6 @@ export const register = User => {
                 if (user) {
                   // Sign up successful
                   let image = await uploadImage(User);
-                  console.log(User.profilepic);
-                  console.log(user);
                   db.collection('users')
                     .doc(User.email)
                     .set({
@@ -75,7 +73,6 @@ export const register = User => {
             })
             // Error in sending mail
             .catch(error => {
-              console.log(error);
               dispatch({
                 type: REGISTER_USER_ERROR,
                 payload:
@@ -86,7 +83,6 @@ export const register = User => {
       })
       // User Not Created Means Email Already Registered
       .catch(error => {
-        console.log(error);
         dispatch({
           type: REGISTER_USER_ERROR,
           payload: 'This Email is already registered. Kindly Login',
@@ -102,9 +98,7 @@ async function uploadImage(User) {
       let snapshot = await storage
         .ref(`images/${User.profilepic.name}`)
         .put(User.profilepic);
-      console.log('Uploaded', snapshot.totalBytes, 'bytes.');
       let url = await snapshot.ref.getDownloadURL();
-      console.log('File available at', url);
       return url;
     } catch (err) {
       return 'https://firebasestorage.googleapis.com/v0/b/cinecup-9b0ac.appspot.com/o/images%2Fuser.png?alt=media&token=c41625ea-881b-45c7-9a16-ccd5a1b5faec';
@@ -182,7 +176,6 @@ export const loginwithgoogle = () => {
           .get()
           .then(function (doc) {
             if (doc.exists) {
-              console.log('Already Registered !');
               dispatch({
                 type: LOGIN_USER_SUCCESS,
                 payload: {
@@ -195,8 +188,6 @@ export const loginwithgoogle = () => {
               });
             } else {
               // doc.data() will be undefined in this case
-              console.log('No such document!');
-              console.log('Not Already Registered !!!');
               db.collection('users')
                 .doc(user.email)
                 .set({
@@ -207,7 +198,6 @@ export const loginwithgoogle = () => {
                   Nominations: [],
                 })
                 .then(function () {
-                  console.log('Document successfully written!');
                   dispatch({
                     type: LOGIN_USER_SUCCESS,
                     payload: {
@@ -226,11 +216,9 @@ export const loginwithgoogle = () => {
                     payload: 'Some Error Occured Try Again !!',
                   });
                 });
-              console.log(user);
             }
           })
           .catch(function (error) {
-            console.log('Error getting documents: ', error);
             dispatch({
               type: LOGIN_USER_ERROR,
               payload: 'Some Error Occured Try Again !!',
@@ -277,7 +265,6 @@ export const loginwithfacebook = () => {
           .get()
           .then(function (doc) {
             if (doc.exists) {
-              console.log('Already Registered !');
               dispatch({
                 type: LOGIN_USER_SUCCESS,
                 payload: {
@@ -290,8 +277,6 @@ export const loginwithfacebook = () => {
               });
             } else {
               // doc.data() will be undefined in this case
-              console.log('No such document!');
-              console.log('Not Already Registered !!!');
               db.collection('users')
                 .doc(user.email)
                 .set({
@@ -302,7 +287,6 @@ export const loginwithfacebook = () => {
                   Nominations: [],
                 })
                 .then(function () {
-                  console.log('Document successfully written!');
                   dispatch({
                     type: LOGIN_USER_SUCCESS,
                     payload: {
@@ -321,11 +305,9 @@ export const loginwithfacebook = () => {
                     payload: 'Some Error Occured Try Again !!',
                   });
                 });
-              console.log(user);
             }
           })
           .catch(function (error) {
-            console.log('Error getting documents: ', error);
             dispatch({
               type: LOGIN_USER_ERROR,
               payload: 'Some Error Occured Try Again !!',
@@ -369,13 +351,17 @@ export const logout = () => {
 // ================================================= Auth ====================================================
 export const auth = () => {
   return async dispatch => {
-    console.log('Running Auth');
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         const db = firebase.firestore();
         var docRef = db.collection('users').doc(user.email);
         docRef.get().then(function (doc) {
-          if (doc.exists && user.emailVerified) {
+          if (
+            doc.exists &&
+            (user.emailVerified ||
+              (user.providerData &&
+                user.providerData[0].providerId === 'facebook.com'))
+          ) {
             dispatch({
               type: AUTH_USER_SUCCESS,
               payload: {
@@ -411,8 +397,6 @@ export const nominate = user => {
       .get()
       .then(function (doc) {
         if (doc.exists) {
-          console.log(doc.data().Nominations.length);
-          console.log(doc.data().Nominations.includes(user.movieId.toString));
           if (
             doc.data().Nominations.length < 5 &&
             !doc.data().Nominations.includes(user.movieId)
@@ -511,8 +495,6 @@ export const remove_nominate = user => {
       .get()
       .then(function (doc) {
         if (doc.exists) {
-          console.log(doc.data().Nominations.length);
-          console.log(doc.data().Nominations.includes(user.movieId.toString));
           if (doc.data().Nominations.includes(user.movieId)) {
             // Get a new write batch
             var batch = db.batch();

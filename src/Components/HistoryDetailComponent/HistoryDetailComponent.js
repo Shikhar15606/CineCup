@@ -16,7 +16,6 @@ import { useWindowSize } from '@react-hook/window-size';
 import Confetti from 'confetti-react';
 
 const Cards = () => {
-  console.log('started');
   init();
   function init() {
     if (document.querySelector('.cards_carousal')) {

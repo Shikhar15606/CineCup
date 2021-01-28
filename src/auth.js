@@ -8,7 +8,6 @@ export default function Auth(ComposedClass, status, admin = false) {
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(auth()).then(async response => {
-        console.log('------------', user, '----------------------');
         // response is true means user logged in
         // logged in user can not see login and signup page
         if (user.isLoggedIn && status === false) {

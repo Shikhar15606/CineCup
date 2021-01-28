@@ -28,12 +28,10 @@ function Result({ result, openPopup }) {
   const [blackbtn, setblackbtn] = useState(false);
   const Nominate = e => {
     e.preventDefault();
-    console.log(result);
     const dataToSubmit = {
       Email: user.user.Email,
       movieId: result.id,
     };
-    console.log(dataToSubmit);
     dispatch(nominate(dataToSubmit));
   };
   const classes = useStyles();
@@ -61,7 +59,6 @@ function Result({ result, openPopup }) {
       movieId: result.id,
       movieName: result.title,
     };
-    console.log(dataToSubmit);
     dispatch(blackListMovie(dataToSubmit));
   };
 
@@ -147,7 +144,10 @@ function Result({ result, openPopup }) {
               variant='outlined'
               color='primary'
               onClick={e => {
-                Nominate(e);
+                if (!btn) {
+                  setbtn(true);
+                  Nominate(e);
+                }
               }}
             >
               {isNominatedbyUser(result.id) ? (

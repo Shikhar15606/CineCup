@@ -49,12 +49,9 @@ const UserProfile = () => {
         if (doc.exists) {
           setuserDetail(doc.data());
         } else {
-          console.log('No such document!');
         }
       })
-      .catch(err => {
-        console.log('Error !!!');
-      });
+      .catch(err => {});
   }, []);
 
   async function getMovieDetails(obj) {
@@ -62,9 +59,7 @@ const UserProfile = () => {
     let arr = [];
     for (let i = 0; i < querySnapshot.length; i++) {
       let doc = querySnapshot[i];
-      console.log(doc);
       try {
-        console.log(doc.data().mid);
         let res = await axios.get(
           `https://api.themoviedb.org/3/movie/${
             doc.data().mid
@@ -75,9 +70,7 @@ const UserProfile = () => {
           review: doc.data().review,
           rating: doc.data().rating,
         });
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
     return arr;
   }
@@ -96,12 +89,9 @@ const UserProfile = () => {
       .then(async function (querySnapshot) {
         let arr = [];
         arr = await getMovieDetails(querySnapshot);
-        console.log(arr);
         setreviewDetail(arr);
       })
-      .catch(function (error) {
-        console.log('Error getting documents: ', error);
-      });
+      .catch(function (error) {});
   }, []);
 
   return (

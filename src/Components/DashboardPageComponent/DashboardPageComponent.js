@@ -38,9 +38,7 @@ function DashboardPageComponent() {
     let arr = [];
     for (let i = 0; i < querySnapshot.length; i++) {
       let doc = querySnapshot[i];
-      console.log(doc);
       try {
-        console.log(doc.data().mid);
         let res = await axios.get(
           `https://api.themoviedb.org/3/movie/${
             doc.data().mid
@@ -52,9 +50,7 @@ function DashboardPageComponent() {
           rating: doc.data().rating,
           reviewID: doc.id,
         });
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
     return arr;
   }
@@ -67,12 +63,9 @@ function DashboardPageComponent() {
         .then(async function (querySnapshot) {
           let arr = [];
           arr = await getMovieDetails(querySnapshot);
-          console.log(arr);
           setreviewDetail(arr);
         })
-        .catch(function (error) {
-          console.log('Error getting documents: ', error);
-        });
+        .catch(function (error) {});
     }
   }, [user.isLoggedIn]);
 
@@ -143,9 +136,7 @@ function DashboardPageComponent() {
       ])
       .then(async result => {
         if (result.value) {
-          console.log(result.value);
           let res = await editReview(x, result.value[1], result.value[0]);
-          console.log(res);
           if (res) {
             Swal.fire({
               icon: 'success',
@@ -215,7 +206,6 @@ function DashboardPageComponent() {
         Email: user.user.Email,
         movieId: r.id,
       };
-      console.log(dataToSubmit);
       dispatch(remove_nominate(dataToSubmit));
       let array = result;
       let cardIndex = array.indexOf(r);
@@ -305,8 +295,6 @@ function DashboardPageComponent() {
         fetchData().then(arr => {
           setresult(arr);
         });
-      console.log('Render Card Chala');
-      console.log(result);
     }
   }, [user.isLoggedIn]);
 

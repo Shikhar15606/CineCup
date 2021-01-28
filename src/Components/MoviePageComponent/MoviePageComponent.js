@@ -12,8 +12,8 @@ import firebase from 'firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ScrollToTop from '../scrollToTop';
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel,props } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import { Carousel, props } from 'react-responsive-carousel';
 
 const MoviePageComponent = () => {
   const user = useSelector(state => state.user);
@@ -25,7 +25,9 @@ const MoviePageComponent = () => {
   const [newReview, setnewReview] = useState('');
   const [newRating, setnewRating] = useState(0);
   const [alreadyReviewed, setalreadyReviewed] = useState(false);
-  const customRenderItem = (item, props) => <item.type {...item.props} {...props} />;
+  const customRenderItem = (item, props) => (
+    <item.type {...item.props} {...props} />
+  );
   async function getUserDetails(obj) {
     let querySnapshot = obj.docs;
     const db = firebase.firestore();
@@ -39,7 +41,6 @@ const MoviePageComponent = () => {
       if (userdoc.exists) {
         arr.push({ ...userdoc.data(), ...doc.data() });
       } else {
-        console.log('No such document!');
       }
     }
     return arr;
@@ -55,9 +56,7 @@ const MoviePageComponent = () => {
         arr = await getUserDetails(querySnapshot);
         setReviews(arr);
       })
-      .catch(function (error) {
-        console.log('Error getting documents: ', error);
-      });
+      .catch(function (error) {});
   }, [user.isLoggedIn]);
   // Write Review
   const postReview = e => {
@@ -71,7 +70,6 @@ const MoviePageComponent = () => {
         review: newReview,
       })
       .then(function (docRef) {
-        console.log('Document written with ID: ', docRef.id);
         setReviews([
           ...reviews,
           {
@@ -103,7 +101,6 @@ const MoviePageComponent = () => {
   useEffect(() => {
     axios(creditsapi).then(({ data }) => {
       if (data && data.cast && data.cast.length) {
-        console.log(cast);
         setCast(data.cast);
       }
     });
@@ -118,7 +115,6 @@ const MoviePageComponent = () => {
   var apiurl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${TMDB_API_KEY}`;
   useEffect(() => {
     axios(apiurl).then(res => {
-      console.log(result);
       setresult(res.data);
     });
   }, [apiurl]);
@@ -129,7 +125,6 @@ const MoviePageComponent = () => {
         let arr = [];
         data.results.forEach(element => {
           arr.push(element.key);
-          console.log(element.key);
         });
         settrailerurl([...arr]);
       }
@@ -188,12 +183,24 @@ const MoviePageComponent = () => {
             <p>{result.overview} </p>
           </div>
           <div className='right1'>
-            <Carousel renderItem={customRenderItem}  infiniteLoop={true} swipeable={true} stopOnHover={true} showArrows={true} showStatus={false} showIndicators={true} showThumbs={false} useKeyboardArrows={true} transitionTime={150} swipeScrollTolerance={5}>
-            {trailerurl.map(element => {
-              return (
-                <YouTube videoId={element} className='trail' opts={opts}  />
-              );
-            })}
+            <Carousel
+              renderItem={customRenderItem}
+              infiniteLoop={true}
+              swipeable={true}
+              stopOnHover={true}
+              showArrows={true}
+              showStatus={false}
+              showIndicators={true}
+              showThumbs={false}
+              useKeyboardArrows={true}
+              transitionTime={150}
+              swipeScrollTolerance={5}
+            >
+              {trailerurl.map(element => {
+                return (
+                  <YouTube videoId={element} className='trail' opts={opts} />
+                );
+              })}
             </Carousel>
           </div>
           <div className='cast_wrapper'>

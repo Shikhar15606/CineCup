@@ -55,13 +55,10 @@ function SearchPageComponent() {
     },
   }));
   const search = () => {
-    console.log(user.queryString);
     if (user.queryString) {
       axios(apiurl).then(({ data }) => {
-        console.log(data);
         let results = data.results;
         setresults(results);
-        console.log(results);
         setisLoading(false);
       });
     } else {
@@ -87,7 +84,6 @@ function SearchPageComponent() {
   const openPopup = id => {
     axios(apiurl + '&i=' + id).then(({ data }) => {
       let result = data;
-      console.log(result);
       setselected(result);
     });
   };

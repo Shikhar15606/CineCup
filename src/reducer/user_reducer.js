@@ -276,6 +276,5 @@ export default function user(state = { queryString: '' }, action) {
       state = { ...state };
       break;
   }
-  console.log(state);
   return state;
 }

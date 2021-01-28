@@ -96,7 +96,6 @@ const AdminDashboardComponent = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  console.log(user);
   const [result, setresult] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -232,9 +231,7 @@ const AdminDashboardComponent = () => {
   // ===================================================================================================
   useEffect(() => {
     if (user.isLoggedIn && user.blacklist) {
-      console.log('Chala');
       fetchData().then(arr => {
-        console.log('Ohh ', arr);
         setresult(arr);
       });
     }
@@ -373,6 +370,8 @@ const AdminDashboardComponent = () => {
     e.preventDefault();
     dispatch(addAnnouncement(announcement));
     setannouncement('');
+    setaltannouncement(false);
+    setdisabledAnnounce(true);
   };
 
   // =========================== Main Return from this component ==================================
@@ -625,14 +624,15 @@ const AdminDashboardComponent = () => {
                 .getElementById('users_card')
                 .getElementsByClassName('our-team');
 
-              console.log(all);
               for (var i = 0; i < all.length; i++) {
                 var txtValue = all[i].innerText;
-                console.log(txtValue);
                 if (
                   txtValue
                     .toLowerCase()
-                    .includes(document.getElementById('sear').value)
+                    .trim()
+                    .includes(
+                      document.getElementById('sear').value.toLowerCase().trim()
+                    )
                 ) {
                   all[i].style.display = '';
                 } else {
