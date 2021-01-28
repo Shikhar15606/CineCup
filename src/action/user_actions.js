@@ -107,10 +107,10 @@ async function uploadImage(User) {
       console.log('File available at', url);
       return url;
     } catch (err) {
-      return 'https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png';
+      return 'https://firebasestorage.googleapis.com/v0/b/cinecup-9b0ac.appspot.com/o/images%2Fuser.png?alt=media&token=c41625ea-881b-45c7-9a16-ccd5a1b5faec';
     }
   } else {
-    return 'https://icons.iconarchive.com/icons/icons8/android/256/Users-User-icon.png';
+    return 'https://firebasestorage.googleapis.com/v0/b/cinecup-9b0ac.appspot.com/o/images%2Fuser.png?alt=media&token=c41625ea-881b-45c7-9a16-ccd5a1b5faec';
   }
 }
 

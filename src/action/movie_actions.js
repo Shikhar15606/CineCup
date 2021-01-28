@@ -291,6 +291,9 @@ export const startVoting = ({ Name }) => {
           })
           .then(async function (docRef) {
             console.log('Document written with ID: ', docRef.id);
+            dispatch({
+              type: START_VOTING_SUCCESS,
+            });
             try {
               let { docs } = await db.collection('users').get();
               let receivers = [];
@@ -314,9 +317,6 @@ export const startVoting = ({ Name }) => {
             } catch (err) {
               console.log('Email Could Not Be sent', err);
             }
-            dispatch({
-              type: START_VOTING_SUCCESS,
-            });
           })
           .catch(function (error) {
             console.error('Error adding document: ', error);
@@ -409,6 +409,9 @@ export const stopVoting = () => {
                     batch
                       .commit()
                       .then(async function () {
+                        dispatch({
+                          type: END_VOTING_SUCCESS,
+                        });
                         try {
                           let doc = await cidDetail.get();
                           let { docs } = await db.collection('users').get();
@@ -437,9 +440,6 @@ export const stopVoting = () => {
                         } catch (err) {
                           console.log('Users Were not notified', err);
                         }
-                        dispatch({
-                          type: END_VOTING_SUCCESS,
-                        });
                       })
                       .catch(function (error) {
                         dispatch({

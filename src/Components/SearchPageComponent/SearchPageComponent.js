@@ -17,7 +17,7 @@ function SearchPageComponent() {
   const user = useSelector(state => state.user);
   const [results, setresults] = useState([]);
   const [selected, setselected] = useState({});
-  const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
   const [open, setOpen] = useState(false);
   var apiurl = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${user.queryString}`;
 

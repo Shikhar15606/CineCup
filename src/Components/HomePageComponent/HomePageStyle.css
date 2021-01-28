@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
 .wrapper_home,
 .wrapper_home:before,
 .wrapper_home:after {
@@ -9,8 +11,8 @@
 
 .heading_h {
   width: 100%;
-
-  text-transform: uppercase;
+  font-family: 'Balsamiq Sans', cursive;
+  /* text-transform: uppercase; */
   letter-spacing: 0.1ch;
   line-height: 1;
   padding-bottom: 0.5em;
@@ -19,7 +21,9 @@
 }
 
 .text_home {
+  font-family: 'Open Sans', sans-serif;
   padding: 20px;
+  text-align: justify;
 }
 .welcome_box {
   height: 100vh;
@@ -36,11 +40,19 @@
 .welcome_text {
   padding: 20px;
 }
+
 .welcome_text .big {
   text-wrap: wrap;
   min-height: 300px;
-  text-align: center;
+  text-align: left;
   font-size: 3rem;
+}
+.welcome_text .big2 {
+  text-wrap: wrap;
+  min-height: 400px;
+  text-align: left;
+  font-size: 4rem;
+  color: #f44336;
 }
 
 .welcome_image {
