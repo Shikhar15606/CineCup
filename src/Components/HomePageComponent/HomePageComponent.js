@@ -79,7 +79,7 @@ function HomePageComponent() {
         </Grid>
         </ScrollAnimation>
         <ScrollAnimation animateIn='zoomIn'
-  animateOut='zoomOut' delay={200}>
+  animateOut='zoomOut' delay={400}>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='welcome_image'>
             <img
@@ -102,9 +102,9 @@ function HomePageComponent() {
           </Grid>
         </Grid>
         </ScrollAnimation>
-        <ScrollAnimation animateIn='zoomIn' delay={200}
+        <ScrollAnimation animateIn='zoomIn' delay={400}
   animateOut='zoomOut'>
-        <Grid container className='section'>
+        <Grid container className='section section_even'>
           <Grid item xs={12} md={6} className='imag'>
             <img
               src='https://templatemo.com/templates/templatemo_537_art_factory/assets/images/right-image.png'
@@ -130,7 +130,7 @@ You a movie fanatic and love a lot of films?? No worries needed
           </Grid>
         </Grid>
         </ScrollAnimation>
-        <ScrollAnimation animateIn='zoomIn' delay={200}
+        <ScrollAnimation animateIn='zoomIn' delay={400}
   animateOut='zoomOut'>
         <Grid container className='section'>
           <Grid item xs={12} md={6} className='imag'>

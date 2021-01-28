@@ -12,7 +12,7 @@
 .heading_h {
   width: 100%;
   font-family: 'Balsamiq Sans', cursive;
-  /* text-transform: uppercase; */
+ 
   letter-spacing: 0.1ch;
   line-height: 1;
   padding-bottom: 0.5em;
@@ -75,8 +75,7 @@
   position: relative;
   flex-direction: row;
 }
-
-.section:nth-of-type(even) {
+.section_even{
   flex-direction: row-reverse;
 }
 

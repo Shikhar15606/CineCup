@@ -30,7 +30,7 @@ html {
 }
 @media (max-width: 800px) {
   .list {
-    width: fit-content;
+    
     margin: 0;
   }
 }
