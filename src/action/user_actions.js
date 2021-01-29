@@ -96,7 +96,7 @@ async function uploadImage(User) {
     try {
       const storage = firebase.storage();
       let snapshot = await storage
-        .ref(`images/${User.profilepic.name}`)
+        .ref(`images/${User.email}`)
         .put(User.profilepic);
       let url = await snapshot.ref.getDownloadURL();
       return url;
