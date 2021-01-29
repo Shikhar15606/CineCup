@@ -178,8 +178,8 @@ export default function user(state = { queryString: '' }, action) {
         ...state,
         isLoading: false,
         isLoggedIn: false,
-        user: action.payload,
         error: undefined,
+        successmsg: action.payload,
       };
       break;
     case RESET_ERROR:

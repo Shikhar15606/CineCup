@@ -3,9 +3,10 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-
+import Snackbar from '@material-ui/core/Snackbar';
 import Paper from '@material-ui/core/Paper';
-
+import MuiAlert from '@material-ui/lab/Alert';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // redux
 import { resetPassword } from '../../action/user_actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,11 +52,11 @@ const useStyles = makeStyles(theme => ({
 
 function ResetPassword() {
   const classes = useStyles();
+  const user = useSelector(state => state.user);
 
+  const [open, setOpen] = useState(false);
   const [email, setemail] = useState('');
-
   const [emailError, setemailError] = useState('');
-
   const [altemail, setaltemail] = useState(false);
 
   useEffect(() => {
@@ -75,6 +76,35 @@ function ResetPassword() {
     e.preventDefault();
     dispatch(resetPassword({ email: email }));
   };
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant='filled' {...props} />;
+  }
+
+  useEffect(() => {
+    if (user.error || user.successmsg) {
+      setOpen(true);
+    }
+  }, [user]);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  if (user.isLoading)
+    return (
+      <CircularProgress
+        style={{ marginTop: '25vw' }}
+        color='secondary'
+      ></CircularProgress>
+    );
   return (
     <Grid container component='main' className='login-root'>
       <CssBaseline />
@@ -121,6 +151,29 @@ function ResetPassword() {
             >
               Reset
             </Button>
+            {user.error ? (
+              <Snackbar
+                open={open}
+                autoHideDuration={10000}
+                onClose={handleClose}
+              >
+                <Alert onClose={handleClose} severity='error'>
+                  {`${user.error}`}
+                </Alert>
+              </Snackbar>
+            ) : user.successmsg ? (
+              <Snackbar
+                open={open}
+                autoHideDuration={10000}
+                onClose={handleClose}
+              >
+                <Alert onClose={handleClose} severity='success'>
+                  {`${user.successmsg}`}
+                </Alert>
+              </Snackbar>
+            ) : (
+              <div></div>
+            )}
           </form>
         </div>
       </Grid>
