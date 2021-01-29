@@ -98,39 +98,37 @@ const LeaderboardPageComponent = () => {
         <div className='list'>
           <div className='list__header'>
             <h1>Leaderboard</h1>
-            <Hidden mdDown>
-              {result.length !== 0 && (
-                <InputBase
-                  placeholder='Search…'
-                  className='searchbox'
-                  inputProps={{ 'aria-label': 'search', id: 'sear' }}
-                  onChange={() => {
-                    var all = document
-                      .getElementById('list-table')
-                      .getElementsByClassName('list__row');
+            {result.length !== 0 && (
+              <InputBase
+                placeholder='Search…'
+                className='searchbox'
+                inputProps={{ 'aria-label': 'search', id: 'sear' }}
+                onChange={() => {
+                  var all = document
+                    .getElementById('list-table')
+                    .getElementsByClassName('list__row');
 
-                    for (var i = 0; i < all.length; i++) {
-                      var txtValue = all[i].innerText;
-                      if (
-                        txtValue
-                          .toLowerCase()
-                          .trim()
-                          .includes(
-                            document
-                              .getElementById('sear')
-                              .value.toLowerCase()
-                              .trim()
-                          )
-                      ) {
-                        all[i].style.display = '';
-                      } else {
-                        all[i].style.display = 'none';
-                      }
+                  for (var i = 0; i < all.length; i++) {
+                    var txtValue = all[i].innerText;
+                    if (
+                      txtValue
+                        .toLowerCase()
+                        .trim()
+                        .includes(
+                          document
+                            .getElementById('sear')
+                            .value.toLowerCase()
+                            .trim()
+                        )
+                    ) {
+                      all[i].style.display = '';
+                    } else {
+                      all[i].style.display = 'none';
                     }
-                  }}
-                />
-              )}
-            </Hidden>
+                  }
+                }}
+              />
+            )}
           </div>
           {result.length !== 0 ? (
             <div className='list__body'>

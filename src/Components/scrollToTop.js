@@ -33,8 +33,7 @@ export default function ScrollToTop() {
         <div onClick={scrollToTop}>
           {/* <img src='https://i.postimg.cc/44Ytsk8Z/top-arrow-emoj.png' alt='Go to top' style={{height:100,width:100,position:'relative'}}/>
            */}
-           <FontAwesomeIcon icon={faArrowCircleUp} size="2x" />
-           
+          <FontAwesomeIcon icon={faArrowCircleUp} size='2x' />
         </div>
       )}
     </div>

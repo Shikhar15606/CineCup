@@ -611,37 +611,35 @@ const AdminDashboardComponent = () => {
         <h1>All users</h1>
       </div>
       <main>
-        <Hidden mdDown>
-          <InputBase
-            placeholder='Search…'
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ 'aria-label': 'search', id: 'sear' }}
-            onChange={() => {
-              var all = document
-                .getElementById('users_card')
-                .getElementsByClassName('our-team');
+        <InputBase
+          placeholder='Search…'
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput,
+          }}
+          inputProps={{ 'aria-label': 'search', id: 'sear' }}
+          onChange={() => {
+            var all = document
+              .getElementById('users_card')
+              .getElementsByClassName('our-team');
 
-              for (var i = 0; i < all.length; i++) {
-                var txtValue = all[i].innerText;
-                if (
-                  txtValue
-                    .toLowerCase()
-                    .trim()
-                    .includes(
-                      document.getElementById('sear').value.toLowerCase().trim()
-                    )
-                ) {
-                  all[i].style.display = '';
-                } else {
-                  all[i].style.display = 'none';
-                }
+            for (var i = 0; i < all.length; i++) {
+              var txtValue = all[i].innerText;
+              if (
+                txtValue
+                  .toLowerCase()
+                  .trim()
+                  .includes(
+                    document.getElementById('sear').value.toLowerCase().trim()
+                  )
+              ) {
+                all[i].style.display = '';
+              } else {
+                all[i].style.display = 'none';
               }
-            }}
-          />
-        </Hidden>
+            }
+          }}
+        />
         {allusers.length !== 0 ? (
           <section className='wrapper1' id='users_card'>
             {allusers.map(user => (
