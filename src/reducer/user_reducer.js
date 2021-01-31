@@ -183,7 +183,7 @@ export default function user(state = { queryString: '' }, action) {
       };
       break;
     case RESET_ERROR:
-      state = { ...state, error: 'Some Error Occured Try Again !!' };
+      state = { ...state, error: action.payload };
       break;
     case FETCH_MOVIES_DATA_REQUEST:
       state = { ...state, isLoading: true };

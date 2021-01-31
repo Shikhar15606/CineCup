@@ -30,49 +30,58 @@ export const register = User => {
       .auth()
       .createUserWithEmailAndPassword(User.email, User.password)
       .then(dataBeforeEmail => {
-        firebase.auth().onAuthStateChanged(user => {
+        let unsubscribe = firebase.auth().onAuthStateChanged(user => {
           user
             .sendEmailVerification()
             .then(dataAfterEmail => {
-              firebase.auth().onAuthStateChanged(async function (user) {
-                if (user) {
-                  // Sign up successful
-                  let image = await uploadImage(User);
-                  db.collection('users')
-                    .doc(User.email)
-                    .set({
-                      Name: `${User.firstname} ${User.lastname}`,
-                      Email: User.email,
-                      IsAdmin: false,
-                      ProfilePic: image,
-                      Nominations: [],
-                    })
-                    .then(() => {
-                      dispatch({
-                        type: REGISTER_USER_SUCCESS,
-                        payload:
-                          'Your account was successfully created! Now you need to verify your e-mail address, please go check your inbox.',
+              let unsubscribe2 = firebase
+                .auth()
+                .onAuthStateChanged(async function (user) {
+                  if (user) {
+                    // Sign up successful
+                    let image = await uploadImage(User);
+                    db.collection('users')
+                      .doc(User.email)
+                      .set({
+                        Name: `${User.firstname} ${User.lastname}`,
+                        Email: User.email,
+                        IsAdmin: false,
+                        ProfilePic: image,
+                        Nominations: [],
+                      })
+                      .then(() => {
+                        unsubscribe();
+                        unsubscribe2();
+                        dispatch({
+                          type: REGISTER_USER_SUCCESS,
+                          payload:
+                            'Your account was successfully created! Now you need to verify your e-mail address, please go check your inbox.',
+                        });
+                      })
+                      .catch(function (error) {
+                        unsubscribe();
+                        unsubscribe2();
+                        console.error('Error writing document: ', error);
+                        dispatch({
+                          type: REGISTER_USER_ERROR,
+                          payload: 'Some Error Occured Try Again !!',
+                        });
                       });
-                    })
-                    .catch(function (error) {
-                      console.error('Error writing document: ', error);
-                      dispatch({
-                        type: REGISTER_USER_ERROR,
-                        payload: 'Some Error Occured Try Again !!',
-                      });
+                  } else {
+                    // Signup failed
+                    unsubscribe();
+                    unsubscribe2();
+                    dispatch({
+                      type: REGISTER_USER_ERROR,
+                      payload:
+                        "Something went wrong, we couldn't create your account. Please try again.",
                     });
-                } else {
-                  // Signup failed
-                  dispatch({
-                    type: REGISTER_USER_ERROR,
-                    payload:
-                      "Something went wrong, we couldn't create your account. Please try again.",
-                  });
-                }
-              });
+                  }
+                });
             })
             // Error in sending mail
             .catch(error => {
+              unsubscribe();
               dispatch({
                 type: REGISTER_USER_ERROR,
                 payload:
@@ -85,7 +94,7 @@ export const register = User => {
       .catch(error => {
         dispatch({
           type: REGISTER_USER_ERROR,
-          payload: 'This Email is already registered. Kindly Login',
+          payload: error,
         });
       });
   };
@@ -479,7 +488,7 @@ export const resetPassword = User => {
         // An error happened.
         dispatch({
           type: RESET_ERROR,
-          payload: `Some Error Occured Try Again !! ${error}`,
+          payload: error,
         });
       });
   };

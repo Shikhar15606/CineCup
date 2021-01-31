@@ -120,7 +120,7 @@ function DashboardPageComponent() {
             max: 5,
             step: 0.5,
           },
-          inputValue: 2.5,
+          inputValue: x.rating,
         },
         {
           title: 'Edit Your Review',
