@@ -34,9 +34,6 @@ The website is fully responsive and support dark theme too.
 
 ---
 
-## Main features
-- 
-
 
 
 ## Signup
