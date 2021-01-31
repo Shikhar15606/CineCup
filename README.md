@@ -6,6 +6,21 @@ The website is fully responsive and support dark theme too.
 
 ![Home page](https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(41).png?raw=true)
 
+## Main features
+
+- Authentication using Facebook , Google or signup using email.
+- Reset password and email verification using mails.
+- Search among millions of movies by default search page will be showing the trending movies.
+- Share movie details through social media platforms like Whatsapp,Facebook and Twitter.
+- Movies can be nominated and removed from Nominations whenever a contest is live.
+- Not just one, site can be used to hold multiple contest and store their rankings.
+- Watch trailers and teasers of millions of movies.
+- Rate and review movie.
+- Leaderboard has search bar which can be used to quickly search for a movie.
+- Dark mode toggling.
+- Anouncements on home page,new announcements can be added by admin using his dashboard
+- Email notifications will be sent to registered emails of users whenever a contest is started or ended or  user's nominated movie is blacklisted 
+- Blacklisting a movie, make other users admin just by one click (Only be done by admin on his dashboard).
 
 ## Tech Stack
 
@@ -19,6 +34,8 @@ The website is fully responsive and support dark theme too.
 
 ---
 
+## Main features
+- 
 
 
 
