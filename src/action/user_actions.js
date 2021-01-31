@@ -235,18 +235,10 @@ export const loginwithgoogle = () => {
           });
       })
       .catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-        return {
-          errorCode: errorCode,
-          errorMessage: errorMessage,
-        };
+        dispatch({
+          type: LOGIN_USER_ERROR,
+          payload: error,
+        });
       });
   };
 };
@@ -324,14 +316,10 @@ export const loginwithfacebook = () => {
           });
       })
       .catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
+        dispatch({
+          type: LOGIN_USER_ERROR,
+          payload: error,
+        });
       });
   };
 };
