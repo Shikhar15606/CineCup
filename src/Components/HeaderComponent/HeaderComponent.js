@@ -18,7 +18,7 @@ import { Hidden } from '@material-ui/core';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Drawer from '@material-ui/core/Drawer';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import List from '@material-ui/core/List';
 import './HeaderStyle.css';
@@ -93,7 +93,7 @@ function HeaderComponent({ theme, toggleTheme, componentMounted }) {
     return (
       <div>
         <React.Fragment>
-          <SwipeableDrawer
+          <Drawer
             anchor='left'
             open={state}
             onClose={toggleDrawer(false)}
@@ -256,7 +256,7 @@ function HeaderComponent({ theme, toggleTheme, componentMounted }) {
                 )}
               </List>
             </div>
-          </SwipeableDrawer>
+          </Drawer>
         </React.Fragment>
       </div>
     );
