@@ -34,6 +34,33 @@ The website is fully responsive and support dark theme too.
 
 ---
 
+## How to Setup
+
+```bash
+git clone https://github.com/Shikhar15606/CineCup.git
+cd CineCup
+npm install
+```
+
+Then you need to have your own file for keys for that follow the steps given below
+
+- In src folder create a key folder and create a file key.js in that folder
+- Go to /src/key/key.js and paste the code there
+- Generate a TMDB key from https://www.themoviedb.org/ 
+
+```JS
+export const TMDB_API_KEY = 'YOUR_TMDB_API_KEY';
+export const USERNAME = 'UG+eR5_{bdLK58t&';
+export const PASSWORD = 'CN9!SHm[tjAR;`s:';
+export const API = 'http://localhost:5000';
+```
+
+```bash
+npm start
+```
+
+- This will start the server on port 3000
+
 
 
 ## Signup
@@ -92,3 +119,7 @@ The website is fully responsive and support dark theme too.
 
 
 ![Movie Detail](https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(44).png?raw=true)
+
+## Screenshots
+
+More screenshots are available in screenshots folder.
