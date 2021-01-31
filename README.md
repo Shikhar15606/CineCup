@@ -47,11 +47,12 @@ Then you need to have your own file for keys for that follow the steps given bel
 - In src folder create a key folder and create a file key.js in that folder
 - Go to /src/key/key.js and paste the code there
 - Generate a TMDB key from https://www.themoviedb.org/ 
+- Use any username and password but same must be used in backend 
 
 ```JS
 export const TMDB_API_KEY = 'YOUR_TMDB_API_KEY';
-export const USERNAME = 'UG+eR5_{bdLK58t&';
-export const PASSWORD = 'CN9!SHm[tjAR;`s:';
+export const USERNAME = 'USERNAME';
+export const PASSWORD = 'PASSWORD';
 export const API = 'http://localhost:5000';
 ```
 
