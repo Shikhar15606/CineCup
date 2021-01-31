@@ -1,25 +1,33 @@
 # CineCup
 
-CineCup is an online platform to entertain people and to get their honest opinion about films. We conduct several contests to identify the deserving movies for awards . Do checkout our platform live at [https://cinecup-9b0ac.web.app/](https://cinecup-9b0ac.web.app/).
+CineCup is an online platform to entertain people and to get their honest opinion about films. We conduct several contests to identify the deserving movies for awards. Do check out our platform live at [https://cinecup-9b0ac.web.app/](https://cinecup-9b0ac.web.app/).
 
-The website is fully responsive and support dark theme too.
+- This Repository only contains the frontend for CineCup. Do check the [Backend](https://github.com/Shikhar15606/cinecup-backend).
 
-![Home page](https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(41).png?raw=true)
+![Home page](<https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(41).png?raw=true>)
+
+## Motivation
+
+- To entertain people
+- To ensure that only deserving movies win the awards
+- To provide correct information about films
+- To give people a platform to express their views
 
 ## Main features
 
-- Authentication using Facebook , Google or signup using email.
+- Authentication using Facebook, Google or signup using email.
 - Reset password and email verification using mails.
-- Search among millions of movies by default search page will be showing the trending movies.
-- Share movie details through social media platforms like Whatsapp,Facebook and Twitter.
+- Search among millions of movies by default search page will be showing the trending films.
+- Share movie details through social media platforms like Whatsapp, Facebook and Twitter.
 - Movies can be nominated and removed from Nominations whenever a contest is live.
-- Not just one, site can be used to hold multiple contest and store their rankings.
+- Not just one, the site can be used to hold multiple contests and store their rankings.
 - Watch trailers and teasers of millions of movies.
 - Rate and review movie.
-- Leaderboard has search bar which can be used to quickly search for a movie.
-- Dark mode toggling.
-- Anouncements on home page,new announcements can be added by admin using his dashboard
-- Email notifications will be sent to registered emails of users whenever a contest is started or ended or  user's nominated movie is blacklisted 
+- Leaderboard has a search bar which can be used to search for a movie quickly.
+- The website is fully responsive
+- Dark and Light mode toggling.
+- Announcements on the home page, new announcements can be added by admin using his dashboard
+- Email notifications will be sent to users' registered emails whenever a contest is started or ended, or the user's nominated movie is blacklisted.
 - Blacklisting a movie, make other users admin just by one click (Only be done by admin on his dashboard).
 
 ## Tech Stack
@@ -46,8 +54,8 @@ Then you need to have your own file for keys for that follow the steps given bel
 
 - In src folder create a key folder and create a file key.js in that folder
 - Go to /src/key/key.js and paste the code there
-- Generate a TMDB key from https://www.themoviedb.org/ 
-- Use any username and password but same must be used in backend 
+- Generate a TMDB key from https://www.themoviedb.org/
+- Use any username and password but same must be used in backend
 
 ```JS
 export const TMDB_API_KEY = 'YOUR_TMDB_API_KEY';
@@ -64,8 +72,10 @@ npm start
 
 **To get admin access contact us at shikharshukla15606@gmail.com or sanskarkabra1306@gmail.com**
 
-Without admin access you can't blacklist or start or stop any contest
+- Without admin access you can't blacklist or start or stop any contest
+- Login with facebook will work only in the deployed version and not on localhost, as the app is in production mode
 
+---
 
 ## Signup
 
@@ -86,7 +96,7 @@ Without admin access you can't blacklist or start or stop any contest
 - Search page lets you search among millions of movies.
 - **Nominate** them if there is any live contest or share the movie details with your friends using the social media icons ,the sharing feature is added using [react-share](http://https://www.npmjs.com/package/react-share 'react-share') package .
 
-![Search page](https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(30).png?raw=true)
+![Search page](<https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(30).png?raw=true>)
 
 ## Dashboard
 
@@ -98,8 +108,8 @@ Without admin access you can't blacklist or start or stop any contest
 - This section is only accessible by users having admin access.
 - An admin can make an **Announcement** , **Blacklist** a movie , give **admin access** to other users or **start a new contest or stop it**.
 
-![Admin Dashboard](https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(28).png?raw=true)
-![Admin Dashboard](https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(29).png?raw=true)
+![Admin Dashboard](<https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(28).png?raw=true>)
+![Admin Dashboard](<https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(29).png?raw=true>)
 
 ## Leaderboard
 
@@ -111,7 +121,7 @@ Without admin access you can't blacklist or start or stop any contest
 - This section has all the contests that were held previously.
 - Each contest has a detail page where you can get the final standings along with some party popper and special card carousal for top three rank holders.
 
-![Contest Detail](https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(51).png?raw=true)
+![Contest Detail](<https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(51).png?raw=true>)
 
 ## Movie Detail
 
@@ -119,13 +129,10 @@ Without admin access you can't blacklist or start or stop any contest
 - A review section to view all the reviews of particular movie and a review card to add review and rating for the movie.
 - On clicking on a user it takes to a profile page where you can see all the reviews done by a particular user.
 
-![Movie Detail](https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(43).png?raw=true)
+![Movie Detail](<https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(43).png?raw=true>)
 
-
-![Movie Detail](https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(44).png?raw=true)
+![Movie Detail](<https://github.com/Shikhar15606/CineCup/blob/main/screenshots/Screenshot%20(44).png?raw=true>)
 
 ## Screenshots
 
 More screenshots are available in screenshots folder.
-
-
