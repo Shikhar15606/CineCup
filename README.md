@@ -62,6 +62,9 @@ npm start
 
 - This will start the server on port 3000
 
+**To get admin access contact us at shikharshukla15606@gmail.com or sanskarkabra1306@gmail.com**
+
+Without admin access you can't blacklist or start or stop any contest
 
 
 ## Signup
@@ -124,3 +127,5 @@ npm start
 ## Screenshots
 
 More screenshots are available in screenshots folder.
+
+
