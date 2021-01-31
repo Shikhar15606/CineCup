@@ -6,7 +6,7 @@ import { TMDB_API_KEY } from '../../key/key';
 import axios from 'axios';
 import './MoviePageStyle.css';
 import ShareButton from '../shareButton';
-import Anime, { anime } from 'react-anime';
+
 import Rating from '@material-ui/lab/Rating';
 import firebase from 'firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -150,22 +150,12 @@ const MoviePageComponent = () => {
             src={`https://image.tmdb.org/t/p/original/${result.backdrop_path}`}
           />
           <div className='overlay'>
-            <Anime
-              easing='easeOutElastic'
-              duration={1000}
-              direction='alternate'
-              loop={true}
-              delay={(el, index) => index * 240}
-              translateX={[-50, 20]}
-              scale={[0.75, 0.9]}
-            >
+         
               <h1>{result.title}</h1>
               <h4>
                 {result.runtime} min | {result.release_date}
               </h4>
-            </Anime>
-            {/* <h4>{result.genres[0].name}</h4> */}
-
+          
             <div className='share_but_m'>
               <ShareButton
                 url={`https://cinecup-9b0ac.web.app/movie/${result.id}`}
