@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import axios from 'axios';
-import { TMDB_API_KEY, USERNAME, PASSWORD, API } from '../key/key';
+import { TMDB_API_KEY, API } from '../key/key';
 import {
   FETCH_MOVIES_DATA_REQUEST,
   FETCH_MOVIES_DATA_SUCCESS,
@@ -185,23 +185,23 @@ export const blackListMovie = ({ movieId, movieName }) => {
         let moviesRef = db.collection('movies').doc(movieId.toString());
         batch.delete(moviesRef);
 
-        let res = await axios.post(`${API}/token`, {
-          username: USERNAME,
-          password: PASSWORD,
-        });
-        if (res.data.accessToken) {
-          let token = res.data.accessToken;
+        let idToken = await firebase
+          .auth()
+          .currentUser.getIdToken(/* forceRefresh */ true);
+        if (idToken) {
           axios
             .post(
               `${API}/send`,
               { receivers: mailto, movieName: movieName },
               {
                 headers: {
-                  Authorization: `Bearer ${token}`,
+                  authtoken: idToken,
                 },
               }
             )
-            .then(res => {});
+            .then(res => {
+              console.log(res);
+            });
         }
         // Commit the batch
         batch.commit().then(function () {
@@ -285,16 +285,15 @@ export const startVoting = ({ Name }) => {
               docs.forEach(doc => {
                 receivers.push(doc.id);
               });
-              let tokenres = await axios.post(`${API}/token`, {
-                username: USERNAME,
-                password: PASSWORD,
-              });
+              let idToken = await firebase
+                .auth()
+                .currentUser.getIdToken(/* forceRefresh */ true);
               let res = await axios.post(
                 `${API}/startcontest`,
                 { cname: Name, receivers: receivers },
                 {
                   headers: {
-                    Authorization: `Bearer ${tokenres.data.accessToken}`,
+                    authtoken: idToken,
                   },
                 }
               );
@@ -400,10 +399,9 @@ export const stopVoting = () => {
                           docs.forEach(doc => {
                             receivers.push(doc.id);
                           });
-                          let tokenres = await axios.post(`${API}/token`, {
-                            username: USERNAME,
-                            password: PASSWORD,
-                          });
+                          let idToken = await firebase
+                            .auth()
+                            .currentUser.getIdToken(/* forceRefresh */ true);
                           let res = await axios.post(
                             `${API}/endcontest`,
                             {
@@ -413,7 +411,7 @@ export const stopVoting = () => {
                             },
                             {
                               headers: {
-                                Authorization: `Bearer ${tokenres.data.accessToken}`,
+                                authtoken: idToken,
                               },
                             }
                           );
