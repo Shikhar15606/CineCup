@@ -37,7 +37,7 @@ CineCup is an online platform to entertain people and to get their honest opinio
 - **Cloud Firestore** as our database.
 - **Firebase Cloud Storage** for storing user profile pictures.
 - Custom Rest API built using **Node** and **Express** [Github Repository](https://github.com/Shikhar15606/cinecup-backend).
-- **JSON Web Token** for authentication with the Custom API.
+- **Firebase Authentication Token** for authentication with the Custom API.
 - **TMDB** API for fetching the information about Films.
 
 ---
@@ -59,8 +59,6 @@ Then you need to have your own file for keys for that follow the steps given bel
 
 ```JS
 export const TMDB_API_KEY = 'YOUR_TMDB_API_KEY';
-export const USERNAME = 'USERNAME';
-export const PASSWORD = 'PASSWORD';
 export const API = 'http://localhost:5000';
 ```
 
